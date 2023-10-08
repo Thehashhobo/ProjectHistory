@@ -6,6 +6,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shelter Manage Page</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/morph/bootstrap.min.css" />
+    <style>
+        .card:hover {
+            transform: scale(1.05);
+            /* Increase card size on hover */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            /* Add a shadow on hover */
+        }
+
+        .btn:hover {
+            background-color: #007bff;
+            /* Change background color on hover */
+            color: #fff;
+            /* Change text color on hover */
+        }
+
+        .custom-image-size {
+            width: 200px;
+            height: 200px;
+        }
+
+        a.card-link {
+            text-decoration: none;
+        }
+    </style>
 </head>
 
 <body>
@@ -32,22 +56,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">About</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
-                            aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Separated link</a>
-                        </div>
-                    </li>
                 </ul>
-                <form class="d-flex">
-                    <input class="form-control me-sm-2" type="search" placeholder="Search">
-                    <button class="btn btn-secondary my-2 my-sm-0" type="submit" fdprocessedid="2z2umm">Search</button>
-                </form>
             </div>
         </div>
     </nav>
@@ -56,7 +65,7 @@
         <h1 class="text-black text-center mt-5">Emily's Pet Shelter</h1>
         <h2 class="text-center">Management Page</h2>
 
-        <h4>Overview</h4>
+        <h4 class="mt-2">Overview</h4>
         <div class="row">
             <div class="col">
                 <div class="card rounded-pill text-white bg-success mb-3 text-center"">
@@ -67,21 +76,57 @@
             </div>
         </div>
         <div class="col">
+
             <div class="card rounded-pill text-white bg-warning mb-3 text-center">
                 <div class="card-body">
                     <h5 class="card-title">Pending Applications</h5>
                     <p class="card-text">3</p>
                 </div>
             </div>
+
         </div>
     </div>
-    <h4>Active Listings</h4>
-
-    <h4>Applications</h4>
-
+    <div class="row">
+        <div class="col">
+            <h4 class="mt-2">Active Listings</h4>
+            <a class="card-link" href="pet-update-page.html">
+                <div class="card text-white bg-info rounded-5 mb-3 d-flex align-items-center" style="max-width: 20rem;">
+                    <img src="pet-images/dog-1.jpeg" class="img-fluid rounded-circle custom-image-size mt-3" alt="...">
+                    <div class="card-body">
+                        <h3 class="card-title text-white text-center">Benny</h3>
+                        <div class="row">
+                            <div class="col-6">
+                                <p class="text-center text-white">Status: </p>
+                            </div>
+                            <div class="col-6">
+                                <p class="text-center text-success">Available </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <a href="#" class="btn btn-primary d-inline-block">View</a>
+                            </div>
+                            <div class="col"><a href="#" class="btn btn-primary d-in">Delete</a></div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col">
+            <h4 class="mt-2">Applications</h4>
+            <div class="row">
+                <div class="card bg-light mb-3 rounded-pill">
+                    <div class="card-body flex-d flex-wrap justify-content-center">
+                        <h5 class="d-inline-flex p-2 text-black">Applicant Name:</h5>
+                        <h5 class="d-inline-flex p-2"> Santhosh Sivayogalingam</h5>
+                        <h5 class="d-inline-flex p-2 text-black">Pet Name:</h5>
+                        <h5 class="d-inline-flex p-2">Benny</h5>
+                        <button class="btn btn-primary d-inline-flex">View</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-
     </div>
 
 
