@@ -8,12 +8,24 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/morph/bootstrap.min.css" />
     <style>
         .custom-image-size {
-            max-width: 20rem;
-            max-height: 20rem;
+            width: 15rem;
+            height: 15rem;
+            object-fit: cover;
+            border-radius: 50%;
         }
 
         a.card-link {
             text-decoration: none;
+        }
+
+        .card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 15px rgba(24, 24, 24, 0.3);
+        }
+
+        .btn:hover {
+            transform: scale(1.10);
+            box-shadow: 0 0 15px rgba(24, 24, 24, 0.3);
         }
 
         .pet-card-container {
@@ -114,9 +126,9 @@
                     <a class="card-link" href="pet-detail-page.html">
                         <div class="card text-white bg-info rounded-5 d-flex flex-column align-items-center m-2">
                             <div class="card-body text-center">
-                                <div class="row">
-                                    <img src=" pet-images/dog-1.jpeg"
-                                        class="card-img-top rounded-circle custom-image-size" alt="pet-1">
+                                <div class="row d-flex justify-content-center">
+                                    <img src=" pet-images/dog-1.jpeg" class="card-img-top custom-image-size"
+                                        alt="pet-1">
                                 </div>
 
                                 <div class="row">
@@ -138,7 +150,123 @@
                     <a class="card-link" href="pet-detail-page.html">
                         <div class="card text-white bg-info rounded-5 d-flex flex-column align-items-center m-2">
                             <div class="card-body text-center">
+                                <div class="row d-flex justify-content-center">
+                                    <img src=" pet-images/pet-2.jpg"
+                                        class="card-img-top rounded-circle custom-image-size" alt="pet-2">
+                                </div>
+
                                 <div class="row">
+                                    <h3 class="card-title text-white text-center">Jimmy</h3>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <p class="text-center text-white">Status: </p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="text-center text-success">Available </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6"><a class="card-link" href="pet-detail-page.html">
+                        <div class="card text-white bg-info rounded-5 d-flex flex-column align-items-center m-2">
+                            <div class="card-body text-center">
+                                <div class="row d-flex justify-content-center">
+                                    <img src=" pet-images/pet-3.jpg"
+                                        class="card-img-top rounded-circle custom-image-size" alt="pet-3">
+                                </div>
+
+                                <div class="row">
+                                    <h3 class="card-title text-white text-center">Sally</h3>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <p class="text-center text-white">Status: </p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="text-center text-success">Available </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6"><a class="card-link" href="pet-detail-page.html">
+                        <div class="card text-white bg-info rounded-5 d-flex flex-column align-items-center m-2">
+                            <div class="card-body text-center">
+                                <div class="row d-flex justify-content-center">
+                                    <img src=" pet-images/pet-4.jpg"
+                                        class="card-img-top rounded-circle custom-image-size" alt="pet-4">
+                                </div>
+
+                                <div class="row">
+                                    <h3 class="card-title text-white text-center">Terry</h3>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <p class="text-center text-white">Status: </p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="text-center text-success">Available </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a></div>
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <a class="card-link" href="pet-detail-page.html">
+                        <div class="card text-white bg-info rounded-5 d-flex flex-column align-items-center m-2">
+                            <div class="card-body text-center">
+                                <div class="row d-flex justify-content-center">
+                                    <img src=" pet-images/pet-5.jpg"
+                                        class="card-img-top rounded-circle custom-image-size" alt="pet-5">
+                                </div>
+
+                                <div class="row">
+                                    <h3 class="card-title text-white text-center">Oliver</h3>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <p class="text-center text-white">Status: </p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="text-center text-success">Available </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <a class="card-link" href="pet-detail-page.html">
+                        <div class="card text-white bg-info rounded-5 d-flex flex-column align-items-center m-2">
+                            <div class="card-body text-center">
+                                <div class="row d-flex justify-content-center">
+                                    <img src=" pet-images/pet-6.jpg"
+                                        class="card-img-top rounded-circle custom-image-size" alt="pet-6">
+                                </div>
+
+                                <div class="row">
+                                    <h3 class="card-title text-white text-center">Sandy</h3>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <p class="text-center text-white">Status: </p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="text-center text-success">Available </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6"><a class="card-link" href="pet-detail-page.html">
+                        <div class="card text-white bg-info rounded-5 d-flex flex-column align-items-center m-2">
+                            <div class="card-body text-center">
+                                <div class="row d-flex justify-content-center">
                                     <img src=" pet-images/dog-1.jpeg"
                                         class="card-img-top rounded-circle custom-image-size" alt="pet-1">
                                 </div>
@@ -161,30 +289,7 @@
                 <div class="col-lg-3 col-md-4 col-sm-6"><a class="card-link" href="pet-detail-page.html">
                         <div class="card text-white bg-info rounded-5 d-flex flex-column align-items-center m-2">
                             <div class="card-body text-center">
-                                <div class="row">
-                                    <img src=" pet-images/dog-1.jpeg"
-                                        class="card-img-top rounded-circle custom-image-size" alt="pet-1">
-                                </div>
-
-                                <div class="row">
-                                    <h3 class="card-title text-white text-center">Benny</h3>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <p class="text-center text-white">Status: </p>
-                                    </div>
-                                    <div class="col">
-                                        <p class="text-center text-success">Available </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6"><a class="card-link" href="pet-detail-page.html">
-                        <div class="card text-white bg-info rounded-5 d-flex flex-column align-items-center m-2">
-                            <div class="card-body text-center">
-                                <div class="row">
+                                <div class="row d-flex justify-content-center">
                                     <img src=" pet-images/dog-1.jpeg"
                                         class="card-img-top rounded-circle custom-image-size" alt="pet-1">
                                 </div>
@@ -203,103 +308,10 @@
                             </div>
                         </div>
                     </a></div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <a class="card-link" href="pet-detail-page.html">
-                        <div class="card text-white bg-info rounded-5 d-flex flex-column align-items-center m-2">
-                            <div class="card-body text-center">
-                                <div class="row">
-                                    <img src=" pet-images/dog-1.jpeg"
-                                        class="card-img-top rounded-circle custom-image-size" alt="pet-1">
-                                </div>
-
-                                <div class="row">
-                                    <h3 class="card-title text-white text-center">Benny</h3>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <p class="text-center text-white">Status: </p>
-                                    </div>
-                                    <div class="col">
-                                        <p class="text-center text-success">Available </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <a class="card-link" href="pet-detail-page.html">
-                        <div class="card text-white bg-info rounded-5 d-flex flex-column align-items-center m-2">
-                            <div class="card-body text-center">
-                                <div class="row">
-                                    <img src=" pet-images/dog-1.jpeg"
-                                        class="card-img-top rounded-circle custom-image-size" alt="pet-1">
-                                </div>
-
-                                <div class="row">
-                                    <h3 class="card-title text-white text-center">Benny</h3>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <p class="text-center text-white">Status: </p>
-                                    </div>
-                                    <div class="col">
-                                        <p class="text-center text-success">Available </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
                 <div class="col-lg-3 col-md-4 col-sm-6"><a class="card-link" href="pet-detail-page.html">
                         <div class="card text-white bg-info rounded-5 d-flex flex-column align-items-center m-2">
                             <div class="card-body text-center">
-                                <div class="row">
-                                    <img src=" pet-images/dog-1.jpeg"
-                                        class="card-img-top rounded-circle custom-image-size" alt="pet-1">
-                                </div>
-
-                                <div class="row">
-                                    <h3 class="card-title text-white text-center">Benny</h3>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <p class="text-center text-white">Status: </p>
-                                    </div>
-                                    <div class="col">
-                                        <p class="text-center text-success">Available </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6"><a class="card-link" href="pet-detail-page.html">
-                        <div class="card text-white bg-info rounded-5 d-flex flex-column align-items-center m-2">
-                            <div class="card-body text-center">
-                                <div class="row">
-                                    <img src=" pet-images/dog-1.jpeg"
-                                        class="card-img-top rounded-circle custom-image-size" alt="pet-1">
-                                </div>
-
-                                <div class="row">
-                                    <h3 class="card-title text-white text-center">Benny</h3>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <p class="text-center text-white">Status: </p>
-                                    </div>
-                                    <div class="col">
-                                        <p class="text-center text-success">Available </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a></div>
-                <div class="col-lg-3 col-md-4 col-sm-6"><a class="card-link" href="pet-detail-page.html">
-                        <div class="card text-white bg-info rounded-5 d-flex flex-column align-items-center m-2">
-                            <div class="card-body text-center">
-                                <div class="row">
+                                <div class="row d-flex justify-content-center">
                                     <img src=" pet-images/dog-1.jpeg"
                                         class="card-img-top rounded-circle custom-image-size" alt="pet-1">
                                 </div>
@@ -334,7 +346,7 @@
 
                 <div class="form-group">
                     <label id="rating_level" class="m-3" for="rating_level">Select a Rating:</label>
-                    <select class="form-control rounded-5">
+                    <select class="form-select rounded-5">
                         <option value="5">5 Stars</option>
                         <option value="4">4 Stars</option>
                         <option value="3">3 Stars</option>
@@ -374,7 +386,7 @@
                     <button type="button" class="btn btn-primary btn-sm" fdprocessedid="d810iu">Reply</button>
                 </div>
             </div>
-            <div class="card border-secondary mt-3 rounded-5  reply-card">
+            <div class="card text-white bg-dark mt-3 rounded-5  reply-card">
                 <div class="card-body">
                     <h5 class="card-title">Emily's Shelter</h5>
                     <p class="card-text">
