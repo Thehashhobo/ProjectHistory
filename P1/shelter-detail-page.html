@@ -18,19 +18,30 @@
 
         .pet-card-container {
             height: 31rem;
-            /* Adjust the height as needed */
             overflow-y: scroll;
             overflow-x: hidden;
         }
 
-        .custom-card {
+        .shelter-info-card {
             width: 100%;
         }
 
-        @media (max-width: 767px) {
+        .wide-form,
+        .reviews-thread-container {
+            width: 80vw;
+            margin-bottom: 2rem;
+        }
 
-            /* Override card width to stack vertically on small screens */
-            .custom-card {
+        .wide-form .form-control {
+            width: 100%;
+        }
+
+        .reply-card {
+            margin-left: 5rem;
+        }
+
+        @media (max-width: 767px) {
+            .shelter-info-card {
                 width: auto;
             }
         }
@@ -64,7 +75,7 @@
         <h1 class="text-center m-5">Emily's Shelter</h1>
         <div class="row row-gap-1">
             <div class="col-12 mb-2">
-                <div class="card custom-card border-primary rounded-5 mb-3">
+                <div class="card shelter-info-card border-primary rounded-5 mb-3">
                     <div class="card-body">
                         <h5 class="card-title text-center">Mission Statement</h5>
                         <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
@@ -79,7 +90,7 @@
                 </div>
             </div>
             <div class="col-6 mb-4 d-flex">
-                <div class="card custom-card border-primary rounded-5 mb-3 flex-fill">
+                <div class="card shelter-info-card border-primary rounded-5 mb-3 flex-fill">
                     <div class="card-body">
                         <h5 class="card-title text-center">Contact Information</h5>
                         <p class="card-text text-center">Phone: 999 123 4567</p>
@@ -88,7 +99,7 @@
                 </div>
             </div>
             <div class="col-6 mb-4 d-flex">
-                <div class="card custom-card border-primary rounded-5 mb-3 flex-fill">
+                <div class="card shelter-info-card border-primary rounded-5 mb-3 flex-fill">
                     <div class="card-body">
                         <h5 class="card-title text-center">Location</h5>
                         <p class="card-text text-center">40 St George St, Toronto, ON M5S 2E4</p>
@@ -309,7 +320,79 @@
                     </a></div>
             </div>
         </div>
-        <h4 class="m-3">Reviews</h4>
+        <div class="review-container d-flex flex-column m-5">
+            <h4 class="text-center">Add a Review</h4>
+
+            <form class="wide-form">
+
+                <div class="form-group">
+                    <label class="m-3" for="review_user_name">Name:</label>
+                    <input type="text" id="review_user_name" class="form-control rounded-5"
+                        placeholder="Enter your name">
+                </div>
+
+
+                <div class="form-group">
+                    <label id="rating_level" class="m-3" for="rating_level">Select a Rating:</label>
+                    <select class="form-control rounded-5">
+                        <option value="5">5 Stars</option>
+                        <option value="4">4 Stars</option>
+                        <option value="3">3 Stars</option>
+                        <option value="2">2 Stars</option>
+                        <option value="1">1 Star</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="m-3" for="review_msg">Write a Review:</label>
+                    <textarea id="review_msg" class="form-control rounded-5" rows="4"
+                        placeholder="Write a review here"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-outline-primary mt-5">Submit Your
+                    Review</button>
+            </form>
+        </div>
+        <h4 class="m-4">Our Reviews</h4>
+        <div class="reviews-thread-container">
+            <div class="card text-white bg-info rounded-5">
+                <div class="card-body">
+                    <h5 class="card-title">Alex Bob</h5>
+                    <h6 class="card-subtitle mb-2">Rating: 5 Stars</h6>
+                    <p class="card-text">
+                        Amazing pet shelter! I get all my pets from here!
+                    </p>
+                    <button type="button" class="btn btn-primary btn-sm" fdprocessedid="d810iu">Reply</button>
+                </div>
+            </div>
+            <div class="card text-white bg-info rounded-5 mt-3">
+                <div class="card-body">
+                    <h5 class="card-title">Catharine Elderly</h5>
+                    <h6 class="card-subtitle mb-2">Rating: 2 Stars</h6>
+                    <p class="card-text">
+                        Their wait times are too long!
+                    </p>
+                    <button type="button" class="btn btn-primary btn-sm" fdprocessedid="d810iu">Reply</button>
+                </div>
+            </div>
+            <div class="card border-secondary mt-3 rounded-5  reply-card">
+                <div class="card-body">
+                    <h5 class="card-title">Emily's Shelter</h5>
+                    <p class="card-text">
+                        Sorry Catharine, but we cannot seem to find you in our records!
+                    </p>
+                    <button type="button" class="btn btn-primary btn-sm" fdprocessedid="d810iu">Reply</button>
+                </div>
+            </div>
+            <div class="card border-secondary mt-3 rounded-5  reply-card">
+                <div class="card-body">
+                    <h5 class="card-title">Tommy Bloopers</h5>
+                    <p class="card-text">
+                        I also found the wait times very long!
+                    </p>
+                    <button type="button" class="btn btn-primary btn-sm" fdprocessedid="d810iu">Reply</button>
+                </div>
+            </div>
+        </div>
 
     </div>
 </body>
