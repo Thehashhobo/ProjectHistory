@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pet Adoption Application - Barnyard Buddies</title>
+  <link rel="stylesheet" href="https://bootswatch.com/5/morph/bootstrap.min.css">
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="landing-page.html">Barnyard Buddies</a>
+    </div>
+  </nav>
+
+  <!-- Pet Adoption Form -->
+  <section class="container mt-5">
+    <div class="card">
+      <div class="card-header">
+        Pet Adoption Application
+      </div>
+      <div class="card-body">
+        <form>
+          <!-- Personal Information -->
+          <div class="mb-3">
+            <label for="fullName">Full Name</label>
+            <input type="text" class="form-control" id="fullName" name="fullName" required>
+          </div>
+          <div class="mb-3">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+          </div>
+          <div class="mb-3">
+            <label for="phoneNumber">Phone Number</label>
+            <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" required>
+          </div>
+
+          <!-- Pet Selection -->
+          <div class="mb-3">
+            <label for="petName">Pet Name</label>
+            <input type="text" class="form-control" id="petName" name="petName" required>
+          </div>
+          <div class="mb-3">
+            <label for="petType">Type of Pet</label>
+            <select class="form-select" id="petType" name="petType" required>
+              <option value="">Select</option>
+              <option value="Dog">Chicken</option>
+              <option value="Cat">Cow</option>
+              <option value="Cat">Duck</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <!-- Living Arrangements -->
+          <div class="mb-3">
+            <label for="homeType">Type of Home</label>
+            <select class="form-select" id="homeType" name="homeType" required>
+              <option value="">Select</option>
+              <option value="House">House</option>
+              <option value="Apartment">Apartment</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="yardSize">Yard Size (if applicable)</label>
+            <input type="text" class="form-control" id="yardSize" name="yardSize">
+          </div>
+
+          <!-- Pet Care and Experience -->
+          <div class="mb-3">
+            <label for="previousPets">Previous Pets</label>
+            <input type="text" class="form-control" id="previousPets" name="previousPets">
+          </div>
+          <div class="mb-3">
+            <label for="experience">Pet Care Experience</label>
+            <textarea class="form-control" id="experience" name="experience" rows="4"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Submit Application</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center py-3">
+    <div class="container">
+      &copy; 2023 Barnyard Buddies
+    </div>
+  </footer>
+
+  <!-- Bootstrap JavaScript and jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
