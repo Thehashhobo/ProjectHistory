@@ -8,10 +8,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/morph/bootstrap.min.css" />
     <style>
         .custom-image-size {
-            width: 15rem;
-            height: 15rem;
             object-fit: cover;
             border-radius: 50%;
+            width: 15rem;
+            height: 15rem;
         }
 
         a.card-link {
@@ -25,7 +25,7 @@
 
         .btn:hover {
             transform: scale(1.10);
-            box-shadow: 0 0 15px rgba(24, 24, 24, 0.3);
+            box-shadow: 0 0 15px rgba(58, 56, 56, 0.3);
         }
 
         .pet-card-container {
@@ -38,19 +38,44 @@
             width: 100%;
         }
 
-        .wide-form,
+        .review-form,
         .reviews-thread-container {
             width: 80vw;
             margin-bottom: 2rem;
         }
 
-        .wide-form .form-control {
+        .review-form .form-control {
             width: 100%;
         }
 
         .reply-card {
             margin-left: 5rem;
         }
+
+        .reply-button {
+            cursor: pointer;
+            color: blue;
+        }
+
+        .reply-form {
+
+            padding: 15px;
+            display: none;
+        }
+
+        .reply-button:checked+.reply-form {
+            border-width: 1px;
+            border-style: solid;
+            border-color: white;
+            display: block;
+            margin-left: 5rem;
+        }
+
+        /* Hide the default checkbox */
+        input[type="checkbox"] {
+            display: none;
+        }
+
 
         @media (max-width: 767px) {
             .shelter-info-card {
@@ -127,8 +152,7 @@
                         <div class="card text-white bg-info rounded-5 d-flex flex-column align-items-center m-2">
                             <div class="card-body text-center">
                                 <div class="row d-flex justify-content-center">
-                                    <img src=" pet-images/dog-1.jpeg" class="card-img-top custom-image-size"
-                                        alt="pet-1">
+                                    <img src="pet-images/dog-1.jpeg" class="card-img-top custom-image-size" alt="pet-1">
                                 </div>
 
                                 <div class="row">
@@ -151,7 +175,7 @@
                         <div class="card text-white bg-info rounded-5 d-flex flex-column align-items-center m-2">
                             <div class="card-body text-center">
                                 <div class="row d-flex justify-content-center">
-                                    <img src=" pet-images/pet-2.jpg"
+                                    <img src="pet-images/pet-2.jpg"
                                         class="card-img-top rounded-circle custom-image-size" alt="pet-2">
                                 </div>
 
@@ -174,7 +198,7 @@
                         <div class="card text-white bg-info rounded-5 d-flex flex-column align-items-center m-2">
                             <div class="card-body text-center">
                                 <div class="row d-flex justify-content-center">
-                                    <img src=" pet-images/pet-3.jpg"
+                                    <img src="pet-images/pet-3.jpg"
                                         class="card-img-top rounded-circle custom-image-size" alt="pet-3">
                                 </div>
 
@@ -197,7 +221,7 @@
                         <div class="card text-white bg-info rounded-5 d-flex flex-column align-items-center m-2">
                             <div class="card-body text-center">
                                 <div class="row d-flex justify-content-center">
-                                    <img src=" pet-images/pet-4.jpg"
+                                    <img src="pet-images/pet-4.jpg"
                                         class="card-img-top rounded-circle custom-image-size" alt="pet-4">
                                 </div>
 
@@ -220,7 +244,7 @@
                         <div class="card text-white bg-info rounded-5 d-flex flex-column align-items-center m-2">
                             <div class="card-body text-center">
                                 <div class="row d-flex justify-content-center">
-                                    <img src=" pet-images/pet-5.jpg"
+                                    <img src="pet-images/pet-5.jpg"
                                         class="card-img-top rounded-circle custom-image-size" alt="pet-5">
                                 </div>
 
@@ -244,7 +268,7 @@
                         <div class="card text-white bg-info rounded-5 d-flex flex-column align-items-center m-2">
                             <div class="card-body text-center">
                                 <div class="row d-flex justify-content-center">
-                                    <img src=" pet-images/pet-6.jpg"
+                                    <img src="pet-images/pet-6.jpg"
                                         class="card-img-top rounded-circle custom-image-size" alt="pet-6">
                                 </div>
 
@@ -267,7 +291,7 @@
                         <div class="card text-white bg-info rounded-5 d-flex flex-column align-items-center m-2">
                             <div class="card-body text-center">
                                 <div class="row d-flex justify-content-center">
-                                    <img src=" pet-images/dog-1.jpeg"
+                                    <img src="pet-images/dog-1.jpeg"
                                         class="card-img-top rounded-circle custom-image-size" alt="pet-1">
                                 </div>
 
@@ -290,7 +314,7 @@
                         <div class="card text-white bg-info rounded-5 d-flex flex-column align-items-center m-2">
                             <div class="card-body text-center">
                                 <div class="row d-flex justify-content-center">
-                                    <img src=" pet-images/dog-1.jpeg"
+                                    <img src="pet-images/dog-1.jpeg"
                                         class="card-img-top rounded-circle custom-image-size" alt="pet-1">
                                 </div>
 
@@ -312,7 +336,7 @@
                         <div class="card text-white bg-info rounded-5 d-flex flex-column align-items-center m-2">
                             <div class="card-body text-center">
                                 <div class="row d-flex justify-content-center">
-                                    <img src=" pet-images/dog-1.jpeg"
+                                    <img src="pet-images/dog-1.jpeg"
                                         class="card-img-top rounded-circle custom-image-size" alt="pet-1">
                                 </div>
 
@@ -335,15 +359,12 @@
         <div class="review-container d-flex flex-column m-5">
             <h4 class="text-center">Add a Review</h4>
 
-            <form class="wide-form">
-
+            <form class="review-form">
                 <div class="form-group">
                     <label class="m-3" for="review_user_name">Name:</label>
                     <input type="text" id="review_user_name" class="form-control rounded-5"
                         placeholder="Enter your name">
                 </div>
-
-
                 <div class="form-group">
                     <label id="rating_level" class="m-3" for="rating_level">Select a Rating:</label>
                     <select class="form-select rounded-5">
@@ -373,9 +394,22 @@
                     <p class="card-text">
                         Amazing pet shelter! I get all my pets from here!
                     </p>
-                    <button type="button" class="btn btn-primary btn-sm" fdprocessedid="d810iu">Reply</button>
+                    <label for="reply-1" class="btn btn-primary btn-sm">Reply</label>
+                    <input type="checkbox" id="reply-1" class="reply-button">
+                    <div class="reply-form rounded-5 mt-5">
+                        <div class="form-group">
+                            <label class="m-3" for="reply_user_name">Name:</label>
+                            <input type="text" id="reply_user_name" class="form-control rounded-5"
+                                placeholder="Enter your name">
+                            <label class="m-3" for="review_msg">Comment:</label>
+                            <textarea class="form-control rounded-5" rows="4"
+                                placeholder="Write a reply here"></textarea>
+                            <button class="btn btn-primary btn-sm mt-2">Submit</button>
+                        </div>
+                    </div>
                 </div>
             </div>
+
             <div class="card text-white bg-info rounded-5 mt-3">
                 <div class="card-body">
                     <h5 class="card-title">Catharine Elderly</h5>
@@ -383,25 +417,36 @@
                     <p class="card-text">
                         Their wait times are too long!
                     </p>
-                    <button type="button" class="btn btn-primary btn-sm" fdprocessedid="d810iu">Reply</button>
-                </div>
-            </div>
-            <div class="card text-white bg-dark mt-3 rounded-5  reply-card">
-                <div class="card-body">
-                    <h5 class="card-title">Emily's Shelter</h5>
-                    <p class="card-text">
-                        Sorry Catharine, but we cannot seem to find you in our records!
-                    </p>
-                    <button type="button" class="btn btn-primary btn-sm" fdprocessedid="d810iu">Reply</button>
-                </div>
-            </div>
-            <div class="card border-secondary mt-3 rounded-5  reply-card">
-                <div class="card-body">
-                    <h5 class="card-title">Tommy Bloopers</h5>
-                    <p class="card-text">
-                        I also found the wait times very long!
-                    </p>
-                    <button type="button" class="btn btn-primary btn-sm" fdprocessedid="d810iu">Reply</button>
+
+                    <div class="card text-white bg-dark mt-3 rounded-5  reply-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Emily's Shelter</h5>
+                            <p class="card-text">
+                                Sorry Catharine, but we cannot seem to find you in our records!
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card border-secondary mt-3 rounded-5  reply-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Tommy Bloopers</h5>
+                            <p class="card-text">
+                                I also found the wait times very long!
+                            </p>
+                        </div>
+                    </div>
+                    <label for="reply-2" class="btn btn-primary btn-sm mt-3">Reply</label>
+                    <input type="checkbox" id="reply-2" class="reply-button">
+                    <div class="reply-form rounded-5 mt-3">
+                        <div class="form-group">
+                            <label class="m-3" for="reply_user_name">Name:</label>
+                            <input type="text" id="reply_user_name" class="form-control rounded-5"
+                                placeholder="Enter your name">
+                            <label class="m-3" for="review_msg">Comment:</label>
+                            <textarea class="form-control rounded-5" rows="4"
+                                placeholder="Write your reply here"></textarea>
+                            <button class="btn btn-primary btn-sm mt-2">Post</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
