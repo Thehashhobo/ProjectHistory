@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barnyard Buddies - Sign Up</title>
+  <link rel="stylesheet" href="https://bootswatch.com/5/morph/bootstrap.min.css">
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#">Barnyard Buddies</a>
+    </div>
+  </nav>
+
+  <!-- Sign Up Form -->
+  <section class="container mt-5">
+    <div class="card">
+      <div class="card-header">
+        Sign Up
+      </div>
+      <div class="card-body">
+        <form>
+          <div class="mb-3">
+            <label for="userType">I am a:</label>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="userType" id="person" value="person" required>
+              <label class="form-check-label" for="person">
+                Person (Looking to Adopt)
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="userType" id="shelter" value="shelter" required>
+              <label class="form-check-label" for="shelter">
+                Shelter (Offering for Adoption)
+              </label>
+            </div>
+          </div>
+
+          <!-- Common User Information -->
+          <div class="mb-3">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" name="username" required>
+          </div>
+          <div class="mb-3">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+          </div>
+          <div class="mb-3">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password" required>
+          </div>
+
+          <!-- Additional Fields for Persons (Adopters) -->
+          <div id="personFields" style="display: none;">
+            <div class="mb-3">
+              <label for="personName">Age</label>
+              <input type="number" class="form-control" id="age" name="age">
+            </div>
+            <!-- Add more fields for persons as needed -->
+          </div>
+
+          <!-- Additional Fields for Shelters -->
+          <div id="shelterFields" style="display: none;">
+            <div class="mb-3">
+              <label for="shelterName">Shelter Name</label>
+              <input type="text" class="form-control" id="shelterName" name="shelterName">
+            </div>
+            <!-- Add more fields for shelters as needed -->
+          </div>
+
+          <button type="submit" class="btn btn-primary">Sign Up</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Additional Options -->
+  <div class="container mt-3 text-center">
+    <p><a href="landing-page.html">Continue without an account</a></p>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center py-3">
+    <div class="container">
+      &copy; 2023 Barnyard Buddies
+    </div>
+  </footer>
+
+  <!-- JavaScript to toggle additional fields based on user type -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const userType = document.querySelectorAll('input[name="userType"]');
+      const personFields = document.getElementById('personFields');
+      const shelterFields = document.getElementById('shelterFields');
+
+      userType.forEach((radio) => {
+        radio.addEventListener('change', function() {
+          if (radio.value === 'person') {
+            personFields.style.display = 'block';
+            shelterFields.style.display = 'none';
+          } else if (radio.value === 'shelter') {
+            personFields.style.display = 'none';
+            shelterFields.style.display = 'block';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
