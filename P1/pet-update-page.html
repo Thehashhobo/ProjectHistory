@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+  <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/morph/bootstrap.min.css" rel="stylesheet"/>
+  <link href="style.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="d-flex flex-column justify-content-center">
+        <!-- Navigation Bar -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+            <a class="navbar-brand" href="landing-page.html">Barnyard Buddies</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#about">About Us</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="servicesDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Services
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="servicesDropdown">
+                    <a class="dropdown-item" href="shelter-detail-page.html">Shelter</a>
+                    <a class="dropdown-item" href="pet-adoption-page.html">Pet Adoption</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#contact">Contact</a>
+                </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="login-page.html">Log In</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="signup-page.html">Sign Up</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="search-page.html">Search <i class="bi bi-search"></i></a>
+                </li>
+                </ul>
+            </div>
+            </div>
+        </nav>
+        <h1 style="color: black; text-align: center; font-size: 60px; margin-top: 15px;">Pet Update Page</h1>
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item" role="presentation">
+              <a class="nav-link active" data-bs-toggle="tab" href="#About" aria-selected="true" role="tab">About</a>
+            </li>
+            <li class="nav-item" role="presentation">
+              <a class="nav-link" data-bs-toggle="tab" href="#Story" aria-selected="false" tabindex="-1" role="tab">Story</a>
+            </li>
+            <li class="nav-item" role="presentation">
+              <a class="nav-link disabled" href="#" aria-selected="false" tabindex="-1" role="tab">Disabled</a>
+            </li>
+          </ul>
+          <div id="myTabContent" class="d-flex flex-column justify-content-center align-items-center tab-content">
+            <!-- About Card -->
+            <div class="card text-white bg-primary mb-3 tab-pane fade show active" id="About" style="width: 85%; height: fit-content; padding: 30px;" role="tabpanel">
+                <div class="card-header">Update Afroquack's Page</div>
+                    <form class="container" style="margin-top: 15px;">
+                        <fieldset>
+                          <!-- first row -->
+                          <div class="row gy-2">
+                            <div class="col-md-3 col-12">
+                              <label for="Name" class="form-label mt-4" >Name</label>
+                            </div>
+                            <div class="d-flex col-md-3 col-12" style="justify-content: center; align-items: center;" >
+                              <input class="form-control form-control-lg" type="text" placeholder="Pet's name" id="inputLarge" style="height: 60px; justify-self: right;">
+                            </div>
+                            <div class="col-md-3 col-12">
+                              <label for="Age" class="form-label mt-4">Age</label>
+                            </div>
+                            <div class="col-md-3 col-12">
+                              <select class="form-select" id="exampleSelect1">
+                                <option>Baby</option>
+                                <option>Young</option>
+                                <option>Adult</option>
+                                <option>Old</option>
+                                <option>Old as hell</option>
+                            </select>
+                            </div>
+                            <!-- Second row -->
+                            <div class="row gy-2">
+                              <div class="col-md-3 col-12">
+                                <label for="Size" class="form-label mt-4">Size</label>
+                              </div>
+                              <div class="col-md-3 col-12">
+                                <select class="form-select" id="exampleSelect1">
+                                  <option>Small</option>
+                                  <option>Medium</option>
+                                  <option>Large</option>
+                                  <option>Extra-large</option>
+                                </select>
+                              </div>
+                              <div class="col-md-3 col-12">
+                                <label for="Gender" class="form-label mt-4">Gender</label>
+                              </div>
+                              <div class="col-md-3 col-12" style="padding-top: 25px;">
+                                <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
+                                <label class="form-check-label" for="optionsRadios1">Male</label>
+                                <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                                <label class="form-check-label" for="optionsRadios2">Female</label>
+                              </div>
+                            <!-- Thrid row -->
+                            <div class="row gy-2">
+                              <div class="col-md-3 col-12">
+                                <label for="Coat" class="form-label mt-4">Coat strength</label>
+                              </div>
+                              <div class="col-md-3 col-12">
+                                <select class="form-select" id="CoatSelect">
+                                  <option>Short</option>
+                                  <option>Medium</option>
+                                  <option>Long</option>
+                                  <option>Mop</option>
+                                </select>
+                              </div>
+                              <div class="col-md-3 col-12">
+                                <label for="Coat" class="form-label mt-4">Breed</label>
+                              </div>
+                              <div class="col-md-3 col-12">
+                                <input class="form-control form-control-lg" type="text" placeholder="Pet's Breed" id="inputLarge" style="height: 60px;">
+                              </div>
+                            </div>
+                            <!-- fourth row -->
+                            <div class="row gy-2">
+                              <div class="form-check form-switch col-md-12 col-12" style="margin-left: 15px; align-self: center; margin-top: 25px;">
+                                <label class="form-check-label-switch" for="flexSwitchCheckDefault">House Trained</label>
+                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                              </div>
+                              </div>
+                              <div class="row gy-2">
+                              <div class="form-check form-switch col-md-12 col-12" style="margin-left: 15px; align-self: center;">
+                                <legend class="col-form-label col-form-label-lg mt-4">Health</legend>
+                                <div class="form-check form-switch">
+                                    <label class="form-check-label-switch" for="flexSwitchCheckDefault">neutered</label>
+                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                                </div>
+                                <div class="form-check form-switch">
+                                    <label class="form-check-label-switch" for="flexSwitchCheckDefault">vaccinated</label>
+                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                              </div>
+                            </div>
+                            </div>
+
+                            <!-- forth row -->
+                            <legend class="mt-4">Characteristics </legend>
+                            <!-- fifth row -->
+                            <div class="d-flex justify-content-around form-group">
+                              <fieldset class="form-group d-flex flex-row flex-wrap">
+                                  <div class="form-check character">
+                                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                      <label class="form-check-label" for="flexCheckDefault">
+                                      Friendly
+                                      </label>
+                                    </div>
+                                  <div class="form-check character">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                      Shy
+                                    </label>
+                                  </div>
+                                  <div class="form-check character">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" >
+                                    <label class="form-check-label" for="flexCheckChecked">
+                                      Protective
+                                    </label>
+                                  </div>
+                                  <div class="form-check character">
+                                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                      <label class="form-check-label" for="flexCheckDefault">
+                                      Playful
+                                      </label>
+                                    </div>
+                                    <div class="form-check character">
+                                      <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" >
+                                      <label class="form-check-label" for="flexCheckChecked">
+                                      Docile
+                                      </label>
+                                    </div>
+                                    <div class="form-check character">
+                                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                      <label class="form-check-label" for="flexCheckDefault">
+                                      Smart
+                                      </label>
+                                    </div>
+                                    <div class="form-check character">
+                                      <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                                      <label class="form-check-label" for="flexCheckChecked">
+                                      Independent
+                                      </label>
+                                    </div>
+                                    <div class="form-check character">
+                                      <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                                      <label class="form-check-label" for="flexCheckChecked">
+                                      Affectionate
+                                      </label>
+                                    </div>
+                                    <div class="form-check character">
+                                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                      <label class="form-check-label" for="flexCheckDefault">
+                                          Stubborn
+                                      </label>
+                                    </div>
+                                    <div class="form-check character">
+                                      <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" >
+                                      <label class="form-check-label" for="flexCheckChecked">
+                                      Curious
+                                      </label>
+                                    </div>
+                                    <div class="form-check character">
+                                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                      <label class="form-check-label" for="flexCheckDefault">
+                                      Extroverted
+                                      </label>
+                                    </div>
+                                    <div class="form-check character">
+                                      <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                                      <label class="form-check-label" for="flexCheckChecked">
+                                      Vocal
+                                      </label>
+                                    </div>
+                                    <div class="form-check character">
+                                      <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                                      <label class="form-check-label" for="flexCheckChecked">
+                                      Loyal
+                                      </label>
+                                    </div>
+
+                                </fieldset>
+
+                          </div>
+                            <!-- sixth row -->
+                            <div class="form-group">
+                                <label for="formFile" class="form-label mt-4">Default file input example</label>
+                                <input class="form-control" type="file" id="formFile">
+                              </div>
+                        </fieldset>
+                    </form>
+            </div>
+            <!-- Story Card -->
+            <div class="card text-white bg-primary mb-3 tab-pane fade" id="Story" style="width: 85%; height:70vh;" role="tabpanel">
+                <div class="card-header">Afroquack's Story</div>
+                  <div class="d-flex flex-column" style="margin-left: 15px; margin-right: 15px;">
+                    <legend class="col-form-label col-form-label-lg mt-4" style="margin-bottom: 20px;">Story</legend>
+                    <textarea class="form-control" id="message" rows="16" placeholder="Tell us all about your pet"></textarea>
+                </div>
+
+                </div>
+            </div>
+            
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center py-3">
+    <div class="container">
+      &copy; 2023 Barnyard Buddies
+    </div>
+  </footer>
+
+    </div>
+    
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
