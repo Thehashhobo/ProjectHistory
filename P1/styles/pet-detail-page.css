@@ -1,0 +1,105 @@
+#page-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+}
+
+#content-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  /* height: calc(100vh - 256px - 70px - 3rem); */
+  /* padding-bottom: 3rem;  /*Footer height */
+  /* margin-top: 128px;*/
+  padding-bottom: 3rem;
+  margin-bottom: 128px;
+  margin-top: 30px;
+  min-height: 100vh;
+}
+
+ul li {
+  font-size: 18px;
+  text-align: left;
+}
+
+/* FOOTER*/
+footer {
+  position: absolute;
+  bottom: 0;
+  /* width: calc(100% - 12px); */
+  width: 100%;
+  height: 3rem;
+  background-color: #333333;
+  display: flex; /* need to specifift that it is a flex container to use justify-content and align-items as these properties only apply to flex containers*/
+  justify-content: center; /* center horizontally */
+  align-items: center; /* center vertically */
+  /* margin-top: 128px; */
+}
+
+.copyright {
+  text-align: center;
+  color: #ffffff;
+}
+
+/* CSS for the grid container */
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr; /* Single column */
+  grid-template-rows: 1fr 1fr; /* Two rows */
+  grid-gap: 10px; /* Gap between grid items */
+  height: 100%;
+  width: 100%;
+}
+
+/* CSS for the grid items */
+.grid-item {
+  background-color: lightblue;
+  padding: 10px;
+}
+
+/* Styling for the grid container */
+.grid-container {
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap to the next line on smaller screens */
+}
+
+/* Styling for grid items (columns) */
+.grid-item {
+  flex: 1;
+  min-width: 0;
+  background: #f0f0f0;
+  padding: 20px;
+  box-sizing: border-box;
+  text-align: center;
+  margin: 5px; /* Add some space between columns */
+}
+
+/* Media query for smaller screens */
+@media screen and (max-width: 768px) {
+  .grid-item {
+    flex: 1 1 100%; /* Full width on smaller screens */
+  }
+}
+
+#duck-pic {
+  height: 75%;
+  width: 75%;
+  border-radius: 10px;
+}
+.duck-pic {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.quote {
+  padding: 30px;
+  text-align: left;
+}
+
+p {
+  font-size: 18px;
+}
