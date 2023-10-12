@@ -92,7 +92,7 @@ styles\search-page.css"
         <form class="d-flex">
           <input class="form-control me-2" type="search" placeholder="Search" />
 
-          <a href="search-page-filter.html" class="btn btn-secondary">Search</a>
+          <button class="btn btn-secondary" type="submit">Search</button>
 
           <div class="btn-group dropdown">
             <button
@@ -106,7 +106,7 @@ styles\search-page.css"
               Sort By
             </button>
             <div class="dropdown-menu" aria-labelledby="filterDropdown">
-              <a class="dropdown-item" href="#">Name</a>
+              <a class="dropdown-item" href="search-page-sorted.html">Name</a>
               <a class="dropdown-item" href="#">Age</a>
               <a class="dropdown-item" href="#">Size</a>
             </div>
@@ -257,6 +257,7 @@ styles\search-page.css"
                       type="checkbox"
                       value="location2"
                       id="location2"
+                      checked
                     />
                     <label class="form-check-label" for="location2">
                       Small ( &lt 5kg)
@@ -295,7 +296,7 @@ styles\search-page.css"
 
       <!-- RESULTS GRID -->
       <div id="results" class="container">
-        <h2>All Barnyard Buddies</h2>
+        <h2>4 Search Results for "Small" Barnyard Buddies</h2>
 
         <div class="row">
           <!-- Animal 1 (DUCK) -->
@@ -323,35 +324,6 @@ styles\search-page.css"
                   <a href="pet-detail-page.html" class="btn btn-outline-primary"
                     >View Details</a
                   >
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Animal 2 -->
-          <div class="col-md-4">
-            <div class="card h-100">
-              <img
-                src="images\search-bar\animal-2.jpg"
-                class="card-img-top"
-                alt="Result 2"
-              />
-              <div class="card-body">
-                <h5 class="card-title text-dark">
-                  <strong>Rusty the Retriever</strong>
-                </h5>
-                <p class="card-text text-dark">
-                  A friendly and playful retriever looking for a loving home.
-                </p>
-
-                <p>
-                  Gender: Male | Breed: Golden Retriever | Location: New York |
-                  Size: 25kg | Age: 3 years old | Color: Golden
-                </p>
-                <div class="details-btn">
-                  <button type="button" class="btn btn-outline-primary">
-                    View Details
-                  </button>
                 </div>
               </div>
             </div>
@@ -434,128 +406,8 @@ styles\search-page.css"
 
                 <p>
                   Gender: Female | Breed: Rhode Island Red | Location: Farmville
-                  | Age: 1 year | Color: Red
+                  | Size: 1kg | Age: 1 year | Color: Red
                 </p>
-                <div class="details-btn">
-                  <button type="button" class="btn btn-outline-primary">
-                    View Details
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Animal 6-->
-          <div class="col-md-4">
-            <div class="card h-100">
-              <img
-                src="images\search-bar\animal-6.jpg"
-                class="card-img-top"
-                alt="Result 13"
-              />
-              <div class="card-body">
-                <h5 class="card-title text-dark">
-                  <strong>Moo the Cow</strong>
-                </h5>
-                <p class="card-text text-dark">
-                  A gentle and milk-producing cow looking for a spacious
-                  pasture.
-                </p>
-
-                <p>
-                  Gender: Female | Breed: Holstein Friesian | Location: Dairy
-                  Farm | Age: 3 years | Color: Black and White
-                </p>
-                <div class="details-btn">
-                  <button type="button" class="btn btn-outline-primary">
-                    View Details
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Animal 7-->
-          <div class="col-md-4">
-            <div class="card h-100">
-              <img
-                src="images\search-bar\animal-7.jpg"
-                class="card-img-top"
-                alt="Result 14"
-              />
-              <div class="card-body">
-                <h5 class="card-title text-dark">
-                  <strong>Thunder the Horse</strong>
-                </h5>
-                <p class="card-text text-dark">
-                  A magnificent and graceful horse searching for a rider and
-                  open fields.
-                </p>
-
-                <p>
-                  Gender: Male | Breed: Arabian Horse | Location: Equestrian
-                  Center | Age: 5 years | Color: Bay
-                </p>
-                <div class="details-btn">
-                  <button type="button" class="btn btn-outline-primary">
-                    View Details
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Animal 8-->
-          <div class="col-md-4">
-            <div class="card h-100">
-              <img
-                src="images\search-bar\animal-8.png"
-                class="card-img-top"
-                alt="Result 16"
-              />
-              <div class="card-body">
-                <h5 class="card-title text-dark">
-                  <strong>Wooly the Sheep</strong>
-                </h5>
-                <p class="card-text text-dark">
-                  A fluffy and wool-producing sheep eager to be part of your
-                  flock.
-                </p>
-
-                <p>
-                  Gender: Female | Breed: Merino Sheep | Location: Sheep Ranch |
-                  Age: 2 years | Color: White
-                </p>
-                <div class="details-btn">
-                  <button type="button" class="btn btn-outline-primary">
-                    View Details
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Animal 9-->
-          <div class="col-md-4">
-            <div class="card h-100">
-              <img
-                src="images\search-bar\animal-9.jpg"
-                class="card-img-top"
-                alt="Result 15"
-              />
-              <div class="card-body">
-                <h5 class="card-title text-dark">
-                  <strong>Oinkers the Pig</strong>
-                </h5>
-                <p class="card-text text-dark">
-                  A cute and oinking pig looking for a place to roll in the mud.
-                </p>
-
-                <p>
-                  Gender: Male | Breed: Yorkshire Pig | Location: Pig Farm |
-                  Age: 2 years | Color: Pink
-                </p>
-                <!-- <p>Available</p> -->
                 <div class="details-btn">
                   <button type="button" class="btn btn-outline-primary">
                     View Details
