@@ -1,0 +1,50 @@
+.card-header{
+    font-size: 50px;
+}
+.nav-tabs {
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-bottom: 20px;
+}
+.tab-pane {
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+.character{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.form-check-label-switch{
+    font-size: 20px;
+}
+
+#info-div{
+    position: relative;
+}
+
+#swapButton{
+    position: absolute;
+    top: 40px;
+    right: 0;
+}
+
+@media (max-width: 767px) {
+    .col-12 {
+        text-align: left !important;
+        justify-content: start !important;
+    }
+}
+
+
+#img_wrapper{
+    display: flex;
+    height: 200px;
+    width: 200px;
+    border-radius: 100px;
+    margin-bottom: 30px; 
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
