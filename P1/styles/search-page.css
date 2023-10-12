@@ -1,0 +1,61 @@
+.card-title {
+  color: 'black';
+}
+/* select.form-select {
+  width: auto;
+  padding: 0.25rem 0.5rem;
+} */
+
+.col-md-4 {
+  margin-top: 20px;
+  overflow: hide;
+  height: 600px;
+  min-height: 600px;
+}
+
+.details-btn {
+  text-align: center;
+  display: grid;
+  place-items: center;
+  bottom: 60px;
+}
+
+.card {
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Add a subtle box shadow */
+}
+
+.dropdown-item {
+  padding: 10px;
+  color: black;
+}
+
+.card-img-top {
+  min-height: 267px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 991px) {
+  .col-md-4 {
+    flex: 0 0 50%; /* Two cards per row for medium screens */
+    max-width: 50%;
+  }
+}
+
+/* For small screens (col-sm-6) */
+@media (max-width: 767px) {
+  .col-md-4 {
+    flex: 0 0 100%; /* One card per row for small screens */
+    max-width: 100%;
+  }
+}
+.card-body {
+  min-height: 100%;
+}
+
+/* .card-img-top {
+  height: 238.223px;
+} */
