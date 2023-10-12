@@ -1,0 +1,183 @@
+<!--
+  CSC309 Project Phase 1
+  
+  University of Toronto
+  Fall 2023
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+
+    <link
+      href="
+https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/morph/bootstrap.min.css
+"
+      rel="stylesheet"
+    />
+    <link
+      href="
+  styles\pet-detail-page.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="page-container">
+      <!-- HEADER - NAVBAR -->
+      <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Barnyard Buddies</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarColor01"
+            aria-controls="navbarColor01"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav me-auto">
+              <li class="nav-item">
+                <a class="nav-link active" href="#"
+                  >Home
+                  <span class="visually-hidden">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Features</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Pricing</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">About</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  data-bs-toggle="dropdown"
+                  href="#"
+                  role="button"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  >Dropdown</a
+                >
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="#">Action</a>
+                  <a class="dropdown-item" href="#">Another action</a>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Separated link</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!-- //HEADER - NAVBAR-->
+
+      <div id="content-wrap">
+        <div class="grid-container">
+          <div class="grid-item">
+
+            <div class="card mb-3 text-dark">
+              <h3 class="card-header h1">Name: Afroquack Ducky  </h3>
+              
+             <div class="duck-pic">
+              <img src="images\search-bar\duck.png" alt="A beautiful image" id="duck-pic">
+            </div>
+             
+
+              <figure class=" quote">
+                <blockquote class="blockquote" style="font-size: 18px;">
+                  <p class="mb-0">"The embodiment of disco diva and duckling all rolled into one, ready to bring the funk to any pond party."</p>
+                
+                </blockquote>
+                <figcaption class=" text-center blockquote-footer" style="font-size: 18px;">
+                  Farmers John and Sarah Anderson 
+                </figcaption>
+              </figure>
+
+              <p> 
+                
+                Gender: Male |
+                Breed: Pekin duck |
+                Location: Toronto |
+              
+                
+              </p>
+              <p> 
+                
+                Size: 0.2kg |
+                Age: 2 weeks old |
+                Color: Yellow</p>
+            
+              <div class="card-body">
+                <a href="#" class="card-link">Adopt me!</a>
+                <a href="#" class="card-link">Save Post</a>
+              </div>
+              <div class="card-footer text-muted">
+                Posted 2 days ago
+              </div>
+            </div>
+            
+          </div>
+          <div class="grid-item">
+            <div>
+              <div
+                class="card border-primary mb-3 text-dark"
+                style="max-width: 100%; height: 99.5%"
+              >
+                <div class="card-header h1 text-dark">Animal Details</div>
+                <div class="card-body">
+                  <!--Medical History-->
+                  <h4 class="card-title text-primary">Medical History:</h4>
+                  <p class="card-text " >
+                    <ul> 
+                      <li>Regular veterinary check-ups and vaccinations have been administered to ensure his well-being.</li>
+                      <li>One notable event in his medical history was when he had a minor injury to his left wing during a playful chase with one of the farm's other ducks. However, he received prompt veterinary care, and his wing healed completely.</li>
+                      <li>Overall, Afroquack Ducky is in excellent health with no major medical concerns.</li>
+                    </ul>
+                  </p>
+                  <!--Behavior-->
+                  <h4 class="card-title text-primary text-emphasis">Behavior:</h4>
+                  <p class="card-text " >
+                    <ul> 
+                      <li>Afroquack Ducky is known for his friendly and sociable nature, often mingling with other ducks in the pond.</li>
+                      <li>He enjoys spending most of his day swimming in the water, with his afro feathers bobbing on the surface.</li>
+                      <li>Afroquack Ducky communicates with other ducks using a unique, melodious quack.</li>
+                      <li>He's a curious duck and frequently explores his surroundings, searching for aquatic plants and insects.</li>
+                      <li>Afroquack Ducky is active during the day and takes peaceful naps by the water.</li>
+                    </ul>
+                  </p>
+                  <!--Special Needs or Requirements-->
+                  <h4 class="card-title text-primary text-emphasis">Special Needs or Requirements:</h4>
+                  <p class="card-text " >
+                    <ul> 
+                      <li>As a waterfowl, Afroquack Ducky needs access to a pond, lake, or other suitable aquatic habitat.</li>
+                      <li>His diet must include a variety of aquatic plants, insects, and grains.</li>
+                      <li>A clean and safe environment is essential to ensure his well-being.</li>
+                      <li>Protection from natural predators and a shelter for rest and nesting are important.</li>
+                      <li>Regular grooming and maintenance of his feathers to stay waterproof, with special attention to his distinctive afro tuft.</li>
+                    </ul>
+                  </p>
+                  <button type="button" class="btn btn-outline-warning text-dark">Adoption Status Pending</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FOOTER-->
+      <footer>
+        <div class="copyright">Copyright 2023 by Barnyard Buddies.</div>
+      </footer>
+      <!-- //FOOTER-->
+    </div>
+  </body>
+</html>

@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Info - Quackers & Co. Shelter</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/morph/bootstrap.min.css" />
+    <style>
+        .container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        footer {
+            margin-top: auto;
+            width: 100vw;
+            height: 3rem;
+            background-color: #333333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+        .copyright {
+            text-align: center;
+            color: #ffffff;
+        }
+
+        .custom-image-size {
+            object-fit: cover;
+            /* border-radius: 50%; */
+            width: 100%;
+            height: 20rem;
+        }
+
+        a.card-link {
+            text-decoration: none;
+        }
+
+        .card {
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 15px rgba(24, 24, 24, 0.3);
+        }
+
+        .btn:hover {
+            transform: scale(1.10);
+            box-shadow: 0 0 15px rgba(58, 56, 56, 0.3);
+        }
+
+        .pet-card-container {
+            height: 33rem;
+            overflow-y: scroll;
+            overflow-x: hidden;
+        }
+
+        .shelter-info-card {
+            width: 100%;
+        }
+
+        .review-form,
+        .reviews-thread-container {
+            width: 80vw;
+            margin-bottom: 2rem;
+        }
+
+        .review-form .form-control {
+            width: 100%;
+        }
+
+        .reply-card {
+            margin-left: 5rem;
+        }
+
+        .reply-form {
+
+            padding: 15px;
+            display: none;
+        }
+
+        .reply-button:checked+.reply-form {
+            display: block;
+            border-width: 1px;
+            border-style: solid;
+            border-color: white;
+            margin-left: 5rem;
+        }
+
+        input[type="checkbox"] {
+            display: none;
+        }
+
+
+        @media (max-width: 767px) {
+            .shelter-info-card {
+                width: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">NAME OF SITE</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
+                aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Home
+                            <span class="visually-hidden">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">My Applications</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container d-flex flex-column justify-content-center align-items-center">
+        <h1 class="text-center m-5">Quackers & Co. Shelter</h1>
+        <div class="row row-gap-1">
+            <div class="col-12 mb-2">
+                <div class="card shelter-info-card border-primary rounded-5 mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Mission Statement</h5>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+                            consectetur,
+                            justo
+                            ac posuere
+                            vestibulum, nisi odio fringilla quam, ut scelerisque dolor sapien in est. Donec ut mauris
+                            euismod,
+                            lacinia nulla eu,
+                            interdum arcu.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 mb-4 d-flex">
+                <div class="card shelter-info-card border-primary rounded-5 mb-3 flex-fill">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Contact Information</h5>
+                        <p class="card-text text-center">Phone: 999 123 4567</p>
+                        <p class="card-text text-center">Email: shelter.pet@pet.ca </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 mb-4 d-flex">
+                <div class="card shelter-info-card border-primary rounded-5 mb-3 flex-fill">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Location</h5>
+                        <p class="card-text text-center">40 St George St, Toronto, ON M5S 2E4</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h4 class="m-3">Our Listings</h4>
+        <div class="pet-card-container p-2" style="width: 100%;">
+            <div class="row row-gap-5  mb-4">
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <a class="card-link" href="pet-detail-page.html">
+                        <div class="card text-white bg-primary d-flex flex-column align-items-center m-2 h-100">
+                            <!-- <div class="row d-flex justify-content-center"> -->
+                            <img src="images/shelter/duck.png" class="card-img-top custom-image-size" alt="pet-1">
+                            <!-- </div> -->
+                            <div class="card-body text-center">
+                                <div class="row">
+                                    <h3 class="card-title text-white text-center">Afroquack Ducky</h3>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <p class="text-center text-white">Status: </p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="text-center text-bg-success">Available </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <a class="card-link" href="pet-detail-page.html">
+                        <div class="card text-white bg-primary d-flex flex-column align-items-center m-2 h-100">
+                            <!-- <div class="row d-flex justify-content-center"> -->
+                            <img src="images/shelter/pet-2.jpg" class="card-img-top custom-image-size" alt="pet-2">
+                            <!-- </div> -->
+                            <div class="card-body text-center">
+
+
+                                <div class="row">
+                                    <h3 class="card-title text-white text-center">Jimmy</h3>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <p class="text-center text-white">Status: </p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="text-center text-bg-warning">Pending </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6"><a class="card-link" href="pet-detail-page.html">
+                        <div class="card text-white bg-primary d-flex flex-column align-items-center m-2 h-100">
+                            <!-- <div class="row d-flex justify-content-center"> -->
+                            <img src="images/shelter/pet-3.jpg" class="card-img-top custom-image-size" alt="pet-3">
+                            <!-- </div> -->
+
+                            <div class="card-body text-center">
+
+                                <div class="row">
+                                    <h3 class="card-title text-white text-center">Sally</h3>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <p class="text-center text-white">Status: </p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="text-center text-bg-info">Adopted </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6"><a class="card-link" href="pet-detail-page.html">
+                        <div class="card text-white bg-primary d-flex flex-column align-items-center m-2 h-100">
+                            <!-- <div class="row d-flex justify-content-center"> -->
+                            <img src="images/shelter/pet-4.jpg" class="card-img-top custom-image-size" alt="pet-4">
+                            <!-- </div> -->
+                            <div class="card-body text-center">
+
+
+                                <div class="row">
+                                    <h3 class="card-title text-white text-center">Terry</h3>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <p class="text-center text-white">Status: </p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="text-center text-bg-success">Available </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a></div>
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <a class="card-link" href="pet-detail-page.html">
+                        <div class="card text-white bg-primary d-flex flex-column align-items-center m-2 h-100">
+                            <!-- <div class="row d-flex justify-content-center"> -->
+                            <img src="images/shelter/pet-5.jpg" class="card-img-top custom-image-size" alt="pet-5">
+                            <!-- </div> -->
+                            <div class="card-body text-center">
+
+
+                                <div class="row">
+                                    <h3 class="card-title text-white text-center">Oliver</h3>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <p class="text-center text-white">Status: </p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="text-center text-bg-danger">Withdrawn </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <a class="card-link" href="pet-detail-page.html">
+                        <div class="card text-white bg-primary d-flex flex-column align-items-center m-2 h-100">
+                            <!-- <div class="row d-flex justify-content-center"> -->
+                            <img src="images/shelter/pet-6.jpg" class="card-img-top custom-image-size" alt="pet-6">
+                            <!-- </div> -->
+                            <div class="card-body text-center">
+
+
+                                <div class="row">
+                                    <h3 class="card-title text-white text-center">Sandy</h3>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <p class="text-center text-white">Status: </p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="text-center text-bg-success">Available </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6"><a class="card-link" href="pet-detail-page.html">
+                        <div class="card text-white bg-primary d-flex flex-column align-items-center m-2 h-100">
+                            <!-- <div class="row d-flex justify-content-center"> -->
+                            <img src="images/shelter/dog-1.jpeg" class="card-img-top custom-image-size" alt="pet-1">
+                            <!-- </div> -->
+
+                            <div class="card-body text-center">
+
+                                <div class="row">
+                                    <h3 class="card-title text-white text-center">Benny</h3>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <p class="text-center text-white">Status: </p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="text-center text-bg-success">Available </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6"><a class="card-link" href="pet-detail-page.html">
+                        <div class="card text-white bg-primary d-flex flex-column align-items-center m-2 h-100">
+                            <!-- <div class="row d-flex justify-content-center"> -->
+                            <img src="images/shelter/pet-5.jpg" class="card-img-top custom-image-size" alt="pet-1">
+                            <!-- </div> -->
+                            <div class="card-body text-center">
+
+
+                                <div class="row">
+                                    <h3 class="card-title text-white text-center">Benny</h3>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <p class="text-center text-white">Status: </p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="text-center text-bg-success">Available </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a></div>
+                <div class="col-lg-3 col-md-4 col-sm-6"><a class="card-link" href="pet-detail-page.html">
+                        <div class="card text-white bg-primary d-flex flex-column align-items-center m-2 h-100">
+                            <!-- <div class="row d-flex justify-content-center"> -->
+                            <img src="images/shelter/pet-3.jpg" class="card-img-top custom-image-size" alt="pet-1">
+                            <!-- </div> -->
+                            <div class="card-body text-center">
+
+
+                                <div class="row">
+                                    <h3 class="card-title text-white text-center">Benny</h3>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <p class="text-center text-white">Status: </p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="text-center text-bg-success">Available </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a></div>
+            </div>
+        </div>
+        <div class="review-container d-flex flex-column m-5">
+            <h4 class="text-center">Add a Review</h4>
+
+            <form class="review-form">
+                <div class="form-group">
+                    <label class="m-3" for="review_user_name">Name:</label>
+                    <input type="text" id="review_user_name" class="form-control rounded-5"
+                        placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
+                    <label id="rating_level" class="m-3" for="rating_level">Select a Rating:</label>
+                    <select class="form-select rounded-5">
+                        <option value="5">5 Stars</option>
+                        <option value="4">4 Stars</option>
+                        <option value="3">3 Stars</option>
+                        <option value="2">2 Stars</option>
+                        <option value="1">1 Star</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="m-3" for="review_msg">Write a Review:</label>
+                    <textarea id="review_msg" class="form-control rounded-5" rows="4" placeholder="Write a review here"
+                        required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-outline-primary mt-5">Submit Your
+                    Review</button>
+            </form>
+        </div>
+        <h4 class="m-4">Our Reviews</h4>
+        <div class="reviews-thread-container">
+            <div class="card text-white bg-primary rounded-5">
+                <div class="card-body">
+                    <h5 class="card-title">Alex Bob</h5>
+                    <h6 class="card-subtitle mb-2">Rating: 5 Stars</h6>
+                    <p class="card-text">
+                        Amazing pet shelter! I get all my pets from here!
+                    </p>
+                    <label for="reply-1" class="btn btn-primary btn-sm">Reply</label>
+                    <input type="checkbox" id="reply-1" class="reply-button">
+                    <div class="reply-form rounded-5 mt-5">
+                        <div class="form-group">
+                            <label class="m-3" for="reply_user_name">Name:</label>
+                            <input type="text" id="reply_user_name" class="form-control rounded-5"
+                                placeholder="Enter your name" required>
+                            <label class="m-3" for="review_msg">Comment:</label>
+                            <textarea class="form-control rounded-5" rows="4" placeholder="Write a reply here"
+                                required></textarea>
+                            <button type="submit" class="btn btn-primary btn-sm mt-2">Post</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card text-white bg-primary rounded-5 mt-3">
+                <div class="card-body">
+                    <h5 class="card-title">Catharine Elderly</h5>
+                    <h6 class="card-subtitle mb-2">Rating: 2 Stars</h6>
+                    <p class="card-text">
+                        Their wait times are too long!
+                    </p>
+
+                    <div class="card text-white bg-dark mt-3 rounded-5  reply-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Quackers & Co. Shelter</h5>
+                            <p class="card-text">
+                                Sorry Catharine, but we cannot seem to find you in our records!
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card border-secondary mt-3 rounded-5  reply-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Tommy Bloopers</h5>
+                            <p class="card-text">
+                                I also found the wait times very long!
+                            </p>
+                        </div>
+                    </div>
+                    <label for="reply-2" class="btn btn-primary btn-sm mt-3">Reply</label>
+                    <input type="checkbox" id="reply-2" class="reply-button">
+                    <div class="reply-form rounded-5 mt-3">
+                        <div class="form-group">
+                            <label class="m-3" for="reply_user_name">Name:</label>
+                            <input type="text" id="reply_user_name" class="form-control rounded-5"
+                                placeholder="Enter your name" required>
+                            <label class="m-3" for="review_msg">Comment:</label>
+                            <textarea class="form-control rounded-5" rows="4" placeholder="Write your reply here"
+                                required></textarea>
+                            <button class="btn btn-primary btn-sm mt-2">Post</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- FOOTER-->
+        <footer>
+            <div class="copyright">Copyright 2023 by Barnyard Buddies.</div>
+        </footer>
+        <!-- //FOOTER-->
+    </div>
+</body>
+
+</html>
