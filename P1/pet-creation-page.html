@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/morph/bootstrap.min.css" rel="stylesheet"/>
+  <link href="style.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="d-flex flex-column justify-content-center">
+        <!-- Navigation Bar -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+            <a class="navbar-brand" href="landing-page.html">Barnyard Buddies</a>
+            </div>
+        </nav>
+        <h1 style="color: black; text-align: center; font-size: 60px; margin-top: 15px;">Create pet listing</h1>
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item" role="presentation">
+              <a class="nav-link active" data-bs-toggle="tab" href="#About" aria-selected="true" role="tab">About</a>
+            </li>
+            <li class="nav-item" role="presentation">
+              <a class="nav-link" data-bs-toggle="tab" href="#Story" aria-selected="false" tabindex="-1" role="tab">Story</a>
+            </li>
+            <li class="nav-item" role="presentation">
+              <a class="nav-link disabled" href="#" aria-selected="false" tabindex="-1" role="tab">Disabled</a>
+            </li>
+          </ul>
+          <div id="myTabContent" class="d-flex flex-column justify-content-center align-items-center tab-content">
+            <!-- About Card -->
+            <div class="card text-white bg-success mb-3 tab-pane fade show active" id="About" style="width: 85%; height: fit-content; padding: 30px;" role="tabpanel">
+                <div class="card-header">About your pet</div>
+                    <form>
+                        <fieldset disabled="">
+                            <!-- first row -->
+                            <div class="d-flex justify-content-around form-group">
+                                <div class="d-flex flex-column" style="margin-left: 15px; margin-right: 15px;">
+                                    <legend class="col-form-label col-form-label-lg mt-4">Name</legend>
+                                    <input class="form-control form-control-lg" type="text" placeholder="Pet's name" id="inputLarge" style="height: 60px;">
+                                </div>
+
+                                <div class="form-group d-flex flex-column" style="margin-left: 10px; margin-right: 15px;">
+                                    <legend class="col-form-label col-form-label-lg mt-4">Age</legend>
+                                <select class="form-select" id="exampleSelect1">
+                                    <option>Baby</option>
+                                    <option>Young</option>
+                                    <option>Adult</option>
+                                    <option>Old</option>
+                                    <option>Old as hell</option>
+                                </select>
+                                </div>
+
+                                <div class="form-group d-flex flex-column" style="margin-left: 10px; margin-right: 15px;">
+                                    <legend class="col-form-label col-form-label-lg mt-4">Size</legend>
+                                    <select class="form-select" id="exampleSelect1">
+                                        <option>Small</option>
+                                        <option>Medium</option>
+                                        <option>Large</option>
+                                        <option>Extra-large</option>
+                                    </select>
+                                </div>
+
+                                <fieldset  class="d-flex flex-column form-group" style="margin-left: 15px; margin-right: 15px;">
+                                    <legend class="col-form-label col-form-label-lg mt-4" >Radio buttons</legend>
+                                    <div class="d-flex">
+                                        <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
+                                        <label class="form-check-label" for="optionsRadios1">Male</label>
+                                    </div>
+                                    <div class="d-flex">
+                                        <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                                        <label class="form-check-label" for="optionsRadios2">Female</label>
+                                    </div>
+                                </fieldset >
+                            </div>
+                            <!-- second row -->
+                            <legend class="mt-4">Characteristics </legend>
+                            <!-- Thrid row -->
+                            <div class="d-flex justify-content-around form-group">
+                                <fieldset class="form-group d-flex flex-row flex-wrap">
+                                    <div class="form-check character">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                        Friendly
+                                        </label>
+                                      </div>
+                                    <div class="form-check character">
+                                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                      <label class="form-check-label" for="flexCheckDefault">
+                                        Shy
+                                      </label>
+                                    </div>
+                                    <div class="form-check character">
+                                      <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" >
+                                      <label class="form-check-label" for="flexCheckChecked">
+                                        Protective
+                                      </label>
+                                    </div>
+                                    <div class="form-check character">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                        Playful
+                                        </label>
+                                      </div>
+                                      <div class="form-check character">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" >
+                                        <label class="form-check-label" for="flexCheckChecked">
+                                        Docile
+                                        </label>
+                                      </div>
+                                      <div class="form-check character">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                        Smart
+                                        </label>
+                                      </div>
+                                      <div class="form-check character">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                                        <label class="form-check-label" for="flexCheckChecked">
+                                        Independent
+                                        </label>
+                                      </div>
+                                      <div class="form-check character">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                                        <label class="form-check-label" for="flexCheckChecked">
+                                        Affectionate
+                                        </label>
+                                      </div>
+                                      <div class="form-check character">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                            Stubborn
+                                        </label>
+                                      </div>
+                                      <div class="form-check character">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" >
+                                        <label class="form-check-label" for="flexCheckChecked">
+                                        Curious
+                                        </label>
+                                      </div>
+                                      <div class="form-check character">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                        Extroverted
+                                        </label>
+                                      </div>
+                                      <div class="form-check character">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                                        <label class="form-check-label" for="flexCheckChecked">
+                                        Vocal
+                                        </label>
+                                      </div>
+                                      <div class="form-check character">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                                        <label class="form-check-label" for="flexCheckChecked">
+                                        Loyal
+                                        </label>
+                                      </div>
+
+                                  </fieldset>
+
+                            </div>
+                            <!-- fourth row -->
+                            <div class="d-flex justify-content-around form-group">
+                                <div class="form-check form-switch" style="margin-left: 15px; margin-right: 15px; align-self: center; margin-top: 25px;">
+                                    <label class="form-check-label-switch" for="flexSwitchCheckDefault">House Trained</label>
+                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                                  </div>
+
+                                <div class="form-group d-flex flex-column" style="margin-left: 10px; margin-right: 15px;">
+                                    <legend class="col-form-label col-form-label-lg mt-4">Coat strength</legend>
+                                <select class="form-select" id="exampleSelect1">
+                                    <option>Short</option>
+                                    <option>Medium</option>
+                                    <option>Long</option>
+                                    <option>Mop</option>
+                                </select>
+                                </div>
+
+                                <div class="d-flex flex-column" style="margin-left: 10px; margin-right: 15px;">
+                                    <legend class="col-form-label col-form-label-lg mt-4">Health</legend>
+                                        <div class="form-check form-switch">
+                                            <label class="form-check-label-switch" for="flexSwitchCheckDefault">neutered</label>
+                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                                        </div>
+                                        <div class="form-check form-switch">
+                                            <label class="form-check-label-switch" for="flexSwitchCheckDefault">vaccinated</label>
+                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                                        </div>                                      
+                                </div>
+                                <div class="d-flex flex-column" style="margin-left: 15px; margin-right: 15px;">
+                                    <legend class="col-form-label col-form-label-lg mt-4">Breed</legend>
+                                    <input class="form-control form-control-lg" type="text" placeholder="Pet's Breed" id="inputLarge" style="height: 60px;">
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+            </div>
+            <!-- Story Card -->
+            <div class="card text-white bg-success mb-3 tab-pane fade" id="Story" style="width: 85%; height:70vh;" role="tabpanel">
+                <div class="card-header">Story with the pet</div>
+                  <div class="d-flex flex-column" style="margin-left: 15px; margin-right: 15px;">
+                    <legend class="col-form-label col-form-label-lg mt-4" style="margin-bottom: 20px;">Story</legend>
+                    <textarea class="form-control" id="message" rows="16" placeholder="Tell us all about your pet"></textarea>
+                </div>
+
+                </div>
+            </div>
+            
+            <div class="tab-pane fade" id="dropdown1">
+              <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork.</p>
+            </div>
+            <div class="tab-pane fade" id="dropdown2">
+              <p>Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table VHS viral locavore cosby sweater.</p>
+            </div>
+          </div>
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center py-3">
+    <div class="container">
+      &copy; 2023 Barnyard Buddies
+    </div>
+  </footer>
+
+    </div>
+    
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
