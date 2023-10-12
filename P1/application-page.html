@@ -1,0 +1,203 @@
+<!--
+  CSC309 Project Phase 1
+  
+  University of Toronto
+  Fall 2023
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat Pop-Up - Barnyard Buddies</title>
+    <link
+      rel="stylesheet"
+      href="https://bootswatch.com/5/morph/bootstrap.min.css"
+    />
+  </head>
+
+  <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand" href="landing-page.html">Barnyard Buddies</a>
+      </div>
+    </nav>
+    <!-- Pet Adoption Form -->
+    <section class="container mt-5" style="margin-bottom: 128px">
+      <div class="card text-dark">
+        <div class="card-header">
+          Pet Adoption Application
+          <!-- Chat Pop-Up Button -->
+          <button
+            class="btn btn-primary chat-button float-end"
+            data-bs-toggle="modal"
+            data-bs-target="#chatModal"
+          >
+            Open Chat
+          </button>
+        </div>
+        <div class="card-body">
+          <form>
+            <!-- Personal Information -->
+            <div class="mb-3">
+              <label for="fullName">Full Name</label>
+              <p>Denise Richards</p>
+            </div>
+            <div class="mb-3">
+              <label for="email">Email</label>
+              <p>deniserichards@gmail.com</p>
+            </div>
+            <div class="mb-3">
+              <label for="phoneNumber">Phone Number</label>
+              <p>416-809-6582</p>
+            </div>
+
+            <!-- Pet Selection -->
+            <div class="mb-3">
+              <label for="petName">Pet Name</label>
+              <p>Daffy the Duck</p>
+            </div>
+            <div class="mb-3">
+              <label for="petType">Type of Pet</label>
+              <p>Duck</p>
+            </div>
+
+            <!-- Living Arrangements -->
+            <div class="mb-3">
+              <label for="homeType">Type of Home</label>
+              <p>Apartment</p>
+            </div>
+            <div class="mb-3">
+              <label for="yardSize">Yard Size (if applicable)</label>
+              <p>N/A</p>
+            </div>
+
+            <!-- Pet Care and Experience -->
+            <div class="mb-3">
+              <label for="previousPets">Previous Pets</label>
+              <p>None</p>
+            </div>
+            <div class="mb-3">
+              <label for="experience">Pet Care Experience</label>
+              <p>Fostered ducklings for 5 years straight.</p>
+            </div>
+
+            <div class="alert alert-dismissible alert-primary">
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"
+              ></button>
+              Thank you for submitting your application. We will get back to you
+              shortly.
+            </div>
+
+            <button type="submit" class="btn btn-outline-primary">
+              Complete.
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Chat Pop-Up Modal -->
+    <div
+      class="modal fade"
+      id="chatModal"
+      tabindex="-1"
+      aria-labelledby="chatModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="chatModalLabel">Chat Conversation</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <!-- Chat messages can be displayed here -->
+            <div class="conversation">
+              <div class="chat-message">
+                <strong>Denise Richards:</strong> Hello, I have a question.
+              </div>
+              <div class="chat-message">
+                <strong>Quackers & Co. Shelter:</strong> Sure, how can we help
+                you?
+              </div>
+              <div class="chat-message">
+                <strong>Denise Richards:</strong> I'm interested in adopting
+                Daffy the Duck from your shelter. Can you tell me more about
+                Daffy?
+              </div>
+              <div class="chat-message">
+                <strong>Quackers & Co. Shelter:</strong> Of course! Daffy is an
+                adorable female Khaki Campbell duck. She's just 8 months old and
+                has a fun-loving and talkative personality. She's been looking
+                for a pond to chat by. Would you like more details about her?
+              </div>
+              <div class="chat-message">
+                <strong>Denise Richards:</strong> Daffy sounds charming! Can you
+                tell me about her special care requirements?
+              </div>
+              <div class="chat-message">
+                <strong>Quackers & Co. Shelter:</strong> Absolutely! Ducks like
+                Daffy require a safe and clean pond or water source, regular
+                feeding, and protection from the elements. They also enjoy
+                companionship with other ducks. Do you have a suitable
+                environment for her?
+              </div>
+              <div class="chat-message">
+                <strong>Denise Richards:</strong> I have a pond and some other
+                ducks, so Daffy would have good company. How can I proceed with
+                the adoption process for Daffy?
+              </div>
+              <div class="chat-message">
+                <strong>Quackers & Co. Shelter:</strong> That's wonderful! To
+                proceed with Daffy's adoption, first fill out the adoption form
+                on the Barnyard Buddies website, then you can visit our shelter
+                in person to meet her and complete the necessary paperwork.
+                We'll also ensure she's a good fit for your existing duck
+                family.
+              </div>
+              <div class="chat-message">
+                <strong>Denise Richards:</strong> Great! I'll fill out the form
+                and visit your shelter this weekend to meet Daffy. Thank you for
+                your assistance!
+              </div>
+              <div class="chat-message">
+                <strong>Quackers & Co. Shelter:</strong> You're very welcome! We
+                look forward to introducing you to Daffy and making her a part
+                of your duck family. If you have any more questions before your
+                visit, feel free to ask.
+              </div>
+            </div>
+
+            <!-- Add more chat messages as needed -->
+          </div>
+          <div class="modal-footer">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Type your message..."
+            />
+            <button type="button" class="btn btn-primary">Send</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3">
+      <div class="container">&copy; 2023 Barnyard Buddies</div>
+    </footer>
+
+    <!-- Bootstrap JavaScript and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
