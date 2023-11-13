@@ -57,24 +57,31 @@ class PetShelterListView(APIView):
 class PetShelterUpdateView(APIView):
     def put(self, request, pk, format=None):
         pet_shelter = get_object_or_404(PetShelter, pk=pk)
-        pet_shelter_serializer = PetShelterSerializer(pet_shelter, data=request.data)
 
-        if pet_shelter_serializer.is_valid():
-            pet_shelter_serializer.save()
-            return Response(pet_shelter_serializer.data)
-        return Response(pet_shelter_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        if request.user == pet_shelter.user:
+            pet_shelter_serializer = PetShelterSerializer(pet_shelter, data=request.data)
+
+            if pet_shelter_serializer.is_valid():
+                pet_shelter_serializer.save()
+                return Response(pet_shelter_serializer.data)
+            return Response(pet_shelter_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response("You are not authorized to update this pet shelter", status=status.HTTP_403_FORBIDDEN)
 
 
 # Update a PetSeeker
 class PetSeekerUpdateView(APIView):
     def put(self, request, pk, format=None):
         pet_seeker = get_object_or_404(PetSeeker, pk=pk)
-        pet_seeker_serializer = PetSeekerSerializer(pet_seeker, data=request.data)
+        if request.user == pet_seeker.user:
+            pet_seeker_serializer = PetSeekerSerializer(pet_seeker, data=request.data)
 
-        if pet_seeker_serializer.is_valid():
-            pet_seeker_serializer.save()
-            return Response(pet_seeker_serializer.data)
-        return Response(pet_seeker_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            if pet_seeker_serializer.is_valid():
+                pet_seeker_serializer.save()
+                return Response(pet_seeker_serializer.data)
+            return Response(pet_seeker_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response("You are not authorized to update this pet seeker", status=status.HTTP_403_FORBIDDEN)
 
 
 # View a PetShelter
