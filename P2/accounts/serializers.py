@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import PetSeeker, PetShelter, PetPalUser
+from .models import PetSeeker, PetShelter
+
 
 class PetSeekerSerializer(serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(read_only=True)

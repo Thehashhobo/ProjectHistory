@@ -32,6 +32,8 @@ class PetPalUserManager(BaseUserManager):
 
 class PetPalUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
+    is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
     is_pet_seeker = models.BooleanField(default=False)
     is_pet_shelter = models.BooleanField(default=False)
 

@@ -1,6 +1,4 @@
-
 from django.contrib import admin
-
 from .models import PetPalUser, PetSeeker, PetShelter
 
 # Register your models here.
