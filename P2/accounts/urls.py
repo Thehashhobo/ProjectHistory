@@ -3,7 +3,16 @@ from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
-from .views import PetSeekerRegistrationView,  PetShelterRegistrationView, PetShelterListView, PetShelterUpdateView, PetSeekerUpdateView, PetShelterDetailView
+from .views import (
+    PetSeekerRegistrationView,  
+    PetShelterRegistrationView, 
+    PetShelterListView, 
+    PetShelterUpdateView, 
+    PetSeekerUpdateView, 
+    PetShelterDetailView, 
+    PetSeekerDeleteView,
+    PetShelterDeleteView,
+)
 
 
 urlpatterns = [
@@ -15,5 +24,7 @@ urlpatterns = [
     path('petshelter/detail/<int:pk>/', PetShelterDetailView.as_view()),
     path('petshelter/<int:pk>/', PetShelterUpdateView.as_view()),
     path('petseeker/<int:pk>/', PetSeekerUpdateView.as_view()),
+    path('petseeker/delete/<int:pk>/', PetSeekerDeleteView.as_view()),
+    path('petshelter/delete/<int:pk>/', PetShelterDeleteView.as_view()),
     # path('petseeker/detail/<int:pk>/', PetSeekerDetailView.as_view()),
 ]

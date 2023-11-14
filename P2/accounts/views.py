@@ -127,3 +127,30 @@ class PetShelterDetailView(APIView):
 #             return Response(pet_seeker_serializer.data)
 #         else:
 #             return Response("You are attempting to perform an unauthorized action", status=status.HTTP_403_FORBIDDEN)
+
+
+# Delete a Pet Seeker
+class PetSeekerDeleteView(APIView):
+    permission_classes = [IsAuthenticated]
+    def delete(self, request, pk):
+        pet_seeker = get_object_or_404(PetSeeker, pk=pk)
+        if pet_seeker.user == request.user:
+            pet_seeker_name = pet_seeker.name
+            pet_seeker_email = pet_seeker.user.email
+            pet_seeker.user.delete()    
+            return Response(f"The Pet Seeker named {pet_seeker_name} and their associated account {pet_seeker_email} has been deleted successfully.", status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response("You are attempting to perform an unauthorized action", status=status.HTTP_403_FORBIDDEN)
+        
+# Delete a Pet Shelter
+class PetShelterDeleteView(APIView):
+    permission_classes =[IsAuthenticated]
+    def delete(self, request, pk):
+        pet_shelter = get_object_or_404(PetShelter, pk=pk)
+        if pet_shelter.user == request.user:
+            pet_shelter_name = pet_shelter.name
+            pet_shelter_email = pet_shelter.user.email
+            pet_shelter.user.delete()
+            return Response(f"The Pet Shelter titled {pet_shelter_name} and its associated account {pet_shelter_email} has been deleted successfully.", status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response("You are attempting to perform an unauthorized action", status=status.HTTP_403_FORBIDDEN)
