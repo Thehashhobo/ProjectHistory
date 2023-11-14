@@ -1,9 +1,11 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.generics import ListAPIView
 from .models import PetListing
 from .serializer import PetListingSerializer
 from django.shortcuts import get_object_or_404
+from rest_framework.pagination import PageNumberPagination
 
 class PetListingCreate(APIView):
     def post(self, request):
@@ -13,11 +15,14 @@ class PetListingCreate(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class PetListingList(APIView):
-    def get(self, request):
-        petlistings = PetListing.objects.all()
-        serializer = PetListingSerializer(petlistings, many=True)
-        return Response(serializer.data)
+class PetListingList(ListAPIView):
+    queryset = PetListing.objects.all()
+    serializer_class = PetListingSerializer
+    pagination_class = PageNumberPagination
+
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
+
     
 class PetListingUpdate(APIView):
     def put(self, request, pk):
