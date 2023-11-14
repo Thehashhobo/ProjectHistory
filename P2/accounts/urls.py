@@ -15,4 +15,5 @@ urlpatterns = [
     path('petshelter/detail/<int:pk>/', PetShelterDetailView.as_view()),
     path('petshelter/<int:pk>/', PetShelterUpdateView.as_view()),
     path('petseeker/<int:pk>/', PetSeekerUpdateView.as_view()),
+    # path('petseeker/detail/<int:pk>/', PetSeekerDetailView.as_view()),
 ]

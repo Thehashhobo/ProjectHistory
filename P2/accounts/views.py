@@ -2,11 +2,12 @@ from django.shortcuts import render
 from rest_framework import status
 from rest_framework.views import APIView
 from .models import PetPalUser, PetSeeker, PetShelter
-from .serializers import PetSeekerSerializer, PetShelterSerializer
+from .serializers import PetSeekerSerializer, PetShelterSerializer, PetShelterUpdateSerializer, PetSeekerUpdateSerializer
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
+from rest_framework.permissions import IsAuthenticated
 
-
+# from applications.models import Applications #NEED AN APPLICATION APP AND MODEL
 
 # Create PetSeeker
 class PetSeekerRegistrationView(APIView):
@@ -18,6 +19,8 @@ class PetSeekerRegistrationView(APIView):
             avatar_file = request.FILES.get('avatar')
             pet_pal_user = PetPalUser.objects.create_user(email=request.data['email'], password=request.data['password'], is_pet_seeker=True)
             pet_seeker_data = pet_seeker_serializer.validated_data
+            password = pet_seeker_data.pop('password')
+            password2 = pet_seeker_data.pop('password2')
             if avatar_file:
                 pet_seeker_data['avatar'] = avatar_file
             pet_seeker = PetSeeker.objects.create(user=pet_pal_user, **pet_seeker_data)
@@ -33,6 +36,8 @@ class PetShelterRegistrationView(APIView):
             if PetPalUser.objects.filter(email=request.data.get('email')).exists():
                 return Response({"error": "An account is associated with this email already."}, status=status.HTTP_400_BAD_REQUEST) 
             pet_pal_user = PetPalUser.objects.create_user(email=request.data['email'], password=request.data['password'], is_pet_shelter=True)
+            password = pet_shelter_serializer.validated_data.pop('password')
+            password2 = pet_shelter_serializer.validated_data.pop('password2')
             pet_shelter = PetShelter.objects.create(user=pet_pal_user, **pet_shelter_serializer.validated_data)
             return Response(PetShelterSerializer(pet_shelter).data, status=status.HTTP_201_CREATED)
         return Response(pet_shelter_serializer.errors,status=status.HTTP_400_BAD_REQUEST)
@@ -48,42 +53,60 @@ class PetShelterListView(APIView):
 
 # Update a PetShelter
 class PetShelterUpdateView(APIView):
+    permission_classes = [IsAuthenticated]
     def put(self, request, pk):
         pet_shelter = get_object_or_404(PetShelter, pk=pk)
 
         if request.user == pet_shelter.user:
-            change_password = request.data.get('change_password')
-            if change_password:
-                pet_shelter.user.set_password(change_password)
-                pet_shelter.user.save()
+            # change_password = request.data.get('change_password')
+            # if change_password:
+            #     pet_shelter.user.set_password(change_password)
+            #     pet_shelter.user.save()
             
-            pet_shelter_serializer = PetShelterSerializer(pet_shelter, data=request.data)
-            if pet_shelter_serializer.is_valid():
-                pet_shelter_serializer.save()
-                return Response(pet_shelter_serializer.data)
-            return Response(pet_shelter_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            pet_shelter_update_serializer = PetShelterUpdateSerializer(pet_shelter, data=request.data, partial = True)
+            if pet_shelter_update_serializer.is_valid():
+                if 'new_password' not in request.data:
+                    new_password = pet_shelter_update_serializer.fields.pop('new_password', None)
+                    new_password2 = pet_shelter_update_serializer.fields.pop('new_password2', None)
+                else:
+                    new_password = pet_shelter_update_serializer.validated_data.pop('new_password')
+                    new_password2 = pet_shelter_update_serializer.validated_data.pop('new_password2')
+                    pet_shelter.user.set_password(new_password)
+                    pet_shelter.user.save()
+                pet_shelter_update_serializer.save()
+                return Response(pet_shelter_update_serializer.data)
+            return Response(pet_shelter_update_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
             
         else:
-            return Response("You are not authorized to update this pet shelter", status=status.HTTP_403_FORBIDDEN)
+            return Response("You are attempting to perform an unauthorized action", status=status.HTTP_403_FORBIDDEN)
 
 
 # Update a PetSeeker
 class PetSeekerUpdateView(APIView):
+    permission_classes = [IsAuthenticated]
     def put(self, request, pk):
         pet_seeker = get_object_or_404(PetSeeker, pk=pk)
         if request.user == pet_seeker.user:
-            change_password = request.data.get('change_password')
-            if change_password:
-                pet_seeker.user.set_password(change_password)
-                pet_seeker.user.save()
+            # change_password = request.data.get('change_password')
+            # if change_password:
+            #     pet_seeker.user.set_password(change_password)
+            #     pet_seeker.user.save()
 
-            pet_seeker_serializer = PetSeekerSerializer(pet_seeker, data=request.data)
-            if pet_seeker_serializer.is_valid():
-                pet_seeker_serializer.save()
-                return Response(pet_seeker_serializer.data)
-            return Response(pet_seeker_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            pet_seeker_update_serializer = PetSeekerUpdateSerializer(pet_seeker, data=request.data)
+            if pet_seeker_update_serializer.is_valid():
+                if 'new_password' not in request.data:
+                    new_password = pet_seeker_update_serializer.fields.pop('new_password', None)
+                    new_password2 = pet_seeker_update_serializer.fields.pop('new_password2', None)
+                else:
+                    new_password = pet_seeker_update_serializer.validated_data.pop('new_password')
+                    new_password2 = pet_seeker_update_serializer.validated_data.pop('new_password2')
+                    pet_seeker.user.set_password(new_password)
+                    pet_seeker.user.save()
+                pet_seeker_update_serializer.save()
+                return Response(pet_seeker_update_serializer.data)
+            return Response(pet_seeker_update_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         else:
-            return Response("You are not authorized to update this pet seeker", status=status.HTTP_403_FORBIDDEN)
+            return Response("You are attempting to perform an unauthorized action", status=status.HTTP_403_FORBIDDEN)
 
 
 # View a PetShelter
@@ -92,3 +115,15 @@ class PetShelterDetailView(APIView):
         pet_shelter = get_object_or_404(PetShelter, pk=pk)
         pet_shelter_serializer = PetShelterSerializer(pet_shelter)
         return Response(pet_shelter_serializer.data)
+    
+    
+# View a PetSeeker
+# class PetSeekerDetailView(APIView):
+#     def get(self, request, pk):
+#         pet_seeker = get_object_or_404(PetSeeker, pk=pk)
+#         active_application = Applications.objects.filter(pet_shelter__user = request.user, pet_seeker=pet_seeker, status="pending").first()
+#         if active_application:
+#             pet_seeker_serializer = PetSeekerSerializer(pet_seeker)
+#             return Response(pet_seeker_serializer.data)
+#         else:
+#             return Response("You are attempting to perform an unauthorized action", status=status.HTTP_403_FORBIDDEN)
