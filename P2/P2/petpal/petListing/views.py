@@ -3,8 +3,10 @@ from rest_framework.response import Response
 from rest_framework import status, filters, permissions, serializers
 from rest_framework.generics import ListAPIView, ListCreateAPIView, RetrieveAPIView, UpdateAPIView
 from .models import PetListing, Application
-from .serializer import PetListingSerializer, ApplicationSerializer, ApplicationUpdateSerializer
+from accounts.models import PetShelter
+from .serializer import PetListingSerializer, ApplicationSerializer, ApplicationUpdateSerializer, PetListingSummarySerializer, PetListingUpdateSerializer
 from django.shortcuts import get_object_or_404
+from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.pagination import PageNumberPagination
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.exceptions import PermissionDenied
@@ -17,41 +19,61 @@ class IsSheltersManager(permissions.BasePermission):
     """
     def has_permission(self, request, view):
         return request.user.is_authenticated and request.user.is_pet_shelter
+    
+class IsOwnerOrSheltersManager(permissions.BasePermission):
+    """
+    Custom permission to only allow owners of an object or SheltersManagers to edit or delete it.
+    """
+
+    def has_object_permission(self, request, view, obj):
+        # Check if the user is the owner of the object
+        return obj.shelter.user == request.user
+
 
 
 class PetListingCreate(APIView):
+    authentication_classes = [JWTAuthentication]
     permission_classes = [IsSheltersManager]
-    def post(self, request):
-        serializer = PetListingSerializer(data=request.data)
+    def post(self, request, pk):
+        pet_shelter = get_object_or_404(PetShelter, pk=pk)
+        new_data = request.data.copy()
+        new_data['shelter'] = pet_shelter.id
+        serializer = PetListingSerializer(data=new_data)
         if serializer.is_valid():
+            avatar_file = request.FILES.get('avatar')
+            pet_listing_data = serializer.validated_data
+            if avatar_file:
+                pet_listing_data['avatar'] = avatar_file
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class PetListingList(ListAPIView):
+    # authentication_classes = [JWTAuthentication]
     queryset = PetListing.objects.all()
-    serializer_class = PetListingSerializer
+    serializer_class = PetListingSummarySerializer
     pagination_class = PageNumberPagination
     filter_backends = [filters.OrderingFilter, DjangoFilterBackend]
-    #filterset_fields = ['status', 'age', 'size','shelter', 'gender']
-    filterset_fields = ['status', 'age', 'size', 'gender']
+    filterset_fields = ['status', 'age', 'size','shelter', 'gender']
     ordering_fields = ['age', 'size']
     def get(self, request, *args, **kwargs):
         return super().get(request, *args, **kwargs)
 
     
 class PetListingUpdate(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsSheltersManager, IsOwnerOrSheltersManager]
     def put(self, request, pk):
         petlisting = get_object_or_404(PetListing, pk=pk)
-        current_user = petlisting.shelter
-        if current_user == request.user:
-            serializer = PetListingSerializer(petlisting, data=request.data)
-            if serializer.is_valid():
-                serializer.save()
-                return Response(serializer.data)
+        serializer = PetListingUpdateSerializer(petlisting, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) # can change to no pr
 
 class PetListingDelete(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsSheltersManager, IsOwnerOrSheltersManager]
     def delete(self, request, pk):
         petlisting = get_object_or_404(PetListing, pk=pk)
         petlisting.delete()
