@@ -5,7 +5,7 @@ from rest_framework.generics import CreateAPIView, ListAPIView, ListCreateAPIVie
 from rest_framework import status, serializers
 from rest_framework.response import Response
 from .models import Comment
-from petListing.models import Application
+from petListing.models import PetListing
 from django.utils import timezone
 # Create your views here.
 
@@ -19,7 +19,7 @@ class ShelterCommentListCreate(ListCreateAPIView):
         if serializer_instance.is_valid():
             # cannot comment on a shelter that does not exist
             shelter_id = self.kwargs['pk']
-            if not Application.objects.filter(pk=shelter_id).exists():
+            if not PetListing.objects.filter(pk=shelter_id).exists():
                 raise serializers.ValidationError("Not a valid shelter to comment on.")
             serializer_instance.save(comment_made_by_the_user=self.request.user)
             return Response(serializer_instance.data, status=status.HTTP_201_CREATED)
@@ -41,10 +41,10 @@ class ApplicationCommentListCreate(CreateAPIView):
         if serializer_instance.is_valid():
             # step 1: make sure the application exists
             application_id = self.kwargs['pk']
-            if not Application.objects.filter(pk=application_id).exists():
+            if not PetListing.objects.filter(pk=application_id).exists():
                 raise serializers.ValidationError("Not a valid application to comment on.")
             # step 2: check who wants to comment and validate/save accordingly
-            application = Application.objects.get(pk=application_id)
+            application = PetListing.objects.get(pk=application_id)
             if application.pet_seeker == self.request.user:
                 application.last_updated = timezone.now()
                 application.save()
@@ -59,9 +59,9 @@ class ApplicationCommentListCreate(CreateAPIView):
             return Response(serializer_instance.errors, status=status.HTTP_400_BAD_REQUEST)
     def get_queryset(self):
         application_id = self.kwargs['pk']
-        if not Application.objects.filter(pk=application_id).exists():
+        if not PetListing.objects.filter(pk=application_id).exists():
             raise serializers.ValidationError("Not a valid application to comment on.")
-        application = Application.objects.get(pk=application_id)
+        application = PetListing.objects.get(pk=application_id)
         if application.pet_seeker == self.request.user:
             return Comment.objects.filter(object_id=application_id).order_by('-comment_creation_time')
         elif application.pet_listing.shelter == self.request.user:
