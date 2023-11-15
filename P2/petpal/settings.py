@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'petListing',
-    'django_filters'
+    'django_filters',
     'accounts',
     'rest_framework',
     'rest_framework_simplejwt',
