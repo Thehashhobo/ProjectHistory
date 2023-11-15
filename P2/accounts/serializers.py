@@ -4,12 +4,13 @@ from django.core.exceptions import ValidationError
 
 class PetSeekerSerializer(serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(read_only=True)
+    email = serializers.EmailField(write_only = True, style={'input_type': 'email'})
     password = serializers.CharField(write_only =True, style={'input_type': 'password'})
     password2 = serializers.CharField(write_only= True, style={'input_type': 'password'})
-
+    avatar = serializers.ImageField(required=False)
     class Meta:
         model = PetSeeker
-        fields = ['id', 'user', 'name', 'avatar', 'password', 'password2']
+        fields = ['id', 'email', 'user', 'name', 'avatar', 'password', 'password2']
     
     def validate(self, data):
         if data.get('password') and data.get('password2') and data.get('password') != data.get('password2'):
@@ -18,12 +19,13 @@ class PetSeekerSerializer(serializers.ModelSerializer):
 
 class PetShelterSerializer(serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(read_only=True)
+    email = serializers.EmailField(write_only = True, style={'input_type': 'email'})
     password = serializers.CharField(write_only =True, style={'input_type': 'password'})
     password2 = serializers.CharField(write_only= True, style={'input_type': 'password'})
 
     class Meta:
         model = PetShelter
-        fields = ['id', 'user', 'name', 'mission_statement', 'address', 'phone_number', 'password', 'password2']
+        fields = ['id', 'email', 'user', 'name', 'mission_statement', 'address', 'phone_number', 'password', 'password2']
 
     def validate(self, data):
         if data.get('password') and data.get('password2') and data.get('password') != data.get('password2'):
