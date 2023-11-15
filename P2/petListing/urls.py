@@ -4,9 +4,9 @@ from .views import PetListingCreate, PetListingDelete, PetListingList, PetListin
 app_name = 'petListing'
 
 urlpatterns = [
-    path('creation/', PetListingCreate.as_view(), name='petlisting-create'),
-    path('update/<int:pk>/', PetListingUpdate.as_view(), name='petlisting-update'),
-    path('delete/<int:pk>/', PetListingDelete.as_view(), name='petlisting-delete'),
+    path('creation/<int:pk>/', PetListingCreate.as_view(), name='petlisting-create'),
+    path('updates/<int:pk>/', PetListingUpdate.as_view(), name='petlisting-update'),
+    path('deletion/<int:pk>/', PetListingDelete.as_view(), name='petlisting-delete'),
     path('', PetListingList.as_view(),name='petlisting-list'),
     # path('search/', PetListingSearch.as_view(), name='petlisting-search'),
 ]
