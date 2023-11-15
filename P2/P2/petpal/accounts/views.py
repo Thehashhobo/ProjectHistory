@@ -6,7 +6,7 @@ from .serializers import PetSeekerSerializer, PetShelterSerializer, PetShelterUp
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
-# from applications.models import Applications #NEED AN APPLICATION APP AND MODEL
+from petListing.models import Application #NEED AN APPLICATION APP AND MODEL
 
 
 ### PET SEEKER VIEWS ###
@@ -32,14 +32,14 @@ class PetSeekerRegisterView(APIView):
 class PetSeekerDetailUpdateDeleteView(APIView):
     permission_classes=[IsAuthenticated]
     # Get detail of a PetSeeker with a pending application if the user is a pet_shelter
-    # def get(self, request, pk):
-    #     pet_seeker = get_object_or_404(PetSeeker, pk=pk)
-    #     active_application = Applications.objects.filter(pet_shelter__user = request.user, pet_seeker=pet_seeker, status="pending").first()
-    #     if active_application:
-    #         pet_seeker_serializer = PetSeekerSerializer(pet_seeker)
-    #         return Response(pet_seeker_serializer.data)
-    #     else:
-    #         return Response("You are attempting to perform an unauthorized action", status=status.HTTP_403_FORBIDDEN)
+    def get(self, request, pk):
+        pet_seeker = get_object_or_404(PetSeeker, pk=pk)
+        active_application = Application.objects.filter(pet_listing__shelter__user = request.user, pet_seeker=pet_seeker, status="pending").first()
+        if active_application:
+            pet_seeker_serializer = PetSeekerSerializer(pet_seeker)
+            return Response(pet_seeker_serializer.data)
+        else:
+            return Response("You are attempting to perform an unauthorized action", status=status.HTTP_403_FORBIDDEN)
     
     # Update a PetSeeker's info 
     def put(self, request, pk):
