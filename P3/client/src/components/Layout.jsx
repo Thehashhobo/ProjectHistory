@@ -3,7 +3,7 @@ import Navbar from "./Navbar";
 import { Outlet } from "react-router-dom";
 import { useQuery } from "react-query";
 import { getCurrentUser } from "../api";
-import { GlobalContext } from "../contexts/GlobalContext";
+import { GlobalContext } from "../contexts/GlobalContexts";
 
 const Layout = () => {
   const { data: currentUser, isLoading } = useQuery(
