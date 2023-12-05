@@ -11,14 +11,15 @@
     },
     "dependencies": {
         "@chakra-ui/icons": "^2.1.1",
-        "@chakra-ui/react": "^2.8.1",
+        "@chakra-ui/react": "^2.8.2",
         "@emotion/react": "^11.11.1",
         "@emotion/styled": "^11.11.0",
         "axios": "^1.5.1",
-        "framer-motion": "^10.16.4",
+        "framer-motion": "^10.16.12",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-query": "^3.39.3",
+        "react-responsive": "^9.0.2",
         "react-router-dom": "^6.16.0"
     },
     "devDependencies": {
