@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { ChakraProvider } from '@chakra-ui/react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import PetListingPage from './pages/petListing/PetListingPage.jsx';
+import PetListingDetailPage from './pages/petListing/PetListingDetailPage.jsx';
 import {
   Home,
 } from './pages';
@@ -18,8 +19,12 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: '/pet-listings', // Example path for PetListingPage
+        path: '/pet-listings', // path to Petlisting List
         element: <PetListingPage />,
+      },
+      {
+        path: '/petdetails/:petId', // path to Pet detail List
+        element: <PetListingDetailPage />,
       },
     ],
   },

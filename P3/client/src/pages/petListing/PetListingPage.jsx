@@ -8,22 +8,34 @@ import { useMediaQuery } from 'react-responsive'
 function PetListingPage() {
     const welcomTextStyle = {
         color: "#b7c8c9",
-        padding: "10px",
+        padding: "15px",
         fontFamily: "Cambria",
         fontWeight: "bold",
-        fontSize : "30px"
-      };
-    const divStyle = {
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
+        fontSize: "45px",
+        paddingLeft: "30px"
+        
+    };
+    
+    const gridStyle = {
+        display: 'grid',
+        gridTemplateRows: 'repeat(2, 1fr)',
+        gridTemplateColumns: 'repeat(3, 1fr)',
+        gap: '4px',
         padding: '4px',
     };
     
-    const filterSortOptionsStyle = {
-        width: '20%',
-        color: "#b7c8c9",
-        border: "5px"
+    const divStyle = {
+        display: 'flex',
+        justifyContent: 'space-between', // Corrected value
+        alignItems: 'center', // Align items vertically
+        gap: '4px',
+        padding: '4px',
+    };
+    
+    
+    const OptionsStyle = {
+        border: "5px",
+        color: "black"
         
     };
     const fetchShelters = async () => {
@@ -74,7 +86,7 @@ function PetListingPage() {
     
         try {
             const response = await axios.get(queryString);
-            setPetListings(response.data.results);
+            setPetListings(response.data);
         } catch (error) {
             console.error('Error fetching pet listings:', error);
         }
@@ -101,51 +113,65 @@ function PetListingPage() {
 
 
     return(
-        <>
+        <>  
             <div style={divStyle}>
                 <h1 style={welcomTextStyle}>Find them a forever home</h1>
-                <div style={filterSortOptionsStyle}>
-                <Select value={statusFilter} onChange={e => setStatusFilter(e.target.value)}>
-                    <option value="">Filter by Status</option>
-                    <option value="available">Available</option>
-                    <option value="adopted">Adopted</option>
-                    <option value="pending">Pending</option>
-                    <option value="unavailable">Unavailable</option>
-                </Select>
-                <Select value={sizeFilter} onChange={e => setSizeFilter(e.target.value)}>
-                    <option value="">Filter by Size</option>
-                    <option value="small">Small</option>
-                    <option value="medium">Medium</option>
-                    <option value="large">Large</option>
-                    <option value="extra_large">Extra large</option>
-                </Select>
-                <Select value={shelterFilter} onChange={e => setShelterFilter(e.target.value)}>
-                    <option value="">Filter by Shelter</option>
-                    {shelterList.map(([id, name]) => (
-                        <option key={id} value={id}>{name}</option>
-                    ))}
-                </Select>
-                <Select value={genderFilter} onChange={e => setGenderFilter(e.target.value)}>
-                    <option value="">Filter by Sex</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                </Select>
-                <Select value={ageSort} onChange={e => setAgeSort(e.target.value)}>
-                    <option value="">Sort by Age</option>
-                    <option value="ascending">Ascending</option>
-                    <option value="descending">Descending</option>
-                </Select>
+                <Grid  style={gridStyle}>
+                    
+                    <GridItem style={OptionsStyle}>
+                        <Select variant='filled' value={statusFilter} onChange={e => setStatusFilter(e.target.value)}>
+                            <option value="">Filter by Status</option>
+                            <option value="available">Available</option>
+                            <option value="adopted">Adopted</option>
+                            <option value="pending">Pending</option>
+                            <option value="unavailable">Unavailable</option>
+                        </Select>
+                    </GridItem>
+                    <GridItem style={OptionsStyle}>
+                        <Select variant='filled' value={sizeFilter} onChange={e => setSizeFilter(e.target.value)}>
+                            <option value="">Filter by Size</option>
+                            <option value="small">Small</option>
+                            <option value="medium">Medium</option>
+                            <option value="large">Large</option>
+                            <option value="extra_large">Extra large</option>
+                        </Select>
+                    </GridItem>
+                        
+                    <GridItem style={OptionsStyle}>
+                        <Select variant='filled' value={shelterFilter} onChange={e => setShelterFilter(e.target.value)}>
+                            <option value="">Filter by Shelter</option>
+                            {shelterList.map(([id, name]) => (
+                                <option key={id} value={id}>{name}</option>
+                            ))}
+                        </Select>
+                    </GridItem>
+                    
+                    <GridItem style={OptionsStyle}>
+                        <Select variant='filled' value={genderFilter} onChange={e => setGenderFilter(e.target.value)}>
+                            <option value="">Filter by Sex</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </Select>
+                    </GridItem>
 
-                <Select value={sizeSort} onChange={e => setSizeSort(e.target.value)}>
-                    <option value="">Sort by Size</option>
-                    <option value="ascending">Ascending</option>
-                    <option value="descending">Descending</option>
-                </Select>
-                
-
-                </div>
+                    <GridItem style={OptionsStyle}>
+                        <Select variant='filled' value={ageSort} onChange={e => setAgeSort(e.target.value)}>
+                            <option value="">Sort by Age</option>
+                            <option value="ascending">Ascending</option>
+                            <option value="descending">Descending</option>
+                        </Select>
+                    </GridItem>
+                    
+                    <GridItem style={OptionsStyle}>
+                        <Select variant='filled' value={sizeSort} onChange={e => setSizeSort(e.target.value)}>
+                            <option value="">Sort by Size</option>
+                            <option value="ascending">Ascending</option>
+                            <option value="descending">Descending</option>
+                        </Select>
+                    </GridItem>
+                    
+                </Grid >
             </div>
-
             
             
             <Grid templateColumns={columns} gap={6} justifyContent="center">

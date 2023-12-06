@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import defaultImage from "../../assests/default.png"
+
 import axios from 'axios';
 import { 
     Card, 
@@ -14,7 +17,7 @@ import {
   } from '@chakra-ui/react';
 
 import PropTypes from 'prop-types';
-import defaultImage from "../../assests/default.png"
+
 
 function PetListingCard(pet){
     const imageUrl = pet.avatar || defaultImage;
@@ -34,6 +37,13 @@ function PetListingCard(pet){
             fetchShelter();
         }
     }, [pet.shelter]);
+
+    const navigate = useNavigate();
+
+    const handleMoreInfoClick = (petId) => {
+        navigate(`/petdetails/${petId}`);
+    };
+
     return (
         <Card maxW='sm'>
         <CardBody>
@@ -55,7 +65,7 @@ function PetListingCard(pet){
         <Divider />
         <CardFooter>
             <ButtonGroup spacing='2'>
-            <Button variant='solid' colorScheme='blue'>
+            <Button variant='solid' colorScheme='blue' onClick={() => handleMoreInfoClick(pet.id)}>
                 More info
             </Button>
             <Button variant='ghost' colorScheme='blue'>
