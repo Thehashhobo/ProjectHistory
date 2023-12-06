@@ -8,7 +8,7 @@ import {
   Home,
 } from './pages';
 import Layout from './components/Layout';
-
+import RegistrationPage from './pages/accounts/Register.jsx';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -25,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: '/petdetails/:petId', // path to Pet detail List
         element: <PetListingDetailPage />,
+      },
+      {
+        path: "/register",
+        element: <RegistrationPage />,
       },
     ],
   },
