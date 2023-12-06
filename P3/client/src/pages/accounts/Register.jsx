@@ -5,6 +5,7 @@ import {
     AlertIcon,
     Box,
     Button,
+    Center,
     Container,
     FormControl,
     FormLabel,
@@ -271,9 +272,11 @@ const RegistrationPage = () => {
                                 </FormControl>
                             </>
                         )}
-                        <Button colorScheme="blue" type="submit">
-                            Register User
-                        </Button>
+                        <Center>
+                            <Button colorScheme="blue" type="submit">
+                                Register User
+                            </Button>
+                        </Center>
                     </form>
                 </VStack>
             </Box>

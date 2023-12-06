@@ -9,6 +9,8 @@ import {
 } from './pages';
 import Layout from './components/Layout';
 import RegistrationPage from './pages/accounts/Register.jsx';
+import LoginPage from './pages/accounts/Login.jsx';
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -29,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <RegistrationPage />,
+      },
+      {
+        path: "/login",
+        element: <LoginPage />,
       },
     ],
   },

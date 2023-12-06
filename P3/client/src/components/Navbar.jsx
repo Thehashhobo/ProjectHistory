@@ -25,6 +25,7 @@ const Links = [
   { label: 'Saved Projects', to: '/saved' },
   { label: 'Create Posting', to: '/createproject' },
   { label: 'Register', to: '/register' },
+  { label: 'Login', to: '/login' },
 ];
 
 const NavLink = (props) => {
