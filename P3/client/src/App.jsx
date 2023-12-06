@@ -10,6 +10,7 @@ import {
 import Layout from './components/Layout';
 import RegistrationPage from './pages/accounts/Register.jsx';
 import LoginPage from './pages/accounts/Login.jsx';
+import ListingPetSheltersPage from './pages/accounts/ListingShelters.jsx';
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <LoginPage />,
+      },
+      {
+        path: "/pet_shelters",
+        element: <ListingPetSheltersPage />,
       },
     ],
   },
