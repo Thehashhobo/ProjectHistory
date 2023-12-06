@@ -16,9 +16,9 @@ const ListingPetSheltersPage = () => {
             try {
                 let accounts_url = 'http://127.0.0.1:8000/accounts/'
                 let pet_shelter_get_endpoint = accounts_url + 'petshelter/'
-                const response = await fetch(pet_shelter_get_endpoint);
-                if (response.ok) {
-                    const petSheltersData = await response.json();
+                const resp = await fetch(pet_shelter_get_endpoint);
+                if (resp.ok) {
+                    const petSheltersData = await resp.json();
                     setPetShelters(petSheltersData);
                 }
             } catch (error) {

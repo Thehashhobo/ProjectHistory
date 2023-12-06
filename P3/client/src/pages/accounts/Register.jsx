@@ -111,7 +111,7 @@ const RegistrationPage = () => {
         };
 
         try {
-            const response = await axios.post(api_endpoint, requestData, {
+            const resp = await axios.post(api_endpoint, requestData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

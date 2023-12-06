@@ -14,39 +14,34 @@ import {
     Link,
     Text,
 } from '@chakra-ui/react';
-
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
+    const navigate = useNavigate();
+    const [displayError, setDisplayError] = useState(false);
     const [loginFormData, setLoginFormData] = useState({
         email: '',
         password: '',
     });
-
     const handleChange = (e) => {
         setLoginFormData({
             ...loginFormData,
             [e.target.name]: e.target.value,
         });
     };
-
-    const [displayError, setDisplayError] = useState(false);
-
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         try {
-            const response = await axios.post('http://localhost:8000/accounts/login/', loginFormData, {
+            const resp = await axios.post('http://localhost:8000/accounts/login/', loginFormData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            const { access_token, refresh_token } = response.data;
+            const { access_token, refresh_token } = resp.data;
             localStorage.setItem('access_token', access_token);
             localStorage.setItem('refresh_token', refresh_token);
-
             setDisplayError(false);
-
-
+            navigate('/pet_shelters');
         } catch (error) {
             console.error('Login failed:', error.message);
             setDisplayError(true);
@@ -55,7 +50,6 @@ const LoginPage = () => {
 
     return (
         <Container>
-
             <Box mt={10} mb={10} bg="#FFFFFF" borderWidth="8px" borderRadius="lg" p={4}>
                 <Heading textAlign="center" mb={4}>Login to <Text color="blue.500">Barnyard Buddies</Text></Heading>
                 {displayError && (
