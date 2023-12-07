@@ -23,8 +23,13 @@ const router = createBrowserRouter([
         element: <PetListingPage />,
       },
       {
-        path: '/petdetails/:petId', // path to Pet detail List
+        path: '/pet-details/:petId', // path to Pet detail List
         element: <PetListingDetailPage />,
+      },
+      {
+        path: '/pet-details/application/:petId', // path to Pet detail List
+        element: <Home />, // change element to your application page(if you are using page,but i think pop up might be better) 
+        //and use const { petId } = useParams(); to grab petId
       },
     ],
   },
