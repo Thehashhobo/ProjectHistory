@@ -37,13 +37,14 @@ const LoginPage = () => {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            const { access_token, refresh_token } = resp.data;
+            const access_token = resp.data.access;
+            const refresh_token = resp.data.refresh;
             localStorage.setItem('access_token', access_token);
             localStorage.setItem('refresh_token', refresh_token);
             setDisplayError(false);
             navigate('/pet_shelters');
         } catch (error) {
-            console.error('Login failed:', error.message);
+            console.error('LOGIN ERROR:', error.message);
             setDisplayError(true);
         }
     };

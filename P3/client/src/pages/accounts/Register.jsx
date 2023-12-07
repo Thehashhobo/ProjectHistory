@@ -121,7 +121,7 @@ const RegistrationPage = () => {
             if (error.response && error.response.data) {
                 setError(error.response.data.error);
             } else {
-                setError('Unknown error took place.');
+                setError('ERROR WHICH IS UNKNOWN HAS TAKEN PLACE');
             }
         }
     };
