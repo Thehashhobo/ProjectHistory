@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import defaultImage from "../../assests/default.png"
 
+
 import axios from 'axios';
 import { 
     Card, 
@@ -20,6 +21,7 @@ import PropTypes from 'prop-types';
 
 
 function PetListingCard(pet){
+    const navigate = useNavigate();
     const imageUrl = pet.avatar || defaultImage;
 
     const [shelter, setShelter] = useState(null);
@@ -38,10 +40,10 @@ function PetListingCard(pet){
         }
     }, [pet.shelter]);
 
-    const navigate = useNavigate();
+    
 
     const handleMoreInfoClick = (petId) => {
-        navigate(`/petdetails/${petId}`);
+        navigate(`/pet-details/${petId}`);
     };
 
     return (
