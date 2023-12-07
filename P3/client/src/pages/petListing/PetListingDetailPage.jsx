@@ -6,6 +6,8 @@ import defaultImage from "../../assests/default.png"
 import { Card, Grid, Image, CardBody, Text, GridItem, Divider, Stack, Button, Center} from '@chakra-ui/react';
 import { EmailIcon } from "@chakra-ui/icons";
 import { useMediaQuery } from 'react-responsive'
+import TimeAgo from 'react-timeago'
+
 
 function PetListingDetailPage() {
     const navigate = useNavigate();
@@ -64,8 +66,7 @@ function PetListingDetailPage() {
         color = '#7ae036'; //green
     } else 
     {color = 'red';}
-    
-    
+
 
     const handleApplicationClick = (petId) => {
         navigate(`/pet-details/application/${petId}`);
@@ -75,23 +76,33 @@ function PetListingDetailPage() {
             <Grid style={gridstyle}>
                 <GridItem>
                     <Card variant={'outline'} style={cardstyle}>
-                        <CardBody>
+                        <CardBody style={{display: "flex", justify: "center", flexDirection: "column"}}>
                             <h1 style={{textAlign:'center', fontSize:"40px"}}>Name: {pet.name}</h1>
                             <Divider />
-                            <Image
+                            <Image style={{alignSelf:'center'}}
                                 src={imageUrl}
                                 alt={pet.name || 'Pet'}
                                 borderRadius='lg'
                             />
-                            <Text>View a summary of all your customers over the last month. 1</Text>
+                            
+                            <Text fontSize = "25px" style={{margin: "10px",textAlign:'center'}}>Gender: {pet.gender} | Breed: {pet.breed} | Size: {pet.size}</Text>
+                            <Text fontSize = "25px" style={{margin: "10px",textAlign:'center'}}>Age: {pet.age} | Color: {pet.color} </Text>
+                            <Text fontSize = "25px" style={{margin: "10px",textAlign:'center'}}>Characteristics: {pet.characteristics}</Text>
+                            <div style={{margin: "10px", alignSelf:'center'}}>
+                                Posted <TimeAgo fontSize = "15px" style={{textAlign:'center'}} date={pet.date_posted}/>
+                            </div>
+                            
+
+                            
                         </CardBody>
                     </Card>
                 </GridItem>
 
                 <GridItem>
                     <Card style={cardstyle}>
-                        <CardBody>
-                            <Card style={{backgroundColor: color, borderRadius: '50px', maxWidth: "60%",minWidth: "500px" }}>
+                        <CardBody style={{display: "flex", justify: "center", flexDirection: "column"}}>
+                            <Text fontSize = "25px" style={{margin: "10px",textAlign:'center'}}>Pet Description: {pet.description}</Text>
+                            <Card style={{alignSelf:"center", backgroundColor: color, borderRadius: '50px', maxWidth: "45%",minWidth: "500px" }}>
                                 <Text style={{textAlign:'center', fontSize:"30px", margin: "15px"}}>Adoption Status {pet.status}</Text>
                             </Card>
                             <Stack direction='row' spacing={4} margin={15} justify="center">
@@ -102,7 +113,7 @@ function PetListingDetailPage() {
                                     Adopt!
                                 </Button>
                             </Stack>
-                            <Text>View a summary of all your customers over the last month. 2</Text>
+                           
                         </CardBody>
                     </Card>
                 </GridItem>

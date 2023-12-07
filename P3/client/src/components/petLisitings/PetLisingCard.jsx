@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import defaultImage from "../../assests/default.png"
-
-
-import axios from 'axios';
+import { FetchShelter } from '../../hooks/FetchShelter';
 import { 
     Card, 
     CardBody, 
@@ -24,22 +22,7 @@ function PetListingCard(pet){
     const navigate = useNavigate();
     const imageUrl = pet.avatar || defaultImage;
 
-    const [shelter, setShelter] = useState(null);
-    useEffect(() => {
-        const fetchShelter = async () => {
-            try {
-                const response = await axios.get(`http://127.0.0.1:8000/accounts/petshelter/${pet.shelter}`); // Replace with your actual API URL
-                setShelter(response.data.address);
-            } catch (error) {
-                console.error('Error fetching shelter details:', error);
-            }
-        };
-
-        if (pet.shelter) {
-            fetchShelter();
-        }
-    }, [pet.shelter]);
-
+    const shelter = FetchShelter(pet.shelter)
     
 
     const handleMoreInfoClick = (petId) => {
