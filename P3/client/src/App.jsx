@@ -12,6 +12,9 @@ import RegistrationPage from './pages/accounts/Register.jsx';
 import LoginPage from './pages/accounts/Login.jsx';
 import ListingPetSheltersPage from './pages/accounts/ListingShelters.jsx';
 import ShelterDetailPage from './pages/accounts/DetailShelter.jsx';
+import AccountInfoPage from './pages/accounts/AccountInfoPage.jsx';
+import PetPalUserUpdatePage from './pages/accounts/PetPalUserUpdatePage.jsx';
+
 
 const router = createBrowserRouter([
   {
@@ -51,6 +54,14 @@ const router = createBrowserRouter([
         element: <Home />, // change element to your application page(if you are using page,but i think pop up might be better) 
         //and use const { petId } = useParams(); to grab petId
       },
+      {
+        path: '/account-information',
+        element: <AccountInfoPage />,
+      },
+      {
+        path: '/account-update',
+        element: <PetPalUserUpdatePage />
+      }
     ],
   },
 ]);
