@@ -1,13 +1,43 @@
 from django.shortcuts import render
-from rest_framework import status
+from rest_framework import status, generics
 from rest_framework.views import APIView
 from .models import PetPalUser, PetSeeker, PetShelter
-from .serializers import PetSeekerSerializer, PetShelterSerializer, PetShelterUpdateSerializer, PetSeekerUpdateSerializer
+from .serializers import PetSeekerSerializer, PetShelterSerializer, PetShelterUpdateSerializer, PetSeekerUpdateSerializer, UserTypeSerializer, ShelterUserSerializer, SeekerUserSerializer
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
-from petListing.models import Application #NEED AN APPLICATION APP AND MODEL
+from petListing.models import Application 
 
+
+class PetPalUserTypeView(APIView):
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        serializer = UserTypeSerializer(user)
+        return Response({'user_id': serializer.data['id'], 'email': serializer.data['email'], 'is_pet_shelter': serializer.data['is_pet_shelter']}, status=status.HTTP_200_OK)
+
+class RetrieveUserInformation(generics.RetrieveAPIView):
+    def get_serializer_class(self):
+        is_pet_shelter = self.request.user.is_pet_shelter 
+        if is_pet_shelter:
+            return ShelterUserSerializer
+        elif not is_pet_shelter:
+            return SeekerUserSerializer
+        else:
+            pass
+    def get_object(self):
+        is_pet_shelter = self.request.user.is_pet_shelter
+        user = self.request.user
+
+        if is_pet_shelter:
+            return PetShelter.objects.get(user=user)
+        elif not is_pet_shelter:
+            return PetSeeker.objects.get(user=user)
+        else:
+            pass
+    def get(self, request, *args, **kwargs):
+        instance = self.get_object()
+        user_info_serializer = self.get_serializer(instance)
+        return Response(user_info_serializer.data, status=status.HTTP_200_OK)
 
 ### PET SEEKER VIEWS ###
 class PetSeekerRegisterView(APIView):
@@ -34,7 +64,9 @@ class PetSeekerDetailUpdateDeleteView(APIView):
     # Get detail of a PetSeeker with a pending application if the user is a pet_shelter
     def get(self, request, pk):
         pet_seeker = get_object_or_404(PetSeeker, pk=pk)
-        active_application = Application.objects.filter(pet_listing__shelter__user = request.user, pet_seeker=pet_seeker, status="pending").first()
+        # active_application = Application.objects.filter(pet_listing__shelter__user = request.user, pet_seeker=pet_seeker.user, status="pending").first()
+        active_application = Application.objects.filter(pet_seeker=pet_seeker.user, status="pending").first()
+
         if active_application:
             pet_seeker_serializer = PetSeekerSerializer(pet_seeker)
             return Response(pet_seeker_serializer.data)

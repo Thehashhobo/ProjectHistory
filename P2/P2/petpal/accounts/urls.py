@@ -8,6 +8,8 @@ from .views import (
     PetSeekerDetailUpdateDeleteView,
     PetShelterRegisterListView,
     PetShelterDetailUpdateDeleteView,
+    PetPalUserTypeView,
+    RetrieveUserInformation,
 )
 
 
@@ -18,4 +20,8 @@ urlpatterns = [
     path('petshelter/<int:pk>/', PetShelterDetailUpdateDeleteView.as_view()),
     path('petseeker/', PetSeekerRegisterView.as_view()),
     path('petseeker/<int:pk>/', PetSeekerDetailUpdateDeleteView.as_view()),
+    path('user-type/', PetPalUserTypeView.as_view()),
+    path('user/', RetrieveUserInformation.as_view()),
 ]
+
+ 
