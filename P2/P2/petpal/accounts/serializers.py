@@ -1,6 +1,24 @@
 from rest_framework import serializers
-from .models import PetSeeker, PetShelter
+from .models import PetSeeker, PetShelter, PetPalUser
 from django.core.exceptions import ValidationError
+
+
+##ADDED NEW
+class UserTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PetPalUser
+        fields = ['id', 'email', 'is_pet_shelter']
+
+class ShelterUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PetShelter
+        fields = ('id', 'user', 'name', 'mission_statement', 'address', 'phone_number')
+
+class SeekerUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PetSeeker
+        fields = ('id', 'user', 'name', 'avatar')
+
 
 class PetSeekerSerializer(serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(read_only=True)
@@ -50,6 +68,7 @@ class PetSeekerUpdateSerializer(serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(read_only=True)
     new_password = serializers.CharField(write_only =True, required=False, style={'input_type': 'password'})
     new_password2 = serializers.CharField(write_only= True, required=False, style={'input_type': 'password'})
+    avatar = serializers.ImageField(required=False)
 
     class Meta:
         model = PetSeeker

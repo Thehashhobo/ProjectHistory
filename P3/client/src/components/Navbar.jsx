@@ -26,7 +26,8 @@ const Links = [
   { label: 'Create Posting', to: '/createproject' },
   { label: 'Register', to: '/register' },
   { label: 'Login', to: '/login' },
-  { label: 'Pet Shelters', to: 'pet_shelters' },
+  { label: 'Pet Shelters', to: '/pet_shelters' },
+  { label: 'Account Information', to: '/account-information' },
 ];
 
 const NavLink = (props) => {
