@@ -150,7 +150,7 @@ const AccountInfoPage = () => {
                             <Box mt={4} borderRadius="full"
                                 overflow="hidden"
                                 boxSize="270px" borderWidth="2px"  >
-                                <Image src={userInfoData.avatar} alt={`Profile of ${userInfoData.name}`} width="100%" height="100%" objectFit="cover" mb={4} />
+                                <Image objectFit="cover" mb={3} src={userInfoData.avatar} alt={`Profile of ${userInfoData.name}`} width="100%" height="100%" />
                             </Box>)}
                     </Center>
                 )}

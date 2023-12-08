@@ -14,7 +14,7 @@ import ListingPetSheltersPage from './pages/accounts/ListingShelters.jsx';
 import ShelterDetailPage from './pages/accounts/DetailShelter.jsx';
 import AccountInfoPage from './pages/accounts/AccountInfoPage.jsx';
 import PetPalUserUpdatePage from './pages/accounts/PetPalUserUpdatePage.jsx';
-
+import PetSeekerDetailPage from './pages/accounts/DetailSeeker.jsx';
 
 const router = createBrowserRouter([
   {
@@ -61,6 +61,10 @@ const router = createBrowserRouter([
       {
         path: '/account-update',
         element: <PetPalUserUpdatePage />
+      },
+      {
+        path: '/pet_seeker/:petSeekerID',
+        element: <PetSeekerDetailPage />
       },
     ],
   },
