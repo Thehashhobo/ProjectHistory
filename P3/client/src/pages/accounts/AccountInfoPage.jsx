@@ -142,6 +142,12 @@ const AccountInfoPage = () => {
                                 <Text textAlign="center">{userInfoData.address}</Text>
                             </VStack>
                         </Center>
+                        <Center>
+                            <VStack mb={5}>
+                                <Text fontWeight="bold">Phone Number: </Text>
+                                <Text textAlign="center">{userInfoData.phone_number}</Text>
+                            </VStack>
+                        </Center>
                     </>
                 )}
                 {!isPetShelter && (
