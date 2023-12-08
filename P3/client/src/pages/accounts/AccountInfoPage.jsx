@@ -23,6 +23,32 @@ const AccountInfoPage = () => {
     const handleShelterDetailBtnClick = () => {
         nav(`/pet_shelters/${userInfoData.id}`);
     };
+
+    const handleDeleteBtnClick = () => {
+        let api_endpoint = '';
+
+        if (isPetShelter) {
+            api_endpoint = `http://127.0.0.1:8000/accounts/petshelter/${userInfoData.id}/`;
+        } else {
+            api_endpoint = `http://127.0.0.1:8000/accounts/petseeker/${userInfoData.id}/`;
+        }
+
+        axios.delete(api_endpoint, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(response => {
+                nav('/login')
+            })
+            .catch(error => {
+                console.error('ERROR OCCURED WHEN TRYING TO DELETE ACCOUNT', error);
+            });
+
+    };
+
+
     const [userInfoData, setUserInfoData] = useState({
         id: '',
         user: '',
@@ -87,6 +113,9 @@ const AccountInfoPage = () => {
                             </Box>
 
                         )}
+                        <Box m={2}>
+                            <Button colorScheme='red' variant='solid' onClick={handleDeleteBtnClick}>Delete Account</Button>
+                        </Box>
                     </HStack>
                 </Center>
 

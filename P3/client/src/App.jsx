@@ -61,7 +61,7 @@ const router = createBrowserRouter([
       {
         path: '/account-update',
         element: <PetPalUserUpdatePage />
-      }
+      },
     ],
   },
 ]);
