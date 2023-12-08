@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import {
+    Alert,
+    AlertIcon,
     Box,
     Button,
     Center,
-    Container,
     FormControl,
     FormLabel,
     Heading,
@@ -31,6 +32,8 @@ const UpdatePetPalUser = () => {
     });
     const [displayUpdateSuccessMsg, setDisplayUpdateSuccessMsg] = useState(false);
     const [addAvatar, setAddAvatar] = useState(false)
+    const [passwordNotMatch, setPasswordNotMatch] = useState(false);
+    const [displayWarning, setDisplayWarning] = useState(false);
 
     useEffect(() => {
         const getCurrentUserInfo = async () => {
@@ -80,6 +83,14 @@ const UpdatePetPalUser = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (updateFormData.password !== updateFormData.password2) {
+            setDisplayUpdateSuccessMsg(false)
+            setPasswordNotMatch(true);
+            setDisplayWarning(true);
+            return;
+        }
+        setPasswordNotMatch(false);
+        setDisplayWarning(false);
 
         let api_endpoint = '';
 
@@ -144,6 +155,14 @@ const UpdatePetPalUser = () => {
                     Update your <Text color="blue.500">Barnyard Buddies</Text> Account
                 </Heading>
                 {displayUpdateSuccessMsg && <Box fontWeight="bold" color="#48BB78">Account Updated!</Box>}
+                {displayWarning && (
+                    <Alert status="error" borderRadius="lg" mb={3}>
+                        <AlertIcon />
+                        {passwordNotMatch && (
+                            <span>Password fields do not match.</span>
+                        )}
+                    </Alert>
+                )}
                 <form onSubmit={handleSubmit}>
                     {!isPetShelter && (
                         <>
