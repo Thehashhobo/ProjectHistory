@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import defaultImage from "../../assests/default.png"
 import { FetchShelter } from '../../hooks/FetchShelter';
@@ -12,17 +12,48 @@ import {
     ButtonGroup, 
     Stack,
     Button,
-    CardFooter 
-  } from '@chakra-ui/react';
+    CardFooter,
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalFooter,
+    ModalBody,
+    ModalCloseButton,
+    useDisclosure,
 
+  } from '@chakra-ui/react';
+  import PetListingForm from '../petListings/CreateUpdateListing';
 import PropTypes from 'prop-types';
 
 
 function PetListingCard(pet){
     const navigate = useNavigate();
     const imageUrl = pet.avatar || defaultImage;
+    const { isOpen: isModalOpen, onOpen: onModalOpen, onClose: onModalClose } = useDisclosure();
+    const formRef = useRef();
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const shelter = FetchShelter(pet.shelter)
+
+    const submitForm = () => {
+        setIsSubmitting(true);
+        formRef.current.submitForm(); // This will trigger onSubmit in the form
+      };
+    
+      const onFormSubmitSuccess = () => {
+        setShowSuccessMessage(true);
+        onModalClose();
+        // Other success handling logic...
+      };
+      const closeSuccessMessage = () => {
+        setShowSuccessMessage(false);
+      };
+
+    const canEdit = () => {
+        return (pet.shelter == localStorage.getItem('user_id'))
+    }
     
 
     const handleMoreInfoClick = (petId) => {
@@ -30,8 +61,52 @@ function PetListingCard(pet){
     };
 
     return (
+        <>
         <Card maxW='sm'>
         <CardBody>
+        <div>
+            
+            <Modal
+              isOpen={isModalOpen}
+              onClose={() => {
+                onModalClose();
+                setIsSubmitting(false);
+              }}
+              size={'full'}
+            >
+            <ModalOverlay />
+            <ModalContent>
+                <ModalHeader>Update Pet Listing</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody pb={6}>
+                <PetListingForm
+                    onFormSubmitSuccess={onFormSubmitSuccess}
+                    predefinedValues={{
+                        name: pet.name,
+                        breed: pet.breed,
+                        age: pet.age,
+                        size: pet.size,
+                        color: pet.color,
+                        gender: pet.gender,
+                        description: pet.description,
+                        characteristics: pet.characteristics,
+                        status: pet.status,
+                        avatar: null
+
+                    }}
+                    ref={formRef}
+                />
+                </ModalBody>
+
+                <ModalFooter>
+                <Button onClick={submitForm} colorScheme='blue' mr={3}>
+                    Submit Form
+                </Button>
+                <Button onClick={onModalClose}>Cancel</Button>
+                </ModalFooter>
+            </ModalContent>
+            </Modal>
+        </div>
             <Image
             src={imageUrl}
             alt={pet.name || 'Pet'}
@@ -53,12 +128,14 @@ function PetListingCard(pet){
             <Button variant='solid' colorScheme='blue' onClick={() => handleMoreInfoClick(pet.id)}>
                 More info
             </Button>
-            <Button variant='ghost' colorScheme='blue'>
-                Add to cart
-            </Button>
+            {canEdit() && (<Button variant='ghost' colorScheme='blue' onClick={onModalOpen}> 
+                Edit Pet Info
+            </Button>)}
+            
             </ButtonGroup>
         </CardFooter>
         </Card>
+        </>
     )
 }
 

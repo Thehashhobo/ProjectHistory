@@ -3,13 +3,41 @@ import {
     Box,
     Heading,
     Text,
-    SimpleGrid
+    SimpleGrid,
+    Grid
 } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
+import useFetchPetListings from "../../hooks/FetchPetListings";
+import { useMediaQuery } from 'react-responsive'
+import PetListingCard from "../../components/petListings/PetListingCard";
 
 const ShelterDetailPage = () => {
     const [petShelterDetail, setPetShelterDetail] = useState(null);
     const { petShelterID } = useParams();
+    const isLargeScreen = useMediaQuery({ query: '(min-width: 1920px)' });
+    const isMediumScreen = useMediaQuery({ query: '(min-width: 845px) and (max-width: 1919px)' });
+    const isSmallScreen = useMediaQuery({ query: '(max-width: 844px)' });
+
+    let columns;
+    if (isLargeScreen) {
+        columns = 'repeat(5, 1fr)';
+    } else if (isMediumScreen) {
+        columns = 'repeat(3, 1fr)';
+    } else if (isSmallScreen) {
+        columns = 'repeat(2, 1fr)';
+    }
+    const petListings = useFetchPetListings(
+        {
+            status: '',
+            size: '',
+            shelter: localStorage.getItem('user_id'),
+            gender: ''
+        },
+        {
+            age: '',
+            size: ''
+        }
+    );
     useEffect(() => {
         const getPetShelterDetails = async () => {
             try {
@@ -62,7 +90,11 @@ const ShelterDetailPage = () => {
                     <Text textAlign="center"> Email: {formattedPetShelterEmail}</Text>
                 </Box>
             </SimpleGrid >
-
+            <Grid templateColumns={columns} marginTop={"30px"} gap={6} justifyContent="center">
+            {petListings.map(pet => (
+                <PetListingCard key={pet.id} {...pet} /> // Spread operator to pass all pet properties as props
+            ))}
+            </Grid>
         </Box >
     );
 };

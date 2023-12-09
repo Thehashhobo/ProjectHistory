@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Grid, GridItem, Select } from "@chakra-ui/react";
 import { useMediaQuery } from 'react-responsive'
+import useFetchPetListings from "../../hooks/FetchPetListings";
 
 
 function PetListingPage() {
@@ -53,7 +54,6 @@ function PetListingPage() {
         fetchShelters();
     }, []);
 
-    const [petListings, setPetListings] = useState([]);
     const [statusFilter, setStatusFilter] = useState('');
     const [sizeFilter, setSizeFilter] = useState('');
     const [shelterFilter, setShelterFilter] = useState('');
@@ -62,40 +62,10 @@ function PetListingPage() {
     const [sizeSort, setSizeSort] = useState('');
     const [shelterList, setShelterList] = useState([]);
     
-    const fetchPetListings = async () => {
-        let queryString = 'http://127.0.0.1:8000/petListing/?';
-        const filters = {
-            status: statusFilter,
-            size: sizeFilter,
-            shelter: shelterFilter,
-            gender: genderFilter,
-        };
-    
-        Object.keys(filters).forEach(key => {
-            if (filters[key]) {
-                queryString += `${key}=${filters[key]}&`;
-            }
-        });
-    
-        if (ageSort) {
-            queryString += `ordering=${ageSort === 'descending' ? '-' : ''}age&`;
-        }
-        if (sizeSort) {
-            queryString += `ordering=${sizeSort === 'descending' ? '-' : ''}size&`;
-        }
-    
-        try {
-            const response = await axios.get(queryString);
-            setPetListings(response.data);
-        } catch (error) {
-            console.error('Error fetching pet listings:', error);
-        }
-    };
-    
-    // Call fetchPetListings initially and whenever filter/sort changes
-    useEffect(() => {
-        fetchPetListings();
-    }, [statusFilter, sizeFilter, shelterFilter, genderFilter, ageSort, sizeSort]);
+    const petListings = useFetchPetListings(
+        { status: statusFilter, size: sizeFilter, shelter: shelterFilter, gender: genderFilter },
+        { age: ageSort, size: sizeSort }
+    );
 
     // Media queries
     const isLargeScreen = useMediaQuery({ query: '(min-width: 1920px)' });

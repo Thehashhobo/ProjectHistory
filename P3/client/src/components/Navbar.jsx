@@ -23,7 +23,7 @@ import {
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import logoImage from './logo.png';
 import { Link } from 'react-router-dom';
-import PetListingForm from './petListings/CreateListing';
+import PetListingForm from './petListings/CreateUpdateListing';
 import React, { useRef, useState } from 'react';
 
 

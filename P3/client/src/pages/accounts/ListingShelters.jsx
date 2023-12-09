@@ -9,6 +9,7 @@ import {
 } from '@chakra-ui/react';
 
 
+
 const ListingPetSheltersPage = () => {
     const [petShelters, setPetShelters] = useState([]);
     useEffect(() => {
@@ -26,6 +27,7 @@ const ListingPetSheltersPage = () => {
             }
         };
         getListOfPetShelters();
+    
     }, []);
 
 
