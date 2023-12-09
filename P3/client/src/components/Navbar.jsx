@@ -65,29 +65,22 @@ export default function Simple() {
 
   const submitForm = () => {
     setIsSubmitting(true);
-    formRef.current.submitForm().then((isFormSubmitted) => {
-      if (isFormSubmitted) {
-        onModalClose();
-        setShowSuccessMessage(true);
-      }
-      setIsSubmitting(false);
-    });
+    formRef.current.submitForm(); // This will trigger onSubmit in the form
+  };
+
+  const onFormSubmitSuccess = () => {
+    setShowSuccessMessage(true);
+    onModalClose();
+    // Other success handling logic...
   };
 
   const canAddListing = () => {
-    //return (localStorage.getItem("is_pet_shelter_user") === true)
-    return true
+    return (localStorage.getItem("is_pet_shelter_user") == true)
   }
 
   const closeSuccessMessage = () => {
     setShowSuccessMessage(false);
   };
-    // const submitForm = () => {
-  //     if (localStorage.getItem("is_pet_shelter_user") === true){
-  //       formRef.current.submitForm();
-  //     }
-      
-  // };
 
   const imageStyle = {
     width: '25%', // Set the width to 100%
@@ -130,7 +123,7 @@ export default function Simple() {
                 </NavLink>
               ))}
             </HStack>
-            {canAddListing() && (<Button onClick={onModalOpen}>Add Pet Listing</Button>)}
+            {canAddListing && (<Button onClick={onModalOpen}>Add Pet Listing</Button>)}
             
           </HStack>
         </Flex>
@@ -161,7 +154,7 @@ export default function Simple() {
                 <ModalHeader>Create a Pet Listing</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody pb={6}>
-                <PetListingForm ref={formRef} />
+                <PetListingForm ref={formRef} onFormSubmitSuccess={onFormSubmitSuccess} />
                 </ModalBody>
 
                 <ModalFooter>

@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { forwardRef, useImperativeHandle } from 'react';
 import { useForm } from 'react-hook-form';
 
-const PetListingForm = forwardRef((props, ref) => {
+const PetListingForm = forwardRef(({ onFormSubmitSuccess }, ref) => {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = async (data) => {
@@ -10,28 +10,31 @@ const PetListingForm = forwardRef((props, ref) => {
         let queryString = 'http://127.0.0.1:8000/petListing/';
       
         const requestData = {
-            name: data.email,
+            name: data.name,
             breed: data.breed,
             age: data.age,
             size: data.size,
             color: data.color,
             gender: data.gender,
             description: data.name,
-            shelter: 1,
+            shelter: localStorage.getItem('user_id'),
             date_posted: Date.now(),
             characteristics: data.characteristics,
             avatar: data.avatar
         };
-      
         try {
-            const accessToken = getAccessToken();
-            const resp = await axios.post(queryString, requestData, {
+            const accessToken = localStorage.getItem('access_token')
+            await axios.post(queryString, requestData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'Authorization': `Bearer ${accessToken}`
                 },
             });
-            // Handle response
+
+            // If successful:
+            if (onFormSubmitSuccess) {
+                onFormSubmitSuccess(); // Notify parent component of success
+            }
         } catch (error) {
             {
                 console.error('Error creating pet listing:', error);
