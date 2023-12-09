@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { forwardRef, useImperativeHandle } from 'react';
 import { useForm } from 'react-hook-form';
+import { ErrorMessage } from "@hookform/error-message"
+
 
 const PetListingForm = forwardRef(({ onFormSubmitSuccess }, ref) => {
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -48,6 +50,7 @@ const PetListingForm = forwardRef(({ onFormSubmitSuccess }, ref) => {
         submitForm: () => handleSubmit(onSubmit)()
     }));
 
+
     const formStyle = {
         display: 'grid', 
         gridTemplateColumns: 'repeat(2, 1fr)', 
@@ -91,8 +94,22 @@ const PetListingForm = forwardRef(({ onFormSubmitSuccess }, ref) => {
 
             <div style={groupStyle}>
                 <label htmlFor="age" style={labelStyle}>Age</label>
-                <input id="age" type="number" style={inputStyle}{...register('age', { required: true })} />
-                {errors.age && <span style={redText}>This field is required</span>}
+                <input 
+                    id="age" 
+                    style={inputStyle}
+                    {...register('age', {
+                        required: 'This field is required',
+                        pattern: {
+                            value: /^[0-9]+$/, // Regex for positive numbers only
+                            message: 'Please input a positive number'
+                        }
+                    })} 
+                />
+                <ErrorMessage
+                    errors={errors}
+                    name="age" // Match the field name
+                    render={({ message }) => <p style={redText}>{message}</p>}
+                />
             </div>
 
             <div style={groupStyle}>
@@ -129,7 +146,7 @@ const PetListingForm = forwardRef(({ onFormSubmitSuccess }, ref) => {
 
             <div style={groupStyle}>
                 <label htmlFor="characteristics" style={labelStyle}>Characteristics</label>
-                <input id="characteristics" style={inputStyle}{...register('characteristics', { required: true })} />
+                <input id="characteristics" style={inputStyle}{...register('characteristics', { required: true } )} />
                 {errors.characteristics && <span style={redText}>This field is required</span>}
             </div>
 
