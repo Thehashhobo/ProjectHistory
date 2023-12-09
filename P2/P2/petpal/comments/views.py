@@ -42,7 +42,6 @@ class ApplicationCommentListCreate(ListCreateAPIView):
 
     def create(self, request, *args, **kwargs):
         serializer_instance = CommentSerializer(data=request.data)
-        print("hi")
         if serializer_instance.is_valid():
             # step 1: make sure the application exists
             application_id = self.kwargs['pk']
