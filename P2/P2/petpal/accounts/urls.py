@@ -10,6 +10,7 @@ from .views import (
     PetShelterDetailUpdateDeleteView,
     PetPalUserTypeView,
     RetrieveUserInformation,
+    PetSeekerProfileView,
 )
 
 
@@ -22,6 +23,7 @@ urlpatterns = [
     path('petseeker/<int:pk>/', PetSeekerDetailUpdateDeleteView.as_view()),
     path('user-type/', PetPalUserTypeView.as_view()),
     path('user/', RetrieveUserInformation.as_view()),
+    path('petseeker/<int:pk>/profile/', PetSeekerProfileView.as_view(), name='pet_seeker_profile'),
 ]
 
  

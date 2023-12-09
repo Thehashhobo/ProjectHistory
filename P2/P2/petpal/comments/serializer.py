@@ -7,7 +7,7 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
 
-        fields = ['comment_text', 'comment_creation_time', 'content_type', 'object_id']
+        fields = ['comment_text', 'comment_creation_time', 'content_type', 'object_id', 'comment_made_by_the_user', 'comment_made_by_the_id_pet_seeker', 'comment_made_by_the_id_pet_shelter', 'rating', 'is_application']
 
     def validate(self, data):
         content_type = data.get('content_type')
@@ -15,3 +15,4 @@ class CommentSerializer(serializers.ModelSerializer):
         if not ContentType.objects.filter(pk=content_type.id).exists():
             raise serializers.ValidationError("Not a valid content type to comment on.")
         return data
+    

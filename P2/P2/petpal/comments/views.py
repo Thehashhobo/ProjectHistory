@@ -94,3 +94,5 @@ class ApplicationCommentListCreate(ListCreateAPIView):
             return Comment.objects.filter(object_id=application_id).order_by('-comment_creation_time')
         else:
             raise serializers.ValidationError("You are not authorized to comment on this application.")
+
+
