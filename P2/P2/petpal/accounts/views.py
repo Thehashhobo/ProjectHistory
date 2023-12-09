@@ -160,3 +160,18 @@ class PetShelterDetailUpdateDeleteView(APIView):
             return Response(f"The Pet Shelter titled {pet_shelter_name} and its associated account {pet_shelter_email} have been deleted successfully.", status=status.HTTP_204_NO_CONTENT)
         else:
             return Response("You are attempting to perform an unauthorized action", status=status.HTTP_403_FORBIDDEN)
+
+################### Added for Comment Display Functionality ###################
+class PetSeekerProfileView(APIView):
+    def get(self, request, pk):
+        pet_seeker = get_object_or_404(PetSeeker, pk=pk)
+        pet_seeker_serializer = PetSeekerSerializer(pet_seeker)
+
+        # Extract relevant information from the serializer
+        profile_data = {
+            'name': pet_seeker_serializer.data.get('name'),
+            'avatar_url': pet_seeker_serializer.data.get('avatar') if pet_seeker_serializer.data.get('avatar') else None,
+        }
+
+        return Response(profile_data, status=status.HTTP_200_OK)
+
