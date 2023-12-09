@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Box,
+import {
+  Box,
   Heading,
   Text,
   SimpleGrid,
@@ -35,42 +36,44 @@ const ShelterDetailPage = () => {
   const isLargeScreen = useMediaQuery({ query: '(min-width: 1920px)' });
   const isMediumScreen = useMediaQuery({ query: '(min-width: 845px) and (max-width: 1919px)' });
   const isSmallScreen = useMediaQuery({ query: '(max-width: 844px)' });
+  const [isPetShelter, setIsPetShelter] = useState(true);
 
   let columns;
   if (isLargeScreen) {
-      columns = 'repeat(5, 1fr)';
+    columns = 'repeat(5, 1fr)';
   } else if (isMediumScreen) {
-      columns = 'repeat(3, 1fr)';
+    columns = 'repeat(3, 1fr)';
   } else if (isSmallScreen) {
-      columns = 'repeat(2, 1fr)';
+    columns = 'repeat(2, 1fr)';
   }
   const petListings = useFetchPetListings(
-      {
-          status: '',
-          size: '',
-          shelter: petShelterID,
-          gender: ''
-      },
-      {
-          age: '',
-          size: ''
-      }
+    {
+      status: '',
+      size: '',
+      shelter: petShelterID,
+      gender: ''
+    },
+    {
+      age: '',
+      size: ''
+    }
   );
-  useEffect(() => {
-      const getPetShelterDetails = async () => {
-          try {
-              let accounts_url = 'http://127.0.0.1:8000/accounts/'
-              let pet_shelter_detail_get_endpoint = accounts_url + `petshelter/${petShelterID}/`
-              const resp = await fetch(pet_shelter_detail_get_endpoint);
-              if (resp.ok) {
-                  const resp_data = await resp.json();
-                  setPetShelterDetail(resp_data);
-              }
-          } catch (error) {
-              console.error('ERROR OCCURED WHEN RETRIEVED SHELTER DETAILS: ', error.message);
+  // useEffect(() => {
+  //   const getPetShelterDetails = async () => {
+  //     try {
+  //       let accounts_url = 'http://127.0.0.1:8000/accounts/'
+  //       let pet_shelter_detail_get_endpoint = accounts_url + `petshelter/${petShelterID}/`
+  //       const resp = await fetch(pet_shelter_detail_get_endpoint);
+  //       if (resp.ok) {
+  //         const resp_data = await resp.json();
+  //         setPetShelterDetail(resp_data);
+  //       }
+  //     } catch (error) {
+  //       console.error('ERROR OCCURED WHEN RETRIEVED SHELTER DETAILS: ', error.message);
 
-          }
-      }});
+  //     }
+  //   }
+  // });
   const [newComment, setNewComment] = useState({
     comment_text: '',
     rating: 0,
@@ -182,6 +185,12 @@ const ShelterDetailPage = () => {
         if (resp.ok) {
           const resp_data = await resp.json();
           setPetShelterDetail(resp_data);
+          const getPetShelterBool = localStorage.getItem('is_pet_shelter_user');
+          if (getPetShelterBool !== null) {
+            const parsedPetShelterBool = JSON.parse(getPetShelterBool);
+            setIsPetShelter(parsedPetShelterBool);
+            console.log("PET SHELER OR NOT:", parsedPetShelterBool)
+          }
 
           const commentsEndpoint = `http://127.0.0.1:8000/comments/shelters/${petShelterID}/`;
           const commentsResp = await fetch(commentsEndpoint);
@@ -408,14 +417,14 @@ const ShelterDetailPage = () => {
             Average Rating: {calculateAverageRating(comments).toFixed(2)} Stars
             ({totalReviews} Reviews)
           </Badge>
-
-          <Button
-            onClick={onOpen}
-            colorScheme='blue'
-            mt={{ base: '2', md: '0' }}
-          >
-            Add a Review
-          </Button>
+          {!isPetShelter && (
+            <Button
+              onClick={onOpen}
+              colorScheme='blue'
+              mt={{ base: '2', md: '0' }}
+            >
+              Add a Review
+            </Button>)}
         </Flex>
 
         {comments.length === 0 ? (
@@ -486,10 +495,10 @@ const ShelterDetailPage = () => {
         </ModalContent>
       </Modal>
       <Grid templateColumns={columns} marginTop={"30px"} gap={6} justifyContent="center">
-            {petListings.map(pet => (
-                <PetListingCard key={pet.id} {...pet} /> // Spread operator to pass all pet properties as props
-            ))}
-          </Grid>
+        {petListings.map(pet => (
+          <PetListingCard key={pet.id} {...pet} /> // Spread operator to pass all pet properties as props
+        ))}
+      </Grid>
     </Box>
   );
 }
