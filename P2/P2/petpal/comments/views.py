@@ -7,6 +7,8 @@ from rest_framework.response import Response
 from .models import Comment
 from petListing.models import Application
 from django.utils import timezone
+from notifications.models import Notification
+from accounts.models import PetShelter
 # Create your views here.
 
 ################# Shelter Comments #################
@@ -21,7 +23,15 @@ class ShelterCommentListCreate(ListCreateAPIView):
             shelter_id = self.kwargs['pk']
             if not Application.objects.filter(pk=shelter_id).exists():
                 raise serializers.ValidationError("Not a valid shelter to comment on.")
-            serializer_instance.save(comment_made_by_the_user=self.request.user)
+            #create notification to be viewed by shelter
+            comment = serializer_instance.save(comment_made_by_the_user=self.request.user,object_id=shelter_id)
+            pet_pal_user = PetShelter.objects.get(id=shelter_id).user
+            notification_message = f"New comment on shelter {shelter_id}"
+            Notification.objects.create(
+            user = pet_pal_user,
+            message = notification_message,
+            related_comment = comment
+            )
             return Response(serializer_instance.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer_instance.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -32,7 +42,7 @@ class ShelterCommentListCreate(ListCreateAPIView):
     
 ################# Application Comments #################
 
-class ApplicationCommentListCreate(CreateAPIView):
+class ApplicationCommentListCreate(ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = CommentSerializer
 
@@ -43,15 +53,31 @@ class ApplicationCommentListCreate(CreateAPIView):
             application_id = self.kwargs['pk']
             if not Application.objects.filter(pk=application_id).exists():
                 raise serializers.ValidationError("Not a valid application to comment on.")
+            
             # step 2: check who wants to comment and validate/save accordingly
+            
             application = Application.objects.get(pk=application_id)
+            
             if application.pet_seeker == self.request.user:
                 application.last_updated = timezone.now()
                 application.save()
-                serializer_instance.save(comment_made_by_the_user=self.request.user, object_id=application_id)
+                #create notification to be viewed by shelter
+                comment = serializer_instance.save(comment_made_by_the_user=self.request.user, object_id=application_id)
+                notification_message = f"New comment on application {application_id} by seeker"
+                Notification.objects.create(
+                user = Application.objects.get(pk = application_id).pet_seeker,
+                message = notification_message,
+                related_comment = comment
+                )
                 return Response(serializer_instance.data, status=status.HTTP_201_CREATED)
-            elif application.pet_listing.shelter == self.request.user:
-                serializer_instance.save(comment_made_by_the_user=self.request.user, object_id=application_id)
+            elif application.pet_listing.shelter.user == self.request.user:
+                notification_message = f"New comment on application {application_id} by shelter"
+                comment = serializer_instance.save(comment_made_by_the_user=self.request.user, object_id=application_id)
+                Notification.objects.create(
+                user = Application.objects.get(pk = application_id).pet_seeker,
+                message = notification_message,
+                related_comment = comment
+                )
                 return Response(serializer_instance.data, status=status.HTTP_201_CREATED)
             else:
                 raise serializers.ValidationError("You are not authorized to comment on this application.")
@@ -68,5 +94,3 @@ class ApplicationCommentListCreate(CreateAPIView):
             return Comment.objects.filter(object_id=application_id).order_by('-comment_creation_time')
         else:
             raise serializers.ValidationError("You are not authorized to comment on this application.")
-        
-
