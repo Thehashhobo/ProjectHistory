@@ -26,8 +26,7 @@ const PetListingForm = forwardRef(({ onFormSubmitSuccess, predefinedValues }, re
     
     const onSubmit = async (data) => {
         console.log(data);
-        const petId = predefinedValues?.id; // Assuming predefinedValues includes the pet ID
-        let queryString = `http://127.0.0.1:8000/petListing/${isUpdate() ? `${petId}/` : ''}`;
+        let queryString = `http://127.0.0.1:8000/petListing/${isUpdate() ? `${predefinedValues.petId}/` : ''}`;
     
         const requestData = isUpdate() ? {
             description: data.description,
@@ -183,7 +182,7 @@ const PetListingForm = forwardRef(({ onFormSubmitSuccess, predefinedValues }, re
 
             <div style={groupStyle}>
                 <label htmlFor="status" style={labelStyle}>Status</label>
-                <select id="status" style={getInputBorder(isUpdate())}{...register('size', { required: true })} disabled={!isUpdate()}>
+                <select id="status" style={getInputBorder(isUpdate())}{...register('status', { required: true })} disabled={!isUpdate()}>
                     <option value="available">Available</option>
                     <option value="adopted">Adopted</option>
                     <option value="pending">Pending</option>

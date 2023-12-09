@@ -119,7 +119,8 @@ function PetListingCard(pet){
                         description: pet.description,
                         characteristics: pet.characteristics,
                         status: pet.status,
-                        avatar: null
+                        avatar: null,
+                        petId: pet.id
 
                     }}
                     ref={formRef}
