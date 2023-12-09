@@ -103,7 +103,7 @@ function PetListingDetailPage() {
                         <CardBody style={{display: "flex", justify: "center", flexDirection: "column"}}>
                             <Text fontSize = "25px" style={{margin: "10px",textAlign:'center'}}>Pet Description: {pet.description}</Text>
                             <Card style={{alignSelf:"center", backgroundColor: color, borderRadius: '50px', maxWidth: "45%",minWidth: "500px" }}>
-                                <Text style={{textAlign:'center', fontSize:"30px", margin: "15px"}}>Adoption Status {pet.status}</Text>
+                                <Text style={{textAlign:'center', fontSize:"30px", margin: "15px"}}>Adoption Status: {pet.status}</Text>
                             </Card>
                             <Stack direction='row' spacing={4} margin={15} justify="center">
                                 <Button leftIcon={<EmailIcon />} colorScheme='teal' variant='solid'>
