@@ -26,40 +26,48 @@ const PetListingForm = forwardRef(({ onFormSubmitSuccess, predefinedValues }, re
     
     const onSubmit = async (data) => {
         console.log(data);
-        let queryString = 'http://127.0.0.1:8000/petListing/';
-      
-        const requestData = {
+        const petId = predefinedValues?.id; // Assuming predefinedValues includes the pet ID
+        let queryString = `http://127.0.0.1:8000/petListing/${isUpdate() ? `${petId}/` : ''}`;
+    
+        const requestData = isUpdate() ? {
+            description: data.description,
+            characteristics: data.characteristics,
+            avatar: data.avatar, // Assuming this is a file or a URL
+            status: data.status
+        } : {
             name: data.name,
             breed: data.breed,
             age: data.age,
             size: data.size,
             color: data.color,
             gender: data.gender,
-            description: data.name,
+            description: data.description,
             shelter: localStorage.getItem('user_id'),
             date_posted: Date.now(),
             characteristics: data.characteristics,
             avatar: data.avatar
         };
+    
         try {
-            const accessToken = localStorage.getItem('access_token')
-            await axios.post(queryString, requestData, {
+            const accessToken = localStorage.getItem('access_token');
+            const method = isUpdate() ? axios.put : axios.post;
+    
+            await method(queryString, requestData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'Authorization': `Bearer ${accessToken}`
                 },
             });
-
+    
             // If successful:
             if (onFormSubmitSuccess) {
                 onFormSubmitSuccess(); // Notify parent component of success
             }
         } catch (error) {
-            {
-                console.error('Error creating pet listing:', error);
-            }
+            console.error(`Error ${isUpdate() ? 'updating' : 'creating'} pet listing:`, error);
         }
-      };
+    };
+    
       
 
     // Expose the submit function to parent via `ref`

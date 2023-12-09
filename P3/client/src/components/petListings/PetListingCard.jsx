@@ -1,7 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import defaultImage from "../../assests/default.png"
 import { FetchShelter } from '../../hooks/FetchShelter';
+import { DeleteIcon } from '@chakra-ui/icons';
 import { 
     Card, 
     CardBody, 
@@ -50,6 +52,32 @@ function PetListingCard(pet){
       const closeSuccessMessage = () => {
         setShowSuccessMessage(false);
       };
+    
+      const handleDelete = async () => {
+        const petId = pet.id; // Assuming 'pet.id' contains the ID of the pet listing
+        const queryString = `http://127.0.0.1:8000/petListing/${petId}/`;
+    
+        try {
+            const accessToken = localStorage.getItem('access_token');
+            await axios.delete(queryString, {
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`
+                }
+            });
+            document.location.reload(true)
+
+    
+            // Handle successful deletion
+            console.log(`Pet listing with ID ${petId} deleted successfully`);
+            // You might want to update the UI or redirect the user
+            refre
+        } catch (error) {
+            console.error('Error deleting pet listing:', error);
+            // Handle any errors, such as displaying a message to the user
+        }
+    };
+    
+    
 
     const canEdit = () => {
         return (pet.shelter == localStorage.getItem('user_id'))
@@ -128,9 +156,18 @@ function PetListingCard(pet){
             <Button variant='solid' colorScheme='blue' onClick={() => handleMoreInfoClick(pet.id)}>
                 More info
             </Button>
-            {canEdit() && (<Button variant='ghost' colorScheme='blue' onClick={onModalOpen}> 
-                Edit Pet Info
-            </Button>)}
+            {canEdit() && (
+            <>
+                <Button variant='ghost' colorScheme='blue' onClick={onModalOpen}>
+                    Edit Pet Info
+                </Button>
+                <Button variant='ghost' colorScheme='red' onClick={handleDelete}>
+                    <DeleteIcon mr={2} />
+                    Delete
+                </Button>
+            </>
+            )}
+
             
             </ButtonGroup>
         </CardFooter>
