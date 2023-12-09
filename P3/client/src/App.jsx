@@ -4,9 +4,7 @@ import { ChakraProvider } from '@chakra-ui/react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import PetListingPage from './pages/petListing/PetListingPage.jsx';
 import PetListingDetailPage from './pages/petListing/PetListingDetailPage.jsx';
-import {
-  Home,
-} from './pages';
+import { Home } from './pages';
 import Layout from './components/Layout';
 import RegistrationPage from './pages/accounts/Register.jsx';
 import LoginPage from './pages/accounts/Login.jsx';
@@ -15,7 +13,7 @@ import ShelterDetailPage from './pages/accounts/DetailShelter.jsx';
 import AccountInfoPage from './pages/accounts/AccountInfoPage.jsx';
 import PetPalUserUpdatePage from './pages/accounts/PetPalUserUpdatePage.jsx';
 import PetSeekerDetailPage from './pages/accounts/DetailSeeker.jsx';
-
+import ConversationPage from './pages/comments/ConversationPage.jsx';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -34,24 +32,24 @@ const router = createBrowserRouter([
         element: <PetListingDetailPage />,
       },
       {
-        path: "/register",
+        path: '/register',
         element: <RegistrationPage />,
       },
       {
-        path: "/login",
+        path: '/login',
         element: <LoginPage />,
       },
       {
-        path: "/pet_shelters",
+        path: '/pet_shelters',
         element: <ListingPetSheltersPage />,
       },
       {
-        path: "/pet_shelters/:petShelterID",
+        path: '/pet_shelters/:petShelterID',
         element: <ShelterDetailPage />,
       },
       {
         path: '/pet-details/application/:petId', // path to Pet detail List
-        element: <Home />, // change element to your application page(if you are using page,but i think pop up might be better) 
+        element: <Home />, // change element to your application page(if you are using page,but i think pop up might be better)
         //and use const { petId } = useParams(); to grab petId
       },
       {
@@ -60,11 +58,15 @@ const router = createBrowserRouter([
       },
       {
         path: '/account-update',
-        element: <PetPalUserUpdatePage />
+        element: <PetPalUserUpdatePage />,
       },
       {
         path: '/pet_seeker/:petSeekerID',
-        element: <PetSeekerDetailPage />
+        element: <PetSeekerDetailPage />,
+      },
+      {
+        path: '/application/:appId',
+        element: <ConversationPage />,
       },
     ],
   },
@@ -76,8 +78,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ChakraProvider>
-        <RouterProvider router={router}>
-        </RouterProvider>
+        <RouterProvider router={router}></RouterProvider>
       </ChakraProvider>
     </QueryClientProvider>
   );
