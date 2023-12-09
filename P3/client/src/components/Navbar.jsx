@@ -1,29 +1,35 @@
 import {
   Box,
   Flex,
-  Avatar,
   HStack,
-  Text,
   IconButton,
   Button,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuDivider,
   useDisclosure,
-  useColorModeValue,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+  CloseButton,
   Stack,
   Image,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import logoImage from './logo.png';
 import { Link } from 'react-router-dom';
+import PetListingForm from './petListings/CreateListing';
+import React, { useRef, useState } from 'react';
+
 
 const Links = [
-  { label: 'Search Projects', to: '/search' },
-  { label: 'Saved Projects', to: '/saved' },
-  { label: 'Create Posting', to: '/createproject' },
+  { label: 'Search Pets', to: '/pet-listings' },
+  { label: 'Create Posting', to: '/Home' },
   { label: 'Register', to: '/register' },
   { label: 'Login', to: '/login' },
   { label: 'Pet Shelters', to: '/pet_shelters' },
@@ -52,6 +58,36 @@ const NavLink = (props) => {
 
 export default function Simple() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen: isModalOpen, onOpen: onModalOpen, onClose: onModalClose } = useDisclosure();
+  const formRef = useRef();
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const submitForm = () => {
+    setIsSubmitting(true);
+    formRef.current.submitForm().then((isFormSubmitted) => {
+      if (isFormSubmitted) {
+        onModalClose();
+        setShowSuccessMessage(true);
+      }
+      setIsSubmitting(false);
+    });
+  };
+
+  const canAddListing = () => {
+    //return (localStorage.getItem("is_pet_shelter_user") === true)
+    return true
+  }
+
+  const closeSuccessMessage = () => {
+    setShowSuccessMessage(false);
+  };
+    // const submitForm = () => {
+  //     if (localStorage.getItem("is_pet_shelter_user") === true){
+  //       formRef.current.submitForm();
+  //     }
+      
+  // };
 
   const imageStyle = {
     width: '25%', // Set the width to 100%
@@ -81,8 +117,6 @@ export default function Simple() {
                 alt='Logo'
                 boxSize='130px'
                 objectFit='cover'
-
-              // style={imageStyle}
               />
             </Box>
             <HStack
@@ -96,6 +130,8 @@ export default function Simple() {
                 </NavLink>
               ))}
             </HStack>
+            {canAddListing() && (<Button onClick={onModalOpen}>Add Pet Listing</Button>)}
+            
           </HStack>
         </Flex>
 
@@ -110,6 +146,42 @@ export default function Simple() {
             </Stack>
           </Box>
         ) : null}
+          <div>
+            
+            <Modal
+              isOpen={isModalOpen}
+              onClose={() => {
+                onModalClose();
+                setIsSubmitting(false);
+              }}
+              size={'full'}
+            >
+            <ModalOverlay />
+            <ModalContent>
+                <ModalHeader>Create a Pet Listing</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody pb={6}>
+                <PetListingForm ref={formRef} />
+                </ModalBody>
+
+                <ModalFooter>
+                <Button onClick={submitForm} colorScheme='blue' mr={3}>
+                    Submit Form
+                </Button>
+                <Button onClick={onModalClose}>Cancel</Button>
+                </ModalFooter>
+            </ModalContent>
+            </Modal>
+        </div>
+        {showSuccessMessage && (
+        <Alert status="success" variant="solid">
+          <AlertIcon />
+          <AlertTitle mr={2}>Success!</AlertTitle>
+          <AlertDescription>Your form has been submitted successfully.</AlertDescription>
+          <CloseButton position="absolute" right="8px" top="8px" onClick={closeSuccessMessage} />
+        </Alert>
+      )}
+
       </Box>
     </>
   );

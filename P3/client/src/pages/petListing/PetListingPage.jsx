@@ -1,4 +1,4 @@
-import PetListingCard from "../../components/petLisitings/PetLisingCard";
+import PetListingCard from "../../components/petListings/PetListingCard";
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Grid, GridItem, Select } from "@chakra-ui/react";
