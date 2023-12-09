@@ -35,11 +35,11 @@ const Message = ({ text, sender, name, timestamp, shelterName }) => {
         justifyContent='space-between'
         alignItems='center'
       >
-        {isShelter && (
+        {
           <Text fontWeight='bold' color='black' pr='3rem' fontSize='xs'>
             {shelterName}
           </Text>
-        )}
+        }
         {name && (
           <Text fontWeight='bold' color='black' pr='3rem' fontSize='xs'>
             {name}
