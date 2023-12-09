@@ -25,4 +25,5 @@ class Comment(models.Model):
     # Application
     is_application = models.BooleanField(default=False)
 
-   
+    # Name of the user who made the comment
+    name = models.CharField(max_length=100, null=True, blank=True)

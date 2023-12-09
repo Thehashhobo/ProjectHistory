@@ -7,7 +7,7 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
 
-        fields = ['comment_text', 'comment_creation_time', 'content_type', 'object_id', 'comment_made_by_the_user', 'comment_made_by_the_id_pet_seeker', 'comment_made_by_the_id_pet_shelter', 'rating', 'is_application']
+        fields = ['comment_text', 'comment_creation_time', 'content_type', 'object_id', 'comment_made_by_the_user', 'comment_made_by_the_id_pet_seeker', 'comment_made_by_the_id_pet_shelter', 'rating', 'is_application', 'name']
 
     def validate(self, data):
         content_type = data.get('content_type')
