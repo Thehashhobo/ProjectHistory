@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'accounts',
     'rest_framework',
     'rest_framework_simplejwt',
-    'comments',
+    'comments.apps.CommentsConfig',
     'corsheaders',
     'notifications'
 ]

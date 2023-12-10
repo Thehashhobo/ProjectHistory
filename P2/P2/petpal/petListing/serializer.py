@@ -39,7 +39,7 @@ class PetListingUpdateSerializer(serializers.ModelSerializer):
 class PetListingSummarySerializer(serializers.ModelSerializer):
     class Meta:
         model = PetListing
-        fields = ['id', 'name', 'breed', 'age', 'size', 'status', 'avatar', 'shelter']
+        fields = '__all__'
 
 class ApplicationSerializer(serializers.ModelSerializer):
     class Meta:

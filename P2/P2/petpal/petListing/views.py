@@ -50,7 +50,7 @@ class PetListingUpdateDeleteDetailView(APIView):
         if petlisting.shelter.user != request.user:
             return Response({"error": "You are not authorized to update this listing."}, status=status.HTTP_401_UNAUTHORIZED)
         
-        serializer = PetListingSerializer(petlisting, data=request.data)
+        serializer = PetListingUpdateSerializer(petlisting, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
