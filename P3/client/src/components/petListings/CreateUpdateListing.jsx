@@ -25,8 +25,9 @@ const PetListingForm = forwardRef(({ onFormSubmitSuccess, predefinedValues }, re
     }
     
     const onSubmit = async (data) => {
-        console.log(data);
-        let queryString = `http://127.0.0.1:8000/petListing/${isUpdate() ? `${predefinedValues.petId}/` : ''}`;
+        console.log('Form data on submit:', data);
+        const petId = predefinedValues?.petId; // Assuming predefinedValues includes the pet ID
+        let queryString = `http://127.0.0.1:8000/petListing/${isUpdate() ? `${petId}/` : ''}`;
     
         const requestData = isUpdate() ? {
             description: data.description,
@@ -41,12 +42,13 @@ const PetListingForm = forwardRef(({ onFormSubmitSuccess, predefinedValues }, re
             color: data.color,
             gender: data.gender,
             description: data.description,
-            shelter: localStorage.getItem('user_id'),
+            shelter: localStorage.getItem('user_id'),//may cause bug, this is a user_id and not the shelter id
             date_posted: Date.now(),
             characteristics: data.characteristics,
             avatar: data.avatar
         };
-    
+        console.log('Request data:', requestData);
+
         try {
             const accessToken = localStorage.getItem('access_token');
             const method = isUpdate() ? axios.put : axios.post;
@@ -61,6 +63,7 @@ const PetListingForm = forwardRef(({ onFormSubmitSuccess, predefinedValues }, re
             // If successful:
             if (onFormSubmitSuccess) {
                 onFormSubmitSuccess(); // Notify parent component of success
+                console.log('Form submitted successfully');
             }
         } catch (error) {
             console.error(`Error ${isUpdate() ? 'updating' : 'creating'} pet listing:`, error);
@@ -71,8 +74,9 @@ const PetListingForm = forwardRef(({ onFormSubmitSuccess, predefinedValues }, re
 
     // Expose the submit function to parent via `ref`
     useImperativeHandle(ref, () => ({
-        submitForm: () => handleSubmit(onSubmit)()
+        submitForm: () => handleSubmit(onSubmit)() // Correctly execute the function returned by handleSubmit
     }));
+    
 
 
     const formStyle = {
@@ -182,7 +186,7 @@ const PetListingForm = forwardRef(({ onFormSubmitSuccess, predefinedValues }, re
 
             <div style={groupStyle}>
                 <label htmlFor="status" style={labelStyle}>Status</label>
-                <select id="status" style={getInputBorder(isUpdate())}{...register('status', { required: true })} disabled={!isUpdate()}>
+                <select id="status" style={getInputBorder(isUpdate())}{...register('status')} disabled={!isUpdate()}>
                     <option value="available">Available</option>
                     <option value="adopted">Adopted</option>
                     <option value="pending">Pending</option>

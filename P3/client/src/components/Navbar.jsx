@@ -24,7 +24,8 @@ import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import logoImage from './logo.png';
 import { Link } from 'react-router-dom';
 import PetListingForm from './petListings/CreateUpdateListing';
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState , useEffect } from 'react';
+
 
 
 const Links = [
@@ -62,6 +63,8 @@ export default function Simple() {
   const formRef = useRef();
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showAddListingButton, setShowAddListingButton] = useState(false);
+
 
   const submitForm = () => {
     setIsSubmitting(true);
@@ -74,10 +77,15 @@ export default function Simple() {
     // Other success handling logic...
   };
 
-  const canAddListing = () => {
-    return (localStorage.getItem("is_pet_shelter_user") == true)
-  }
+  useEffect(() => {
+    const canAddListing = () => {
+        const isPetShelterUser = localStorage.getItem("is_pet_shelter_user") == "true";
+        console.log(isPetShelterUser);
+        return isPetShelterUser;
+    };
 
+    setShowAddListingButton(canAddListing());
+}, []);
   const closeSuccessMessage = () => {
     setShowSuccessMessage(false);
   };
@@ -123,7 +131,7 @@ export default function Simple() {
                 </NavLink>
               ))}
             </HStack>
-            {canAddListing && (<Button onClick={onModalOpen}>Add Pet Listing</Button>)}
+            {showAddListingButton  && (<Button onClick={onModalOpen}>Add Pet Listing</Button>)}
             
           </HStack>
         </Flex>
@@ -154,7 +162,10 @@ export default function Simple() {
                 <ModalHeader>Create a Pet Listing</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody pb={6}>
-                <PetListingForm ref={formRef} onFormSubmitSuccess={onFormSubmitSuccess} />
+                <PetListingForm
+                    onFormSubmitSuccess={onFormSubmitSuccess}
+                    ref={formRef}
+                />
                 </ModalBody>
 
                 <ModalFooter>

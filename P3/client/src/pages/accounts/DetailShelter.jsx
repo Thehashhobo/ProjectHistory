@@ -27,6 +27,7 @@ import PetListingCard from "../../components/petListings/PetListingCard";
 
 
 
+
 const ShelterDetailPage = () => {
   const [petShelterDetail, setPetShelterDetail] = useState(null);
   const [comments, setComments] = useState([]);
@@ -58,22 +59,6 @@ const ShelterDetailPage = () => {
       size: ''
     }
   );
-  // useEffect(() => {
-  //   const getPetShelterDetails = async () => {
-  //     try {
-  //       let accounts_url = 'http://127.0.0.1:8000/accounts/'
-  //       let pet_shelter_detail_get_endpoint = accounts_url + `petshelter/${petShelterID}/`
-  //       const resp = await fetch(pet_shelter_detail_get_endpoint);
-  //       if (resp.ok) {
-  //         const resp_data = await resp.json();
-  //         setPetShelterDetail(resp_data);
-  //       }
-  //     } catch (error) {
-  //       console.error('ERROR OCCURED WHEN RETRIEVED SHELTER DETAILS: ', error.message);
-
-  //     }
-  //   }
-  // });
   const [newComment, setNewComment] = useState({
     comment_text: '',
     rating: 0,
