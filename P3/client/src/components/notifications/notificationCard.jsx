@@ -16,6 +16,7 @@ function NotificationCard({notification, onRemove, handleUpdate}) {
             <Card variant='outline'>
             <CardHeader>
                 Recieved <TimeAgo fontSize = "18px" style={{textAlign:'center'}} date={notification.time}/>
+                {notification.isRead && <CheckIcon marginLeft={'20px'}/>}
             </CardHeader>
             <CardBody>
             <Text>{notification.message}</Text>

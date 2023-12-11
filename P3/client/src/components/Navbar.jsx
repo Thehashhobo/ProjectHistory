@@ -93,6 +93,7 @@ export default function Simple() {
         message: notification.message,
         time: notification.created_at,
         recipient_id: notification.recipient_id,
+        isRead: notification.is_read
       }));
       console.log(notificationData)
       setNotifications(notificationData);
