@@ -37,7 +37,7 @@ const RatingModal = ({ rating, onRatingChange, maxStars }) => {
 };
 
 RatingModal.propTypes = {
-  rating: PropTypes.number.isRequired,
+  rating: PropTypes.number,
   onRatingChange: PropTypes.func.isRequired,
   maxStars: PropTypes.number.isRequired,
 };

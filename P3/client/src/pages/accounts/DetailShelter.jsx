@@ -16,18 +16,15 @@ import {
   ModalBody,
   ModalFooter,
   Textarea,
-  Grid
+  Grid,
 } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
 import Rating from '../../components/comments/stars';
 import RatingModal from '../../components/comments/rating';
-import useFetchPetListings from "../../hooks/FetchPetListings";
-import { useMediaQuery } from 'react-responsive'
-import PetListingCard from "../../components/petListings/PetListingCard";
-
-
-
-
+import useFetchPetListings from '../../hooks/FetchPetListings';
+import { useMediaQuery } from 'react-responsive';
+import PetListingCard from '../../components/petListings/PetListingCard';
+import Replies from '../../components/comments/replies';
 const ShelterDetailPage = () => {
   const [petShelterDetail, setPetShelterDetail] = useState(null);
   const [comments, setComments] = useState([]);
@@ -35,9 +32,13 @@ const ShelterDetailPage = () => {
   const [totalReviews, setTotalReviews] = useState(0);
   const { petShelterID } = useParams();
   const isLargeScreen = useMediaQuery({ query: '(min-width: 1920px)' });
-  const isMediumScreen = useMediaQuery({ query: '(min-width: 845px) and (max-width: 1919px)' });
+  const isMediumScreen = useMediaQuery({
+    query: '(min-width: 845px) and (max-width: 1919px)',
+  });
   const isSmallScreen = useMediaQuery({ query: '(max-width: 844px)' });
-  const [isPetShelter, setIsPetShelter] = useState(true);
+
+  const [isReply, setIsReply] = useState(false);
+  const [replyToCommentId, setReplyToCommentId] = useState(null);
 
   let columns;
   if (isLargeScreen) {
@@ -52,17 +53,46 @@ const ShelterDetailPage = () => {
       status: '',
       size: '',
       shelter: petShelterID,
-      gender: ''
+      gender: '',
     },
     {
       age: '',
-      size: ''
+      size: '',
     }
   );
+  useEffect(() => {
+    const getPetShelterDetails = async () => {
+      try {
+        let accounts_url = 'http://127.0.0.1:8000/accounts/';
+        let pet_shelter_detail_get_endpoint =
+          accounts_url + `petshelter/${petShelterID}/`;
+        const resp = await fetch(pet_shelter_detail_get_endpoint);
+        if (resp.ok) {
+          const resp_data = await resp.json();
+          setPetShelterDetail(resp_data);
+        }
+      } catch (error) {
+        console.error(
+          'ERROR OCCURED WHEN RETRIEVED SHELTER DETAILS: ',
+          error.message
+        );
+      }
+    };
+  });
+
+  const handleReplyClick = (commentId) => {
+    console.log('Clicked Reply for Comment ID:', commentId); // Add this line
+
+    setIsReply(true);
+    setReplyToCommentId(commentId);
+    onOpen(); // Open the modal for reply
+  };
+
   const [newComment, setNewComment] = useState({
     comment_text: '',
     rating: 0,
   });
+
   const handleRatingChange = (newRating) => {
     setNewComment({ ...newComment, rating: newRating });
   };
@@ -160,6 +190,29 @@ const ShelterDetailPage = () => {
     }
   };
 
+  const [allCommentsLoaded, setAllCommentsLoaded] = useState(false);
+  const getComments = async () => {
+    try {
+      const commentsEndpoint = `http://127.0.0.1:8000/comments/shelters/${petShelterID}/`;
+      const commentsResp = await fetch(commentsEndpoint);
+
+      if (commentsResp.ok) {
+        const commentsData = await commentsResp.json();
+        if (commentsData.results && Array.isArray(commentsData.results)) {
+          const topLevelComments = commentsData.results.filter(
+            (comment) => comment.parent_comment === null
+          );
+          setComments(topLevelComments);
+          setTotalReviews(commentsData.count);
+        } else {
+          console.error('Invalid comments data:', commentsData);
+        }
+      }
+      setAllCommentsLoaded(true);
+    } catch (error) {
+      console.error('Error retrieving comments:', error.message);
+    }
+  };
   useEffect(() => {
     const getPetShelterDetails = async () => {
       try {
@@ -170,12 +223,6 @@ const ShelterDetailPage = () => {
         if (resp.ok) {
           const resp_data = await resp.json();
           setPetShelterDetail(resp_data);
-          const getPetShelterBool = localStorage.getItem('is_pet_shelter_user');
-          if (getPetShelterBool !== null) {
-            const parsedPetShelterBool = JSON.parse(getPetShelterBool);
-            setIsPetShelter(parsedPetShelterBool);
-            console.log("PET SHELER OR NOT:", parsedPetShelterBool)
-          }
 
           const commentsEndpoint = `http://127.0.0.1:8000/comments/shelters/${petShelterID}/`;
           const commentsResp = await fetch(commentsEndpoint);
@@ -183,11 +230,17 @@ const ShelterDetailPage = () => {
           if (commentsResp.ok) {
             const commentsData = await commentsResp.json();
             if (commentsData.results && Array.isArray(commentsData.results)) {
-              setComments(commentsData.results);
+              const topLevelComments = commentsData.results.filter(
+                (comment) => comment.parent_comment === null
+              );
+              setComments(topLevelComments);
               setTotalReviews(commentsData.count);
             } else {
               console.error('Invalid comments data:', commentsData);
             }
+          }
+          if (!allCommentsLoaded) {
+            getComments();
           }
         }
       } catch (error) {
@@ -199,7 +252,7 @@ const ShelterDetailPage = () => {
     };
 
     getPetShelterDetails();
-  }, [petShelterID]);
+  }, [petShelterID, allCommentsLoaded]);
 
   const onOpen = () => setIsOpen(true);
   const onClose = () => setIsOpen(false);
@@ -220,32 +273,71 @@ const ShelterDetailPage = () => {
       let payload;
 
       if (is_pet_shelter_user === 'true') {
-        payload = {
-          comment_made_by_the_user: user_user,
-          object_id: petShelterID,
-          content_type: petShelterID,
-          comment_text: newComment.comment_text,
-          comment_made_by_the_id_pet_seeker: null,
-          comment_made_by_the_id_pet_shelter: user_id,
-          rating: newComment.rating,
-          is_application: false,
-          name: user_name,
-        };
+        if (isReply) {
+          payload = {
+            comment_made_by_the_user: user_user,
+            object_id: petShelterID,
+            content_type: petShelterID,
+            comment_text: newComment.comment_text,
+            comment_made_by_the_id_pet_seeker: null,
+            comment_made_by_the_id_pet_shelter: user_id,
+            rating: null,
+            is_application: false,
+            name: user_name,
+            is_reply: true,
+            parent_comment: replyToCommentId,
+          };
+        } else {
+          payload = {
+            comment_made_by_the_user: user_user,
+            object_id: petShelterID,
+            content_type: petShelterID,
+            comment_text: newComment.comment_text,
+            comment_made_by_the_id_pet_seeker: null,
+            comment_made_by_the_id_pet_shelter: user_id,
+            rating: newComment.rating,
+            is_application: false,
+            name: user_name,
+            is_reply: false,
+            parent_comment: null,
+          };
+        }
       } else {
-        payload = {
-          comment_made_by_the_user: user_user,
-          object_id: petShelterID,
-          content_type: petShelterID,
-          comment_text: newComment.comment_text,
-          comment_made_by_the_id_pet_seeker: user_id,
-          comment_made_by_the_id_pet_shelter: null,
-          rating: newComment.rating,
-          is_application: false,
-          name: user_name,
-        };
+        if (isReply) {
+          payload = {
+            comment_made_by_the_user: user_user,
+            object_id: petShelterID,
+            content_type: petShelterID,
+            comment_text: newComment.comment_text,
+            comment_made_by_the_id_pet_seeker: user_id,
+            comment_made_by_the_id_pet_shelter: null,
+            rating: null,
+            is_application: false,
+            name: user_name,
+            is_reply: true,
+            parent_comment: replyToCommentId,
+          };
+        } else {
+          payload = {
+            comment_made_by_the_user: user_user,
+            object_id: petShelterID,
+            content_type: petShelterID,
+            comment_text: newComment.comment_text,
+            comment_made_by_the_id_pet_seeker: user_id,
+            comment_made_by_the_id_pet_shelter: null,
+            rating: newComment.rating,
+            is_application: false,
+            name: user_name,
+            is_reply: false,
+            parent_comment: null,
+          };
+        }
       }
 
       console.log('Payload:', payload);
+      console.log('Is reply:', isReply);
+      console.log('Reply to comment ID:', replyToCommentId);
+      setIsReply(false);
 
       // POST comment
       const response = await fetch(
@@ -263,6 +355,16 @@ const ShelterDetailPage = () => {
       if (response.ok) {
         const newCommentData = await response.json();
         console.log('New Comment Data:', newCommentData);
+        console.log('comment_parent', response.parent_comment);
+        console.log(
+          'made by shelter',
+          response.comment_made_by_the_id_pet_shelter
+        );
+
+        console.log(
+          'made by seeker',
+          response.comment_made_by_the_id_pet_seeker
+        );
 
         setComments([...comments, newCommentData]);
         onClose();
@@ -394,60 +496,37 @@ const ShelterDetailPage = () => {
           <Badge
             ml={{ base: '0', md: '1' }}
             mb={{ base: '2', md: '0' }}
-            fontSize='lg'
+            fontSize={{ base: 'sm', md: 'lg' }}
             colorScheme='green'
             borderRadius='md'
             p={2}
           >
-            Average Rating: {calculateAverageRating(comments).toFixed(2)} Stars
-            ({totalReviews} Reviews)
+            <Text isTruncated>
+              {' '}
+              Average Rating: {calculateAverageRating(comments).toFixed(2)}{' '}
+              Stars ({totalReviews} Reviews){' '}
+            </Text>
           </Badge>
-          {!isPetShelter && (
-            <Button
-              onClick={onOpen}
-              colorScheme='blue'
-              mt={{ base: '2', md: '0' }}
-            >
-              Add a Review
-            </Button>)}
+
+          <Button
+            onClick={onOpen}
+            colorScheme='blue'
+            mt={{ base: '2', md: '0' }}
+          >
+            Add a Review
+          </Button>
         </Flex>
 
         {comments.length === 0 ? (
           <Text>No comments/reviews available for this shelter.</Text>
         ) : (
           <SimpleGrid columns={1} spacing={4}>
-            {comments.map((comment, index) => (
-              <Box
+            {comments.map((comment) => (
+              <Replies
                 key={comment.id}
-                p={5}
-                borderWidth='1px'
-                borderRadius='md'
-                bg='#F3F3F3'
-                ref={index === comments.length - 1 ? lastCommentRef : null}
-              >
-                <Flex alignItems='center'>
-                  {/* <Avatar
-                    src={
-                      commenterDetails[
-                        comment.comment_made_by_the_id_pet_seeker
-                      ]?.profile_pic
-                    } // if there is time add profile pic to comments ... Shelter can have their own pfp/star or something to make it clear they are responding
-                  /> */}
-                  <Box>
-                    {' '}
-                    {/* ml={3} with avatar */}
-                    <Text fontSize='lg' fontWeight='bold'>
-                      {comment.name}
-                    </Text>
-                    <Rating rating={comment.rating} />
-                  </Box>
-                </Flex>
-                <Text mt={3}>{comment.comment_text}</Text>
-                <Text fontSize='sm' color='gray.500' mt={4}>
-                  Created at:{' '}
-                  {formatReadableDate(comment.comment_creation_time)}
-                </Text>
-              </Box>
+                comment={comment}
+                onReplyClick={handleReplyClick}
+              />
             ))}
           </SimpleGrid>
         )}
@@ -459,17 +538,19 @@ const ShelterDetailPage = () => {
           <ModalCloseButton />
           <ModalBody>
             <Textarea
-              placeholder='Enter your review...'
+              placeholder={`Enter your ${isReply ? 'reply' : 'review'}...`}
               onChange={(e) =>
                 setNewComment({ ...newComment, comment_text: e.target.value })
               }
               mb={2}
             />
-            <RatingModal
-              rating={newComment.rating}
-              onRatingChange={handleRatingChange}
-              maxStars={5}
-            />
+            {!isReply && (
+              <RatingModal
+                rating={newComment.rating}
+                onRatingChange={handleRatingChange}
+                maxStars={5}
+              />
+            )}
           </ModalBody>
           <ModalFooter>
             <Button colorScheme='blue' mr={3} onClick={handleCommentSubmit}>
@@ -479,12 +560,17 @@ const ShelterDetailPage = () => {
           </ModalFooter>
         </ModalContent>
       </Modal>
-      <Grid templateColumns={columns} marginTop={"30px"} gap={6} justifyContent="center">
-        {petListings.map(pet => (
+      <Grid
+        templateColumns={columns}
+        marginTop={'30px'}
+        gap={6}
+        justifyContent='center'
+      >
+        {petListings.map((pet) => (
           <PetListingCard key={pet.id} {...pet} /> // Spread operator to pass all pet properties as props
         ))}
       </Grid>
     </Box>
   );
-}
-export default ShelterDetailPage
+};
+export default ShelterDetailPage;
