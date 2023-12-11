@@ -104,10 +104,10 @@ const LoginPage = () => {
     }
   };
   return (
-    <Container>
+    <Container mb={10}>
       <Box
         mt={10}
-        mb={10}
+        mb={20}
         bg='#FFFFFF'
         borderWidth='8px'
         borderRadius='lg'

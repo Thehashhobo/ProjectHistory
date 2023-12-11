@@ -189,12 +189,15 @@ const ShelterDetailPage = () => {
               console.error('Invalid comments data:', commentsData);
             }
           }
+        } else {
+          window.location.href = "/page-not-found"
         }
       } catch (error) {
         console.error(
           'ERROR OCCURRED WHEN RETRIEVING SHELTER DETAILS: ',
           error.message
         );
+        window.location.href = "/page-not-found"
       }
     };
 
