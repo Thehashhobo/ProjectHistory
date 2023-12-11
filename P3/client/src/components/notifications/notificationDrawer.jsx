@@ -2,13 +2,43 @@
 import { Drawer, DrawerOverlay, DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody, Input, DrawerFooter, Button ,VStack  } from '@chakra-ui/react';
 import NotificationCard from './notificationCard';
 import React, {useState, useEffect} from 'react';
-import { TriangleDownIcon, TriangleUpIcon } from '@chakra-ui/icons';
+import { TriangleDownIcon, TriangleUpIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import axios from 'axios';
 
 
 function NotificationDrawer({ isOpen, onClose , notificationList}) {
     const [notifications, setNotifications] = useState(notificationList); 
-    const [reversed, setReversed] = useState(false)
+    const [sortedFilteredNotifications, setSortedFilteredNotifications] = useState(notifications);
+    const [sortAscending, setSortAscending] = useState(true);
+    const [filterRead, setFilterRead] = useState(false);
+
+    useEffect(() => {
+        let processedNotifications = [...notifications];
+
+        // Sort notifications by date
+        processedNotifications.sort((a, b) => {
+            return sortAscending
+                ? new Date(a.time) - new Date(b.time) // Ascending order
+                : new Date(b.time) - new Date(a.time); // Descending order
+        });
+
+        // Filter notifications by read status
+        if (filterRead) {
+            processedNotifications = processedNotifications.filter(notification => !notification.isRead);
+        }
+
+        setSortedFilteredNotifications(processedNotifications);
+    }, [notifications, sortAscending, filterRead]);
+
+    const toggleSortOrder = () => {
+        setSortAscending(!sortAscending);
+    };
+
+    const toggleFilter = () => {
+        setFilterRead(!filterRead);
+    };
+
+
 
     useEffect(() => {
         setNotifications(notificationList);
@@ -37,30 +67,33 @@ function NotificationDrawer({ isOpen, onClose , notificationList}) {
             // Handle any errors, such as displaying a message to the user
         }
     };
+    
 
-
-    const reverseOrdering = () => {
-        setReversed(!reversed);
-        setNotifications(notifications.reverse());
-    }
   return (
     <Drawer
       isOpen={isOpen}
       placement='right'
       onClose={onClose}
-    //   colorScheme={blue}
+      size={'md'}
+    colorScheme={'blue'}
     >
       <DrawerOverlay />
       <DrawerContent>
         <DrawerCloseButton />
         <DrawerHeader borderBottomWidth='1px'>My Notifications
-        <Button rightIcon={reversed ? <TriangleUpIcon /> : <TriangleDownIcon />} onClick={reverseOrdering} marginLeft={'8px'}>
-        Sort
-        </Button>
+        <div>
+          <Button rightIcon={sortAscending ? <TriangleUpIcon /> : <TriangleDownIcon />} onClick={toggleSortOrder} marginTop={'8px'}>
+                Sort by date
+          </Button>
+
+          <Button rightIcon={filterRead ? <ViewOffIcon /> : <ViewIcon />} onClick={toggleFilter} marginTop={'8px'} marginLeft={'10px'}>
+                Show Unread Only
+          </Button>
+        </div>
         </DrawerHeader>
         <DrawerBody>
           <VStack spacing={4}>
-          {notifications.map(notification => (
+          {sortedFilteredNotifications.map(notification => (
                 <NotificationCard
                     key={notification.id}
                     notification={notification}

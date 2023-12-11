@@ -14,6 +14,8 @@ import AccountInfoPage from './pages/accounts/AccountInfoPage.jsx';
 import PetPalUserUpdatePage from './pages/accounts/PetPalUserUpdatePage.jsx';
 import PetSeekerDetailPage from './pages/accounts/DetailSeeker.jsx';
 import ConversationPage from './pages/comments/ConversationPage.jsx';
+import PageNotFound from './components/PageNotFound.jsx';
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -67,6 +69,10 @@ const router = createBrowserRouter([
       {
         path: '/application/:appId',
         element: <ConversationPage />,
+      },
+      {
+        path: '/*',
+        element: <PageNotFound />,
       },
     ],
   },

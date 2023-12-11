@@ -4,6 +4,7 @@ import {
     AlertIcon,
     Box,
     Button,
+    Container,
     Center,
     FormControl,
     FormLabel,
@@ -149,121 +150,123 @@ const UpdatePetPalUser = () => {
         }
     };
     return (
-        <Box m={20} mb={10} bg="#FFFFFF" borderWidth="8px" borderRadius="lg" p={8}>
-            <VStack>
-                <Heading textAlign="center">
-                    Update your <Text color="blue.500">Barnyard Buddies</Text> Account
-                </Heading>
-                {displayUpdateSuccessMsg && <Box fontWeight="bold" color="#48BB78">Account Updated!</Box>}
-                {displayWarning && (
-                    <Alert status="error" borderRadius="lg" mb={3}>
-                        <AlertIcon />
-                        {passwordNotMatch && (
-                            <span>Password fields do not match.</span>
+        <Container mb={10} p={4}>
+            <Box bg="#FFFFFF" borderColor='#BEE3F8' borderWidth="8px" borderRadius="lg" p={8}>
+                <VStack>
+                    <Heading textAlign="center">
+                        Update your <Text color="blue.500">Barnyard Buddies</Text> Account
+                    </Heading>
+                    {displayUpdateSuccessMsg && <Box fontWeight="bold" color="#48BB78">Account Updated!</Box>}
+                    {displayWarning && (
+                        <Alert status="error" borderRadius="lg" mb={3}>
+                            <AlertIcon />
+                            {passwordNotMatch && (
+                                <span>Password fields do not match.</span>
+                            )}
+                        </Alert>
+                    )}
+                    <form onSubmit={handleSubmit}>
+                        {!isPetShelter && (
+                            <>
+                                <FormControl mb={3}>
+                                    <FormLabel>Pet Seeker Name:</FormLabel>
+                                    <Input
+                                        type="text"
+                                        name="name"
+                                        value={updateFormData.name}
+                                        onChange={handleAddInfo}
+                                    />
+                                </FormControl>
+                            </>
                         )}
-                    </Alert>
-                )}
-                <form onSubmit={handleSubmit}>
-                    {!isPetShelter && (
-                        <>
+                        {isPetShelter && (
+                            <>
+                                <FormControl mb={3}>
+                                    <FormLabel>Pet Shelter Name:</FormLabel>
+                                    <Input
+                                        type="text"
+                                        name="name"
+                                        value={updateFormData.name}
+                                        onChange={handleAddInfo}
+                                    />
+                                </FormControl>
+                            </>
+                        )}
+                        <HStack>
                             <FormControl mb={3}>
-                                <FormLabel>Pet Seeker Name:</FormLabel>
+                                <FormLabel>Password:</FormLabel>
                                 <Input
-                                    type="text"
-                                    name="name"
-                                    value={updateFormData.name}
+                                    type="password"
+                                    name="password"
+                                    value={updateFormData.password}
                                     onChange={handleAddInfo}
                                 />
                             </FormControl>
-                        </>
-                    )}
-                    {isPetShelter && (
-                        <>
                             <FormControl mb={3}>
-                                <FormLabel>Pet Shelter Name:</FormLabel>
+                                <FormLabel>Confirm Password:</FormLabel>
                                 <Input
-                                    type="text"
-                                    name="name"
-                                    value={updateFormData.name}
+                                    type="password"
+                                    name="password2"
+                                    value={updateFormData.password2}
                                     onChange={handleAddInfo}
                                 />
                             </FormControl>
-                        </>
-                    )}
-                    <HStack>
-                        <FormControl mb={3}>
-                            <FormLabel>Password:</FormLabel>
-                            <Input
-                                type="password"
-                                name="password"
-                                value={updateFormData.password}
-                                onChange={handleAddInfo}
-                            />
-                        </FormControl>
-                        <FormControl mb={3}>
-                            <FormLabel>Confirm Password:</FormLabel>
-                            <Input
-                                type="password"
-                                name="password2"
-                                value={updateFormData.password2}
-                                onChange={handleAddInfo}
-                            />
-                        </FormControl>
-                    </HStack>
-                    {!isPetShelter && (
-                        <>
-                            <FormControl mb={3}>
-                                <FormLabel>Profile Picture:</FormLabel>
-                                <Input p={1}
-                                    type="file"
-                                    name="avatar"
-                                    accept="image/*"
-                                    onChange={handleFile}
-                                />
-                            </FormControl>
-                        </>
-                    )}
-                    {isPetShelter && (
-                        <>
-                            <FormControl mb={3}>
-                                <FormLabel>Mission Statement:</FormLabel>
-                                <Input
-                                    type="text"
-                                    name="mission_statement"
-                                    value={updateFormData.mission_statement}
-                                    onChange={handleAddInfo}
-                                />
-                            </FormControl>
+                        </HStack>
+                        {!isPetShelter && (
+                            <>
+                                <FormControl mb={3}>
+                                    <FormLabel>Profile Picture:</FormLabel>
+                                    <Input p={1}
+                                        type="file"
+                                        name="avatar"
+                                        accept="image/*"
+                                        onChange={handleFile}
+                                    />
+                                </FormControl>
+                            </>
+                        )}
+                        {isPetShelter && (
+                            <>
+                                <FormControl mb={3}>
+                                    <FormLabel>Mission Statement:</FormLabel>
+                                    <Input
+                                        type="text"
+                                        name="mission_statement"
+                                        value={updateFormData.mission_statement}
+                                        onChange={handleAddInfo}
+                                    />
+                                </FormControl>
 
-                            <FormControl mb={3}>
-                                <FormLabel>Address:</FormLabel>
-                                <Input
-                                    type="text"
-                                    name="address"
-                                    value={updateFormData.address}
-                                    onChange={handleAddInfo}
-                                />
-                            </FormControl>
+                                <FormControl mb={3}>
+                                    <FormLabel>Address:</FormLabel>
+                                    <Input
+                                        type="text"
+                                        name="address"
+                                        value={updateFormData.address}
+                                        onChange={handleAddInfo}
+                                    />
+                                </FormControl>
 
-                            <FormControl mb={3}>
-                                <FormLabel>Phone Number:</FormLabel>
-                                <Input
-                                    type="text"
-                                    name="phone_number"
-                                    value={updateFormData.phone_number}
-                                    onChange={handleAddInfo}
-                                />
-                            </FormControl>
-                        </>
-                    )}
-                    <Center>
-                        <Button colorScheme="blue" type="submit">
-                            Update Your Account Information
-                        </Button>
-                    </Center>
-                </form>
-            </VStack>
-        </Box>
+                                <FormControl mb={3}>
+                                    <FormLabel>Phone Number:</FormLabel>
+                                    <Input
+                                        type="text"
+                                        name="phone_number"
+                                        value={updateFormData.phone_number}
+                                        onChange={handleAddInfo}
+                                    />
+                                </FormControl>
+                            </>
+                        )}
+                        <Center>
+                            <Button colorScheme="blue" type="submit">
+                                Update Your Account Information
+                            </Button>
+                        </Center>
+                    </form>
+                </VStack>
+            </Box>
+        </Container>
     );
 };
 

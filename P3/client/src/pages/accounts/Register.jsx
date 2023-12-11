@@ -127,8 +127,8 @@ const RegistrationPage = () => {
     };
 
     return (
-        <Container>
-            <Box bg="#FFFFFF" mt={5} mb={5} borderWidth="8px" borderRadius="lg" p={3}>
+        <Container mb={10} p={4}>
+            <Box bg="#FFFFFF" borderColor='#BEE3F8' mt={5} mb={5} borderWidth="8px" borderRadius="lg" p={3}>
                 <VStack>
                     <Heading textAlign="center">
                         Register a <Text color="blue.500">Barnyard Buddies</Text> Account

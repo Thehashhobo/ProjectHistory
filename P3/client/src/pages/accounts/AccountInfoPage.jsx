@@ -48,6 +48,24 @@ const AccountInfoPage = () => {
 
     };
 
+    const handleDeleteNotiClk = () => {
+        const url = 'http://127.0.0.1:8000/notifications/delete_all/'; 
+        axios.delete(url, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => {
+            console.log('All notifications deleted successfully');
+            // Handle successful deletion here (e.g., update UI)
+        })
+        .catch(error => {
+            console.error('Error deleting notifications:', error);
+            // Handle error here
+        });
+    };
+    
 
     const [userInfoData, setUserInfoData] = useState({
         id: '',
@@ -99,7 +117,7 @@ const AccountInfoPage = () => {
 
     return (
         <Box>
-            <Box m={10} bg="#FFFFFF" mb={10} borderWidth="8px" borderRadius="lg" p={4}>
+            <Box m={10} bg="#FFFFFF" borderColor='#BEE3F8' mb={10} borderWidth="8px" borderRadius="lg" p={4}>
                 <Heading textAlign="center" mb={4}>Welcome <Text color="blue.500">{user_email}!</Text></Heading>
                 <Center>
                     <HStack gap={5}>
@@ -116,11 +134,14 @@ const AccountInfoPage = () => {
                         <Box m={2}>
                             <Button colorScheme='red' variant='solid' onClick={handleDeleteBtnClick}>Delete Account</Button>
                         </Box>
+                        <Box m={2}>
+                            <Button colorScheme='red' variant='solid' onClick={handleDeleteNotiClk}>Clear all Notifications</Button>
+                        </Box>
                     </HStack>
                 </Center>
 
             </Box>
-            <Box m={10} bg="#FFFFFF" mb={10} borderWidth="8px" borderRadius="lg" p={4}>
+            <Box m={10} bg="#FFFFFF" borderColor='#BEE3F8' mb={10} borderWidth="8px" borderRadius="lg" p={4}>
                 <Text mb={3} textAlign="center" color="blue.500" fontSize='xl' fontWeight="bold"> Account Information</Text>
                 <Center>
                     <VStack mb={5}>

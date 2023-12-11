@@ -94,6 +94,7 @@ const LoginPage = () => {
         localStorage.setItem('user_name', user_name);
 
         navigate('/account-information');
+        window.location.reload();
       } else {
         console.error('error when retrieving user ids and name');
       }
@@ -103,13 +104,14 @@ const LoginPage = () => {
     }
   };
   return (
-    <Container>
+    <Container mb={10}>
       <Box
         mt={10}
-        mb={10}
+        mb={20}
         bg='#FFFFFF'
         borderWidth='8px'
         borderRadius='lg'
+        borderColor='#BEE3F8'
         p={4}
       >
         <Heading textAlign='center' mb={4}>
