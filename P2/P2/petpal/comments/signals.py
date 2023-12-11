@@ -18,12 +18,11 @@ def create_notification_on_new_comment(sender, instance, created, **kwargs):
 
 
         # Determine the recipient based on the content type of the comment
-        content_type = instance.content_type
-
+        # object id is NOT user_id
         if instance.is_application == 1:
-            recipient = PetShelter.objects.get(pk=instance.object_id)
-        elif instance.is_application == 0:
             recipient = PetSeeker.objects.get(pk=instance.object_id)
+        elif instance.is_application == 0:
+            recipient = PetShelter.objects.get(pk=instance.object_id)
         else:
             recipient = None
 

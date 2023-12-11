@@ -25,7 +25,7 @@ import {
     useDisclosure,
 
   } from '@chakra-ui/react';
-  import PetListingForm from '../petListings/CreateUpdateListing';
+import PetListingForm from '../petListings/CreateUpdateListing';
 import PropTypes from 'prop-types';
 
 
@@ -64,13 +64,13 @@ function PetListingCard(pet){
                     'Authorization': `Bearer ${accessToken}`
                 }
             });
-            document.location.reload(true)
+            
 
     
             // Handle successful deletion
             console.log(`Pet listing with ID ${petId} deleted successfully`);
             // You might want to update the UI or redirect the user
-            refre
+            document.location.reload(true)
         } catch (error) {
             console.error('Error deleting pet listing:', error);
             // Handle any errors, such as displaying a message to the user

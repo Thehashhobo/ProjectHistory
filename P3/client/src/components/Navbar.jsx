@@ -20,11 +20,13 @@ import {
   ModalBody,
   ModalCloseButton,
 } from '@chakra-ui/react';
-import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
+import { HamburgerIcon, CloseIcon, BellIcon} from '@chakra-ui/icons';
 import logoImage from './logo.png';
 import { Link } from 'react-router-dom';
+import NotificationDrawer from './notifications/notificationDrawer';
 import PetListingForm from './petListings/CreateUpdateListing';
 import React, { useRef, useState , useEffect } from 'react';
+import axios from 'axios';
 
 
 
@@ -64,6 +66,38 @@ export default function Simple() {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showAddListingButton, setShowAddListingButton] = useState(false);
+  const [notifications, setNotifications] = useState([]);
+
+  const fetchnotifications = async () => {
+    const queryString = 'http://127.0.0.1:8000/notifications/';
+
+    try {
+        const response = await axios.get(queryString, {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+            'Content-Type': 'application/json',
+        },
+        });
+
+        const notificationData = response.data.results.map(notification => ({
+            id: notification.id,
+            message: notification.message,
+            time: notification.created_at,
+            recipient_id: notification.recipient_id,
+        }));
+        console.log(notificationData)
+        setNotifications(notificationData);
+    } catch (error) {
+        console.error('Error fetching notifications:', error);
+    }
+};
+
+
+useEffect(() => {
+  fetchnotifications();
+}, []);
+
+
 
 
   const submitForm = () => {
@@ -132,7 +166,8 @@ export default function Simple() {
               ))}
             </HStack>
             {showAddListingButton  && (<Button onClick={onModalOpen}>Add Pet Listing</Button>)}
-            
+            <BellIcon boxSize={31} cursor="pointer" onClick={onOpen} />
+            <NotificationDrawer notificationList={notifications} isOpen={isOpen} onClose={onClose} />
           </HStack>
         </Flex>
 
