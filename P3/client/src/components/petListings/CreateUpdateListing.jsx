@@ -90,11 +90,11 @@ const PetListingForm = forwardRef(({ onFormSubmitSuccess, predefinedValues }, re
         marginBottom: '5px', // Spacing between the label and input field
     };
 
-    const getInputBorder = (isDisabled) => ({
+    const getInputBorder = (isDisabled, oppsite) => ({
         padding: '10px',
         border: '2px solid #ccc',
         borderRadius: '4px',
-        backgroundColor: isDisabled ? '#f0f0f0' : 'white' // Grey background if disabled
+        backgroundColor: (isDisabled  && oppsite)? '#f0f0f0' : 'white' // Grey background if disabled
     });
 
     const groupStyle = {
@@ -108,93 +108,160 @@ const PetListingForm = forwardRef(({ onFormSubmitSuccess, predefinedValues }, re
 
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} style={formStyle}>
-            <div style={groupStyle}>
-                <label htmlFor="name" style={labelStyle}>Pet Name</label>
-                <input id="name" style={getInputBorder(isUpdate())} {...register('name', { required: true })} disabled={isUpdate()} />
-                {errors.name && <span style={redText}>This field is required</span>}
-            </div>
+      <form onSubmit={handleSubmit(onSubmit)} style={formStyle}>
+        <div style={groupStyle}>
+          <label htmlFor="name" style={labelStyle}>
+            Pet Name
+          </label>
+          <input
+            id="name"
+            style={getInputBorder(isUpdate(), true)}
+            {...register("name", { required: true })}
+            disabled={isUpdate()}
+          />
+          {errors.name && <span style={redText}>This field is required</span>}
+        </div>
 
-            <div style={groupStyle}>
-                <label htmlFor="breed" style={labelStyle}>Breed</label>
-                <input id="breed" style={getInputBorder(isUpdate())}{...register('breed', { required: true })} disabled={isUpdate()}/>
-                {errors.breed && <span style={redText}> This field is required</span>}
-            </div>
+        <div style={groupStyle}>
+          <label htmlFor="breed" style={labelStyle}>
+            Breed
+          </label>
+          <input
+            id="breed"
+            style={getInputBorder(isUpdate(), true)}
+            {...register("breed", { required: true })}
+            disabled={isUpdate()}
+          />
+          {errors.breed && <span style={redText}> This field is required</span>}
+        </div>
 
-            <div style={groupStyle}>
-                <label htmlFor="age" style={labelStyle}>Age</label>
-                <input 
-                    id="age" 
-                    style={getInputBorder(isUpdate())}
-                    {...register('age', {
-                        required: 'This field is required',
-                        pattern: {
-                            value: /^[0-9]+$/, // Regex for positive numbers only
-                            message: 'Please input a positive number'
-                        }
-                    })} disabled={isUpdate()}
-                />
-                <ErrorMessage
-                    errors={errors}
-                    name="age" // Match the field name
-                    render={({ message }) => <p style={redText}>{message}</p>}
-                />
-            </div>
+        <div style={groupStyle}>
+          <label htmlFor="age" style={labelStyle}>
+            Age
+          </label>
+          <input
+            id="age"
+            style={getInputBorder(isUpdate(), true)}
+            {...register("age", {
+              required: "This field is required",
+              pattern: {
+                value: /^[0-9]+$/, // Regex for positive numbers only
+                message: "Please input a positive number",
+              },
+            })}
+            disabled={isUpdate()}
+          />
+          <ErrorMessage
+            errors={errors}
+            name="age" // Match the field name
+            render={({ message }) => <p style={redText}>{message}</p>}
+          />
+        </div>
 
-            <div style={groupStyle}>
-                <label htmlFor="size" style={labelStyle}>Size</label>
-                <select id="size" style={getInputBorder(isUpdate())}{...register('size', { required: true })} disabled={isUpdate()}>
-                    <option value="small">Small</option>
-                    <option value="medium">Medium</option>
-                    <option value="large">Large</option>
-                    <option value="extra_large">Extra Large</option>
-                </select>
-                {errors.size && <span style={redText}>This field is required</span>}
-            </div>
+        <div style={groupStyle}>
+          <label htmlFor="size" style={labelStyle}>
+            Size
+          </label>
+          <select
+            id="size"
+            style={getInputBorder(isUpdate(), true)}
+            {...register("size", { required: true })}
+            disabled={isUpdate()}
+          >
+            <option value="small">Small</option>
+            <option value="medium">Medium</option>
+            <option value="large">Large</option>
+            <option value="extra_large">Extra Large</option>
+          </select>
+          {errors.size && <span style={redText}>This field is required</span>}
+        </div>
 
-            <div style={groupStyle}>
-                <label htmlFor="color" style={labelStyle}>Color</label>
-                <input id="color" style={getInputBorder(isUpdate())}{...register('color', { required: true })} disabled={isUpdate()}/>
-                {errors.color && <span style={redText}>This field is required</span>}
-            </div>
+        <div style={groupStyle}>
+          <label htmlFor="color" style={labelStyle}>
+            Color
+          </label>
+          <input
+            id="color"
+            style={getInputBorder(isUpdate(), true)}
+            {...register("color", { required: true })}
+            disabled={isUpdate()}
+          />
+          {errors.color && <span style={redText}>This field is required</span>}
+        </div>
 
-            <div style={groupStyle}>
-                <label htmlFor="gender" style={labelStyle}>Gender</label>
-                <select id="gender" style={getInputBorder(isUpdate())}{...register('gender', { required: true })} disabled={isUpdate()}>
-                    <option value="female">Female</option>
-                    <option value="male">Male</option>
-                </select>
-                {errors.gender && <span style={redText}>This field is required</span>}
-            </div>
+        <div style={groupStyle}>
+          <label htmlFor="gender" style={labelStyle}>
+            Gender
+          </label>
+          <select
+            id="gender"
+            style={getInputBorder(isUpdate(), true)}
+            {...register("gender", { required: true })}
+            disabled={isUpdate()}
+          >
+            <option value="female">Female</option>
+            <option value="male">Male</option>
+          </select>
+          {errors.gender && <span style={redText}>This field is required</span>}
+        </div>
 
-            <div style={groupStyle}>
-                <label htmlFor="description" style={labelStyle}>Description</label>
-                <textarea id="description" style={getInputBorder(isUpdate())}{...register('description', { required: true })} />
-                {errors.description && <span style={redText}>This field is required</span>}
-            </div>
+        <div style={groupStyle}>
+          <label htmlFor="description" style={labelStyle}>
+            Description
+          </label>
+          <textarea
+            id="description"
+            style={getInputBorder(isUpdate(), false)}
+            {...register("description", { required: true })}
+          />
+          {errors.description && (
+            <span style={redText}>This field is required</span>
+          )}
+        </div>
 
-            <div style={groupStyle}>
-                <label htmlFor="characteristics" style={labelStyle}>Characteristics</label>
-                <input id="characteristics" style={getInputBorder(isUpdate())}{...register('characteristics', { required: true } )} />
-                {errors.characteristics && <span style={redText}>This field is required</span>}
-            </div>
+        <div style={groupStyle}>
+          <label htmlFor="characteristics" style={labelStyle}>
+            Characteristics
+          </label>
+          <input
+            id="characteristics"
+            style={getInputBorder(isUpdate(), false)}
+            {...register("characteristics", { required: true })}
+          />
+          {errors.characteristics && (
+            <span style={redText}>This field is required</span>
+          )}
+        </div>
 
-            <div style={groupStyle}>
-                <label htmlFor="avatar" style={labelStyle}>Avatar</label>
-                <input id="avatar" type="file" style={getInputBorder(isUpdate())}{...register('avatar')} />
-            </div>
+        <div style={groupStyle}>
+          <label htmlFor="avatar" style={labelStyle}>
+            Avatar
+          </label>
+          <input
+            id="avatar"
+            type="file"
+            style={getInputBorder(isUpdate(), false)}
+            {...register("avatar")}
+          />
+        </div>
 
-            <div style={groupStyle}>
-                <label htmlFor="status" style={labelStyle}>Status</label>
-                <select id="status" style={getInputBorder(isUpdate())}{...register('status')} disabled={!isUpdate()}>
-                    <option value="available">Available</option>
-                    <option value="adopted">Adopted</option>
-                    <option value="pending">Pending</option>
-                    <option value="unavailable">Unavailable</option>
-                </select>
-            </div>
-
-        </form>
+        <div style={groupStyle}>
+          <label htmlFor="status" style={labelStyle}>
+            Status
+          </label>
+          <select
+            id="status"
+            style={getInputBorder(isUpdate(), false)}
+            {...register("status")}
+            disabled={!isUpdate()}
+          >
+            <option value="available">Available</option>
+            <option value="adopted">Adopted</option>
+            <option value="pending">Pending</option>
+            <option value="unavailable">Unavailable</option>
+          </select>
+        </div>
+      </form>
     );
 });
 
