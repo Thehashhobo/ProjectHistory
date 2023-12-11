@@ -14,6 +14,7 @@ const LogoutButton = () => {
     localStorage.removeItem('user_name');
 
     nav('/login');
+    window.location.reload();
   };
   return <Button onClick={performLogout}>Logout</Button>;
 };

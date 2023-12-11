@@ -149,7 +149,7 @@ const UpdatePetPalUser = () => {
         }
     };
     return (
-        <Box m={20} mb={10} bg="#FFFFFF" borderWidth="8px" borderRadius="lg" p={8}>
+        <Box m={20} mb={10} bg="#FFFFFF" borderColor='#BEE3F8' borderWidth="8px" borderRadius="lg" p={8}>
             <VStack>
                 <Heading textAlign="center">
                     Update your <Text color="blue.500">Barnyard Buddies</Text> Account

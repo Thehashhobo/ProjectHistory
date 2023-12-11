@@ -99,7 +99,7 @@ const AccountInfoPage = () => {
 
     return (
         <Box>
-            <Box m={10} bg="#FFFFFF" mb={10} borderWidth="8px" borderRadius="lg" p={4}>
+            <Box m={10} bg="#FFFFFF" borderColor='#BEE3F8' mb={10} borderWidth="8px" borderRadius="lg" p={4}>
                 <Heading textAlign="center" mb={4}>Welcome <Text color="blue.500">{user_email}!</Text></Heading>
                 <Center>
                     <HStack gap={5}>
@@ -120,7 +120,7 @@ const AccountInfoPage = () => {
                 </Center>
 
             </Box>
-            <Box m={10} bg="#FFFFFF" mb={10} borderWidth="8px" borderRadius="lg" p={4}>
+            <Box m={10} bg="#FFFFFF" borderColor='#BEE3F8' mb={10} borderWidth="8px" borderRadius="lg" p={4}>
                 <Text mb={3} textAlign="center" color="blue.500" fontSize='xl' fontWeight="bold"> Account Information</Text>
                 <Center>
                     <VStack mb={5}>
