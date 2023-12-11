@@ -32,7 +32,7 @@ import axios from 'axios';
 
 const Links = [
   { label: 'Search Pets', to: '/pet-listings' },
-  { label: 'Create Posting', to: '/Home' },
+  { label: 'Blogs', to: '/Home' },
   { label: 'Register', to: '/register' },
   { label: 'Login', to: '/login' },
   { label: 'Pet Shelters', to: '/pet_shelters' },

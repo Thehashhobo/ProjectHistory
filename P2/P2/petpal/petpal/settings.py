@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'comments.apps.CommentsConfig',
     'corsheaders',
-    'notifications'
+    'notifications',
+    'blog'
 ]
 
 MIDDLEWARE = [
