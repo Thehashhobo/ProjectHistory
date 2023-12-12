@@ -12,6 +12,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.generics import CreateAPIView
+from comments.pagination import NoPagination
 
 
 
@@ -33,6 +34,7 @@ class IsOwnerOrSheltersManager(permissions.BasePermission):
 
 class PetListingUpdateDeleteDetailView(APIView):
     authentication_classes = [JWTAuthentication]
+    pagination_class = NoPagination
 
     def get_permissions(self):
         """
@@ -67,6 +69,7 @@ class PetListingUpdateDeleteDetailView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 class PetListingCreateList(generics.GenericAPIView):
+    pagination_class = NoPagination
     authentication_classes = [JWTAuthentication]
     queryset = PetListing.objects.all()
     filter_backends = [filters.OrderingFilter, DjangoFilterBackend]
@@ -100,6 +103,7 @@ class PetListingCreateList(generics.GenericAPIView):
 ##################### Application Views #####################
 
 class CreateApplication(CreateAPIView):
+    pagination_class = NoPagination
     serializer_class = ApplicationSerializer
     permission_classes = [IsAuthenticated]
 
@@ -123,6 +127,7 @@ class CreateApplication(CreateAPIView):
 
 
 class UpdateApplication(UpdateAPIView):
+    pagination_class = NoPagination
     print("view called")
     serializer_class = ApplicationUpdateSerializer
     permission_classes = [IsAuthenticated]
@@ -151,6 +156,7 @@ class GetApplication(RetrieveAPIView):
         return application
     
 class GetShelterApplicationsList(APIView):
+    pagination_class = NoPagination
     permission_classes = [IsAuthenticated]
     filter_backends = [filters.OrderingFilter, DjangoFilterBackend]
     filterset_fields = ['status']
@@ -163,6 +169,7 @@ class GetShelterApplicationsList(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class GetSeekerApplicationList(APIView):
+    pagination_class = NoPagination
     permission_classes = [IsAuthenticated]
     filter_backends = [filters.OrderingFilter, DjangoFilterBackend]
     filterset_fields = ['status']
