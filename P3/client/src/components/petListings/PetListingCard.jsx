@@ -80,7 +80,7 @@ function PetListingCard(pet){
     
 
     const canEdit = () => {
-        return (pet.shelter == localStorage.getItem('user_id'))
+        return (pet.shelter == localStorage.getItem('user_id') && (localStorage.getItem('is_pet_shelter_user') == "true"))
     }
     
 
