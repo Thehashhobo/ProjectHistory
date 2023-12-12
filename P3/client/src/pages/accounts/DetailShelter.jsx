@@ -17,6 +17,10 @@ import {
   ModalFooter,
   Textarea,
   Grid,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
 } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
 import Rating from '../../components/comments/stars';
@@ -39,6 +43,9 @@ const ShelterDetailPage = () => {
 
   const [isReply, setIsReply] = useState(false);
   const [replyToCommentId, setReplyToCommentId] = useState(null);
+
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isEmpty, setIsEmpty] = useState(false);
 
   let columns;
   if (isLargeScreen) {
@@ -267,10 +274,20 @@ const ShelterDetailPage = () => {
 
       if (!accessToken) {
         console.error('Access token not found.');
+        setIsLoggedIn(false);
+        console.log('Is logged in:', isLoggedIn);
         return;
       }
 
+      setIsLoggedIn(true);
+      console.log('Is logged in:', isLoggedIn);
+
       let payload;
+
+      if (newComment.comment_text === '') {
+        setIsEmpty(true);
+        return;
+      }
 
       if (is_pet_shelter_user === 'true') {
         if (isReply) {
@@ -537,6 +554,18 @@ const ShelterDetailPage = () => {
           <ModalHeader>Add a Review</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
+            {(isEmpty || !isLoggedIn) && (
+              <Alert status='error' mb={4}>
+                <AlertIcon />
+                <AlertTitle>Attention!</AlertTitle>
+                <AlertDescription>
+                  {!isLoggedIn
+                    ? ' Log in to post'
+                    : ' Cannot post a blank message'}
+                </AlertDescription>
+              </Alert>
+            )}
+
             <Textarea
               placeholder={`Enter your ${isReply ? 'reply' : 'review'}...`}
               onChange={(e) =>
