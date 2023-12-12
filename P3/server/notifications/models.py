@@ -1,8 +1,7 @@
 from django.db import models
 from django.conf import settings
 from comments.models import Comment
-from django.contrib.contenttypes.fields import GenericForeignKey
-from django.contrib.contenttypes.models import ContentType
+from accounts.models import PetPalUser
 
 class Notification(models.Model):
     # Sender of the comment
@@ -13,14 +12,12 @@ class Notification(models.Model):
     )
 
     # Recipient of the comment
-    recipient_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, related_name='notification_recipient', null=True, blank=True)
-    recipient_id = models.PositiveIntegerField(null=True, blank=True)
-    recipient = GenericForeignKey('recipient_type', 'recipient_id')
+    recipient = models.ForeignKey(PetPalUser, null=True, on_delete=models.CASCADE)
 
     message = models.TextField()
     is_read = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
-    related_comment = models.ForeignKey(Comment, on_delete=models.CASCADE, null=True, blank=True)
+    related_comment = models.ForeignKey(Comment, null=True, on_delete=models.CASCADE)
 
-    def __str__(self):
+    def str(self):
         return f"Notification for {self.user.email} - Read: {self.is_read}"
