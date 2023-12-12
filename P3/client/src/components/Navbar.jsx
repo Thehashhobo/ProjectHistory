@@ -97,7 +97,6 @@ export default function Simple() {
         recipient_id: notification.recipient_id,
         isRead: notification.is_read,
       }));
-      console.log(notificationData);
       setNotifications(notificationData);
     } catch (error) {
       console.error('Error fetching notifications:', error);
@@ -125,7 +124,6 @@ export default function Simple() {
     const canAddListing = () => {
       const isPetShelterUser =
         localStorage.getItem('is_pet_shelter_user') == 'true';
-      console.log(isPetShelterUser);
       return isPetShelterUser;
     };
 

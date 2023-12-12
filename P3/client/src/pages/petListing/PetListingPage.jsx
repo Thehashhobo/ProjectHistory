@@ -61,7 +61,7 @@ function PetListingPage() {
     const [ageSort, setAgeSort] = useState('');
     const [sizeSort, setSizeSort] = useState('');
     const [shelterList, setShelterList] = useState([]);
-    
+    console.log(shelterFilter)
     const petListings = useFetchPetListings(
         { status: statusFilter, size: sizeFilter, shelter: shelterFilter, gender: genderFilter },
         { age: ageSort, size: sizeSort }

@@ -60,7 +60,7 @@ const ShelterDetailPage = () => {
     {
       status: '',
       size: '',
-      shelter: localStorage.getItem('user_id'),
+      shelter: localStorage.getItem('petShelterID'),
       gender: '',
     },
     {

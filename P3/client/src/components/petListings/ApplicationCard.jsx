@@ -14,7 +14,7 @@ import { useNavigate,Navigate } from 'react-router-dom';
 
 
 function ApplicationCard({ application }) {
-    console.log(application)
+
     const nav = useNavigate();
     const handleClick = (id) =>{
         nav(`/application/${id}`)

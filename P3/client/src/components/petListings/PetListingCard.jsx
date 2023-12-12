@@ -30,7 +30,7 @@ import PropTypes from 'prop-types';
 
 
 function PetListingCard(pet){
-    console.log(pet)
+
     const navigate = useNavigate();
     const imageUrl = pet.avatar || defaultImage;
     const { isOpen: isModalOpen, onOpen: onModalOpen, onClose: onModalClose } = useDisclosure();
