@@ -20,6 +20,10 @@ const AccountInfoPage = () => {
     const handleUpdateBtnClick = () => {
         nav('/account-update');
     };
+
+    const handleViewApplication = () => {
+        nav(`/my_application/${localStorage.getItem('is_pet_shelter_user')}/${localStorage.getItem('user_user')}`);
+    };
     const handleShelterDetailBtnClick = () => {
         nav(`/pet_shelters/${userInfoData.id}`);
     };
@@ -121,6 +125,9 @@ const AccountInfoPage = () => {
                 <Heading textAlign="center" mb={4}>Welcome <Text color="blue.500">{user_email}!</Text></Heading>
                 <Center>
                     <HStack gap={5}>
+                        <Box m={2}>
+                            <Button onClick={handleViewApplication}>View my Applications</Button>
+                        </Box>
                         <Box m={2}>
                             <Button onClick={handleUpdateBtnClick}>Update Account</Button>
                         </Box>

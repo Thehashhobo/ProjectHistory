@@ -9,4 +9,6 @@ urlpatterns = [
     path('petListing/<int:pk>/applications/', CreateApplication.as_view()),
     path('applications/status/<int:pk>/', views.UpdateApplication.as_view()),
     path('applications/<int:pk>/', views.GetApplication.as_view()),
+    path('shelterApplicationsList/<int:user_id>/', views.GetShelterApplicationsList.as_view()),
+    path('seekerApplicationsList/<int:user_id>/', views.GetSeekerApplicationList.as_view()),
 ]

@@ -69,7 +69,7 @@ function PetListingDetailPage() {
 
 
     const handleApplicationClick = (petId) => {
-        navigate(`/pet-details/application/${petId}`);
+        navigate(`/start-application/${petId}`);
     };
     return(
         <>
@@ -109,9 +109,11 @@ function PetListingDetailPage() {
                                 <Button leftIcon={<EmailIcon />} colorScheme='teal' variant='solid'>
                                     Email
                                 </Button>
-                                <Button colorScheme='teal' variant='outline' onClick={() => handleApplicationClick(pet.id)}>
-                                    Adopt!
-                                </Button>
+                                {localStorage.getItem('is_pet_shelter_user') != 'true' && 
+                                <Button colorScheme='teal' variant='outline' onClick={() => handleApplicationClick(petId)}>
+                                    Adopt !
+                                </Button>} 
+                                
                             </Stack>
                            
                         </CardBody>

@@ -8,8 +8,9 @@ function NotificationCard({notification, onRemove, handleUpdate}) {
     const navigate = useNavigate();
     
     const handleCheck = (id, recipient_id) => {
+        
         handleUpdate(id);
-        navigate(`/pet_shelters/${recipient_id}`);
+        navigate(`/pet_shelters/${localStorage.getItem('user_id')}`);
     }
     return(
         <>

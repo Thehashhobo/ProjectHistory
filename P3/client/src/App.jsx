@@ -15,6 +15,9 @@ import PetPalUserUpdatePage from './pages/accounts/PetPalUserUpdatePage.jsx';
 import PetSeekerDetailPage from './pages/accounts/DetailSeeker.jsx';
 import ConversationPage from './pages/comments/ConversationPage.jsx';
 import PageNotFound from './components/PageNotFound.jsx';
+import ApplicationsPage from './pages/petListing/ApplicationPage.jsx';
+import ApplicationForm from './pages/petListing/ApplicationForm.jsx';
+
 
 const router = createBrowserRouter([
   {
@@ -50,11 +53,6 @@ const router = createBrowserRouter([
         element: <ShelterDetailPage />,
       },
       {
-        path: '/pet-details/application/:petId', // path to Pet detail List
-        element: <Home />, // change element to your application page(if you are using page,but i think pop up might be better)
-        //and use const { petId } = useParams(); to grab petId
-      },
-      {
         path: '/account-information',
         element: <AccountInfoPage />,
       },
@@ -69,6 +67,14 @@ const router = createBrowserRouter([
       {
         path: '/application/:appId',
         element: <ConversationPage />,
+      },
+      {
+        path: '/start-application/:petId',
+        element: <ApplicationForm />,
+      },
+      {
+        path: '/my_application/:type/:user_user',
+        element: <ApplicationsPage />,
       },
       {
         path: '/*',

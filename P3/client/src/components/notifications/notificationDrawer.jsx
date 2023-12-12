@@ -60,10 +60,10 @@ function NotificationDrawer({ isOpen, onClose , notificationList}) {
                 }
             });
             
-            console.log(`Pet listing with ID ${id} deleted successfully`);
+            console.log(`Pet listing with ID ${id} updated successfully`);
             // You might want to update the UI or redirect the user
         } catch (error) {
-            console.error('Error deleting pet listing:', error);
+            console.error('Error updating pet listing:', error);
             // Handle any errors, such as displaying a message to the user
         }
     };

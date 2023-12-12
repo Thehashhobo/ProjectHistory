@@ -50,11 +50,13 @@ class Application(models.Model):
     ]
      
     # Foreign keys
-    #  pet_shelter = models.ForeignKey(User, on_delete=models.CASCADE) contained in pet listing
+    # pet_shelter = models.ForeignKey(User, on_delete=models.CASCADE) contained in pet listing
      pet_seeker = models.ForeignKey(account_models.PetPalUser, on_delete=models.CASCADE, null=True, blank=True)
      pet_listing = models.ForeignKey(PetListing, on_delete=models.CASCADE, related_name='applications', null=True, blank=True)
     
     # Other info
+     pet_name = models.CharField(max_length=100,null=True) 
+     seeker_name = models.CharField(max_length=100,null=True)
      status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
      creation_time = models.DateTimeField(auto_now_add=True)
      last_update_time = models.DateTimeField(auto_now=True)

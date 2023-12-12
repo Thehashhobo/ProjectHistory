@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status, filters, permissions, serializers, generics
 from rest_framework.generics import ListAPIView, ListCreateAPIView, RetrieveAPIView, UpdateAPIView
 from .models import PetListing, Application
-from accounts.models import PetShelter
+from accounts.models import PetShelter, PetSeeker
 from .serializer import PetListingSerializer, ApplicationSerializer, ApplicationUpdateSerializer, PetListingSummarySerializer, PetListingUpdateSerializer
 from django.shortcuts import get_object_or_404
 from rest_framework_simplejwt.authentication import JWTAuthentication
@@ -11,6 +11,8 @@ from rest_framework.pagination import PageNumberPagination
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.generics import CreateAPIView
+
 
 
 class IsSheltersManager(permissions.BasePermission):
@@ -97,18 +99,13 @@ class PetListingCreateList(generics.GenericAPIView):
 
 ##################### Application Views #####################
 
-class CreateApplication(ListCreateAPIView):
+class CreateApplication(CreateAPIView):
     serializer_class = ApplicationSerializer
-    # attribute: filter backends used for filtering/ordering the queryset
-    filter_backends = [filters.OrderingFilter, DjangoFilterBackend]
-    filterset_fields = ['status']
-    ordering_fields = ['creation_time', 'last_update_time']
-   
     permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
         pet_listing = get_object_or_404(PetListing, pk=self.kwargs['pk'], status='available')
-         # Check if the user has already applied for this listing
+        # Check if the user has already applied for this listing
         existing_application = Application.objects.filter(
             pet_seeker=self.request.user,
             pet_listing=pet_listing
@@ -119,11 +116,10 @@ class CreateApplication(ListCreateAPIView):
 
         if existing_application:
             raise serializers.ValidationError("You have already applied for this listing.")
+        seeker_profile = PetSeeker.objects.filter(user=self.request.user).first()
+        seeker_name = seeker_profile.name if seeker_profile else "Unknown"
 
-        serializer.save(pet_listing=pet_listing, pet_seeker=self.request.user)
-    def get_queryset(self):
-        user = self.request.user
-        return Application.objects.filter(pet_seeker=user)
+        serializer.save(pet_listing=pet_listing, pet_seeker=self.request.user, pet_name=pet_listing.name, seeker_name=seeker_name)
 
 # Change this
 class UpdateApplication(UpdateAPIView):
@@ -132,18 +128,12 @@ class UpdateApplication(UpdateAPIView):
 
     def get_object(self):
         application = get_object_or_404(Application, id=self.kwargs['pk'])
-        user = self.request.user
         
         # Shelter can only update the status of an application from pending to accepted or denied.
         # Pet seeker can only update the status of an application from pending or accepted to withdrawn.
         # Details of an application cannot be updated once submitted/created, except for its status
 
-        if user.is_pet_seeker:
-            if application.status not in ['pending', 'accepted'] or self.request.data.get('status') not in ['withdrawn']:
-                raise PermissionDenied("Illegal action: as a pet seeker you can only update the status of an application from pending or accepted to withdrawn.")
-        else: # user.is_pet_shelter:
-            if application.status not in ['pending'] or self.request.data.get('status') not in ['accepted', 'denied']:
-                raise PermissionDenied("Illegal action: as a shelter you can only update the status from pending to accepted or denied.")
+
         return application
 
     def perform_update(self, serializer):
@@ -158,8 +148,30 @@ class GetApplication(RetrieveAPIView):
         application = get_object_or_404(Application, id=self.kwargs['pk'])
 
         # Ensure that the user is authorized to view the application
-        if not (user.is_pet_shelter and application.pet_listing.shelter == user) and not (
-                user.is_pet_seeker and application.pet_seeker == user):
-            raise PermissionDenied("You are not authorized to view this application.")
 
         return application
+    
+class GetShelterApplicationsList(APIView):
+    permission_classes = [IsAuthenticated]
+    filter_backends = [filters.OrderingFilter, DjangoFilterBackend]
+    filterset_fields = ['status']
+    ordering_fields = ['creation_time', 'last_update_time']
+    def get(self, request, user_id):
+        print(user_id)
+        # Filter applications where the pet_listing's shelter's user matches the user_id
+        applications = Application.objects.filter(pet_listing__shelter__user=user_id)
+        serializer = ApplicationSerializer(applications, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+class GetSeekerApplicationList(APIView):
+    permission_classes = [IsAuthenticated]
+    filter_backends = [filters.OrderingFilter, DjangoFilterBackend]
+    filterset_fields = ['status']
+    ordering_fields = ['creation_time', 'last_update_time']
+    def get(self, request, user_id):
+        print(user_id)
+        # Assuming the Application model has a ForeignKey to User model as `pet_seeker`
+        applications = Application.objects.filter(pet_seeker=user_id)
+        serializer = ApplicationSerializer(applications, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
