@@ -97,7 +97,7 @@ const ShelterBlogPage = () => {
       formData.append('content', content);
       formData.append('author', authorId);
       formData.append('likes', 0);
-      formData.append('shelter_name', localStorage.getItem('name'));
+      formData.append('shelter_name', localStorage.getItem('user_name'));
       formData.append('image', image); // Append the image file
 
       const response = await fetch(`http://127.0.0.1:8000/blogs/`, {

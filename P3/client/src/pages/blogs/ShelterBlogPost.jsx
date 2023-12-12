@@ -194,14 +194,15 @@ const BlogPost = () => {
           >
             Likes: {blogPost.likes}
           </Badge>
-          <IconButton
-            aria-label='Like'
-            icon={<AiFillHeart />}
-            size='md'
-            colorScheme={isLiked ? 'red' : 'gray'} // Dynamically set colorScheme
-            variant='outline'
-            onClick={handleLike}
-          />
+          {String(localStorage.getItem('user_name')) != String(blogPost.shelter_name) &&
+            <IconButton
+              aria-label='Like'
+              icon={<AiFillHeart />}
+              size='md'
+              colorScheme={isLiked ? 'red' : 'gray'} // Dynamically set colorScheme
+              variant='outline'
+              onClick={handleLike}
+            />}
         </Flex>
       </Flex>
     </Box>

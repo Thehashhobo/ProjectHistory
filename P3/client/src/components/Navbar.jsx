@@ -32,15 +32,15 @@ import { useAuth } from '../contexts/AuthContext';
 
 const Links = [
   { label: 'Search Pets', to: '/pet-listings' },
-  { label: 'Blogs', to: '/shelter_blogs' },
-  { label: 'Pet Shelters', to: '/pet_shelters' },
+  { label: 'Shelters', to: '/pet_shelters' },
+  { label: 'Shelter Blogs', to: '/shelter_blogs' },
   { label: 'Account Information', to: '/account-information' },
 ];
 
 const NotLoggedInLinks = [
   { label: 'Search Pets', to: '/pet-listings' },
-  { label: 'Blogs', to: '/shelter_blogs' },
-  { label: 'Pet Shelters', to: '/pet_shelters' },
+  { label: 'Shelters', to: '/pet_shelters' },
+  { label: 'Shelter Blogs', to: '/shelter_blogs' },
   { label: 'Register', to: '/register' },
   { label: 'Login', to: '/login' },
 ];
