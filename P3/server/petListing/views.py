@@ -121,8 +121,9 @@ class CreateApplication(CreateAPIView):
 
         serializer.save(pet_listing=pet_listing, pet_seeker=self.request.user, pet_name=pet_listing.name, seeker_name=seeker_name)
 
-# Change this
+
 class UpdateApplication(UpdateAPIView):
+    print("view called")
     serializer_class = ApplicationUpdateSerializer
     permission_classes = [IsAuthenticated]
 
@@ -132,8 +133,6 @@ class UpdateApplication(UpdateAPIView):
         # Shelter can only update the status of an application from pending to accepted or denied.
         # Pet seeker can only update the status of an application from pending or accepted to withdrawn.
         # Details of an application cannot be updated once submitted/created, except for its status
-
-
         return application
 
     def perform_update(self, serializer):

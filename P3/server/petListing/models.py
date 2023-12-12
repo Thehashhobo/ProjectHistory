@@ -65,4 +65,4 @@ class Application(models.Model):
      seeker_pet_care_experience = models.CharField(max_length=100)
      seeker_previous_pets = models.CharField(max_length=100)
 
-     
+    
