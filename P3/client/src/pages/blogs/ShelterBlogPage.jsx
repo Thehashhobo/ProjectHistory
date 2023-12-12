@@ -19,6 +19,8 @@ import {
   useDisclosure,
   Input,
   Textarea,
+  Alert,
+  AlertIcon,
 } from '@chakra-ui/react';
 
 import { useParams } from 'react-router-dom';
@@ -87,7 +89,15 @@ const ShelterBlogPage = () => {
     setContent(event.target.value);
   };
 
+  const [showAlert, setShowAlert] = useState(false);
+
   const handleCreate = async () => {
+    // Validation check
+    if (!title || !content || !image) {
+      setShowAlert(true);
+      return;
+    }
+
     try {
       const accessToken = localStorage.getItem('access_token');
 
@@ -121,6 +131,7 @@ const ShelterBlogPage = () => {
       console.error('Error creating blog post:', error.message);
     }
   };
+
   return (
     <Box p={4} m={5}>
       <Box
@@ -201,6 +212,13 @@ const ShelterBlogPage = () => {
                         <Button colorScheme='green' onClick={handleCreate}>
                           Create
                         </Button>
+                        {showAlert && (
+                          <Alert status='error' mt={4} borderRadius='md'>
+                            <AlertIcon />
+                            Please provide a title, content, and image before
+                            submitting.
+                          </Alert>
+                        )}
                       </ModalBody>
                     </ModalContent>
                   </Modal>
