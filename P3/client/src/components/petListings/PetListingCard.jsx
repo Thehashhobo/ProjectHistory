@@ -30,6 +30,7 @@ import PropTypes from 'prop-types';
 
 
 function PetListingCard(pet){
+    console.log(pet)
     const navigate = useNavigate();
     const imageUrl = pet.avatar || defaultImage;
     const { isOpen: isModalOpen, onOpen: onModalOpen, onClose: onModalClose } = useDisclosure();
@@ -177,13 +178,13 @@ function PetListingCard(pet){
     )
 }
 
-PetListingCard.propTypes = {
-    pet: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      breed: PropTypes.string.isRequired,
-      age: PropTypes.number.isRequired,
-      shelter: PropTypes.number.isRequired, // You might want to define this object more specifically
-      avatar: PropTypes.string // Assuming this is a URL
-    }).isRequired,
-  };
+// PetListingCard.propTypes = {
+//     pet: PropTypes.shape({
+//       name: PropTypes.string.isRequired,
+//       breed: PropTypes.string.isRequired,
+//       age: PropTypes.number.isRequired,
+//       shelter: PropTypes.number.isRequired, // You might want to define this object more specifically
+//       avatar: PropTypes.string // Assuming this is a URL
+//     }).isRequired,
+//   };
 export default PetListingCard
