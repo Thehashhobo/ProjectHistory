@@ -67,6 +67,7 @@ class BlogUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
             instance.liked_by_users.add(user)
         print("likes:", instance.likes)
         instance.save()
+        print(user.id)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
      

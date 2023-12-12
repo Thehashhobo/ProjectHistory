@@ -26,7 +26,7 @@ const formatDate = (timestamp) => {
 
 const BlogPost = () => {
   const { colorMode } = useColorMode();
-  const { authorID, blogId } = useParams();
+  const { blogId } = useParams();
   const [blogPost, setBlogPost] = useState({});
   const [isLiked, setIsLiked] = useState(false);
 
@@ -54,19 +54,16 @@ const BlogPost = () => {
       if (!response.ok) {
         // Revert the local state if the request fails
         setIsLiked((prevIsLiked) => !prevIsLiked);
-        setBlogPost((prevBlogPost) => ({
-          ...prevBlogPost,
-          likes: prevBlogPost.likes + (isLiked ? -1 : 1),
-        }));
         console.error('Error in liking blog post:', response.statusText);
       } else {
         // Update localStorage to persist like status
-        localStorage.setItem(`liked_${blogId}`, isLiked ? 'false' : 'true');
+        localStorage.setItem(`liked_${blogId}`, isLiked ? 'true' : 'false');
       }
     } catch (error) {
       console.error('Error in liking blog post:', error.message);
     }
   };
+
   useEffect(() => {
     const getPostDetails = async () => {
       try {
@@ -75,9 +72,15 @@ const BlogPost = () => {
         );
         if (response.status === 200) {
           setBlogPost(response.data);
-          // Check localStorage to determine the like status
-          const storedLikeStatus = localStorage.getItem(`liked_${blogId}`);
-          setIsLiked(storedLikeStatus === 'true');
+
+          // Check if the current user has liked the post
+          const accessToken = localStorage.getItem('access_token');
+          const currentUserID = accessToken
+            ? JSON.parse(atob(accessToken.split('.')[1])).user_id
+            : null;
+
+          // Set isLiked based on whether the current user is in liked_by_users
+          setIsLiked(response.data.liked_by_users.includes(currentUserID));
         }
       } catch (error) {
         console.error('ERROR IN RETRIEVING BLOGS: ', error.message);
@@ -136,7 +139,7 @@ const BlogPost = () => {
             aria-label='Like'
             icon={<AiFillHeart />}
             size='md'
-            colorScheme={isLiked ? 'red' : 'gray'}
+            colorScheme={isLiked ? 'red' : 'gray'} // Dynamically set colorScheme
             variant='outline'
             onClick={handleLike}
           />
