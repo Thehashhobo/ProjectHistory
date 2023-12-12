@@ -92,7 +92,9 @@ const ShelterBlogPage = () => {
       <Grid templateColumns='repeat(auto-fill, minmax(300px, 1fr))' gap={7}>
         {blogPosts.map((blog_post) => (
           <GridItem key={blog_post.id}>
-            <RouterLink to={`/shelter_blogs/${blog_post.author}`}>
+            <RouterLink
+              to={`/shelter_blogs/${blog_post.author}/${blog_post.id}`}
+            >
               <Box
                 _hover={{
                   bg: '#EDFDFD',
@@ -141,7 +143,9 @@ const ShelterBlogPage = () => {
                 <Text textAlign='center'>
                   {blog_post.content.slice(0, 50)}...
                 </Text>
-                <RouterLink to={`/shelter_blogs/${blog_post.author}/`}>
+                <RouterLink
+                  to={`/shelter_blogs/${blog_post.author}/${blog_post.id}`}
+                >
                   <Text
                     textAlign='center'
                     color='blue.500'

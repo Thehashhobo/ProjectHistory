@@ -44,15 +44,34 @@ class BlogListCreateView(generics.ListCreateAPIView):
             serializer = self.get_serializer(queryset, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
 
+
 class BlogUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Blog.objects.all()
     serializer_class = UpdateSerializer
     lookup_field = 'pk'
+    permission_classes = [IsAuthenticated]
 
     def perform_update(self, serializer):
-        # Assuming 'likes' is a field you want to increment
         instance = serializer.instance
-        instance.likes += 1
+        user = self.request.user
+
+        if instance.is_liked_by_user(user):
+            print("unliking it")
+            # User has already liked the post, so unlike it
+            instance.likes -= 1
+            instance.liked_by_users.remove(user)
+        else:
+            print("liking it")
+            # User has not liked the post, so like it
+            instance.likes += 1
+            instance.liked_by_users.add(user)
+        print("likes:", instance.likes)
         instance.save()
 
+        return Response(serializer.data, status=status.HTTP_200_OK)
+     
 
+class BlogRetrieveView(generics.RetrieveAPIView):
+    queryset = Blog.objects.all()
+    serializer_class = BlogSerializer
+    lookup_field = 'pk'

@@ -17,6 +17,7 @@ import ConversationPage from './pages/comments/ConversationPage.jsx';
 import PageNotFound from './components/PageNotFound.jsx';
 import ShelterBlogsList from './pages/blogs/ListingShelterBlogs.jsx';
 import ShelterBlogPage from './pages/blogs/ShelterBlogPage.jsx';
+import ShelterBlogPost from './pages/blogs/ShelterBlogPost.jsx';
 
 const router = createBrowserRouter([
   {
@@ -78,8 +79,12 @@ const router = createBrowserRouter([
         element: <ShelterBlogsList />,
       },
       {
-        path: '/shelter_blogs/:authorId/',
+        path: '/shelter_blogs/:authorId',
         element: <ShelterBlogPage />,
+      },
+      {
+        path: '/shelter_blogs/:authorId/:blogId',
+        element: <ShelterBlogPost />,
       },
       {
         path: '/*',
