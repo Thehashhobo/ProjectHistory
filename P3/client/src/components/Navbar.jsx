@@ -30,22 +30,20 @@ import React, { useRef, useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../contexts/AuthContext';
 
-
 const Links = [
   { label: 'Search Pets', to: '/pet-listings' },
-  { label: 'Blogs', to: '/Home' },
-  { label: 'Pet Shelters', to: '/pet_shelters' },
+  { label: 'Shelters', to: '/pet_shelters' },
+  { label: 'Shelter Blogs', to: '/shelter_blogs' },
   { label: 'Account Information', to: '/account-information' },
 ];
 
 const NotLoggedInLinks = [
   { label: 'Search Pets', to: '/pet-listings' },
-  { label: 'Blogs', to: '/Home' },
-  { label: 'Pet Shelters', to: '/pet_shelters' },
+  { label: 'Shelters', to: '/pet_shelters' },
+  { label: 'Shelter Blogs', to: '/shelter_blogs' },
   { label: 'Register', to: '/register' },
   { label: 'Login', to: '/login' },
 ];
-
 
 const NavLink = (props) => {
   const { children } = props;
@@ -69,7 +67,11 @@ const NavLink = (props) => {
 
 export default function Simple() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { isOpen: isModalOpen, onOpen: onModalOpen, onClose: onModalClose } = useDisclosure();
+  const {
+    isOpen: isModalOpen,
+    onOpen: onModalOpen,
+    onClose: onModalClose,
+  } = useDisclosure();
   const formRef = useRef();
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -83,34 +85,30 @@ export default function Simple() {
     try {
       const response = await axios.get(queryString, {
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+          Authorization: `Bearer ${localStorage.getItem('access_token')}`,
           'Content-Type': 'application/json',
         },
       });
 
-      const notificationData = response.data.results.map(notification => ({
+      const notificationData = response.data.results.map((notification) => ({
         id: notification.id,
         message: notification.message,
         time: notification.created_at,
         recipient_id: notification.recipient_id,
-        isRead: notification.is_read
+        isRead: notification.is_read,
       }));
-      console.log(notificationData)
+      console.log(notificationData);
       setNotifications(notificationData);
     } catch (error) {
       console.error('Error fetching notifications:', error);
     }
   };
 
-
   useEffect(() => {
     if (isTokenPresent()) {
       fetchnotifications();
     }
   }, []);
-
-
-
 
   const submitForm = () => {
     setIsSubmitting(true);
@@ -125,7 +123,8 @@ export default function Simple() {
 
   useEffect(() => {
     const canAddListing = () => {
-      const isPetShelterUser = localStorage.getItem("is_pet_shelter_user") == "true";
+      const isPetShelterUser =
+        localStorage.getItem('is_pet_shelter_user') == 'true';
       console.log(isPetShelterUser);
       return isPetShelterUser;
     };
@@ -160,7 +159,7 @@ export default function Simple() {
             onClick={isOpen ? onClose : onOpen}
           />
           <HStack spacing={8} alignItems={'center'}>
-            <Box mr="auto" px={0} alignItems={'center'}>
+            <Box mr='auto' px={0} alignItems={'center'}>
               <Image
                 src={logoImage}
                 alt='Logo'
@@ -173,33 +172,49 @@ export default function Simple() {
               spacing={4}
               display={{ base: 'none', md: 'flex' }}
             >
-              {isTokenPresent() ? (<>
-                {Links.map(({ label, to }) => (
-                  <NavLink key={label}>
-                    <Link to={to}>{label}</Link>
-                  </NavLink>
-                ))}
-              </>) :
-                (<>
+              {isTokenPresent() ? (
+                <>
+                  {Links.map(({ label, to }) => (
+                    <NavLink key={label}>
+                      <Link to={to}>{label}</Link>
+                    </NavLink>
+                  ))}
+                </>
+              ) : (
+                <>
                   {NotLoggedInLinks.map(({ label, to }) => (
                     <NavLink key={label}>
                       <Link to={to}>{label}</Link>
                     </NavLink>
                   ))}
-                </>)}
+                </>
+              )}
             </HStack>
-            {isTokenPresent() && showAddListingButton && (<Button color="blue.500" fontWeight={'bold'} fontSize='xl' onClick={onModalOpen}>Add Pet Listing</Button>)}
-            {isTokenPresent() &&
+            {isTokenPresent() && showAddListingButton && (
+              <Button
+                color='blue.500'
+                fontWeight={'bold'}
+                fontSize='xl'
+                onClick={onModalOpen}
+              >
+                Add Pet Listing
+              </Button>
+            )}
+            {isTokenPresent() && (
               <>
-                <BellIcon boxSize={31} cursor="pointer" onClick={onOpen} />
-                <NotificationDrawer notificationList={notifications} isOpen={isOpen} onClose={onClose} />
+                <BellIcon boxSize={31} cursor='pointer' onClick={onOpen} />
+                <NotificationDrawer
+                  notificationList={notifications}
+                  isOpen={isOpen}
+                  onClose={onClose}
+                />
               </>
-            }
+            )}
           </HStack>
         </Flex>
 
         {isOpen ? (
-          <Box pb={4} color="white" display={{ md: 'none' }}>
+          <Box pb={4} color='white' display={{ md: 'none' }}>
             <Stack as={'nav'} spacing={4}>
               {isTokenPresent() ? (
                 <>
@@ -208,20 +223,20 @@ export default function Simple() {
                       <Link to={to}>{label}</Link>
                     </NavLink>
                   ))}
-                </>) :
-                (<>
+                </>
+              ) : (
+                <>
                   {NotLoggedInLinks.map(({ label, to }) => (
                     <NavLink key={label}>
                       <Link to={to}>{label}</Link>
                     </NavLink>
                   ))}
-                </>)
-              }
+                </>
+              )}
             </Stack>
           </Box>
         ) : null}
         <div>
-
           <Modal
             isOpen={isModalOpen}
             onClose={() => {
@@ -251,14 +266,20 @@ export default function Simple() {
           </Modal>
         </div>
         {showSuccessMessage && (
-          <Alert status="success" variant="solid">
+          <Alert status='success' variant='solid'>
             <AlertIcon />
             <AlertTitle mr={2}>Success!</AlertTitle>
-            <AlertDescription>Your form has been submitted successfully.</AlertDescription>
-            <CloseButton position="absolute" right="8px" top="8px" onClick={closeSuccessMessage} />
+            <AlertDescription>
+              Your form has been submitted successfully.
+            </AlertDescription>
+            <CloseButton
+              position='absolute'
+              right='8px'
+              top='8px'
+              onClick={closeSuccessMessage}
+            />
           </Alert>
         )}
-
       </Box>
     </>
   );

@@ -29,6 +29,7 @@ import useFetchPetListings from '../../hooks/FetchPetListings';
 import { useMediaQuery } from 'react-responsive';
 import PetListingCard from '../../components/petListings/PetListingCard';
 import Replies from '../../components/comments/replies';
+import { Link } from 'react-router-dom';
 const ShelterDetailPage = () => {
   const [petShelterDetail, setPetShelterDetail] = useState(null);
   const [comments, setComments] = useState([]);
@@ -421,7 +422,13 @@ const ShelterDetailPage = () => {
           {petShelterDetail.name}
         </Heading>
         <Text textAlign='center' fontWeight='bold'>
-          Shelter Information Page
+          Shelter Information Page |{' '}
+          <Link
+            to={`/shelter_blogs/${petShelterDetail.user}`}
+            style={{ textDecoration: 'underline' }}
+          >
+            Click to View Blog
+          </Link>
         </Text>
       </Box>
 

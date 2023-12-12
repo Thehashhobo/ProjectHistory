@@ -15,6 +15,9 @@ import PetPalUserUpdatePage from './pages/accounts/PetPalUserUpdatePage.jsx';
 import PetSeekerDetailPage from './pages/accounts/DetailSeeker.jsx';
 import ConversationPage from './pages/comments/ConversationPage.jsx';
 import PageNotFound from './components/PageNotFound.jsx';
+import ShelterBlogsList from './pages/blogs/ListingShelterBlogs.jsx';
+import ShelterBlogPage from './pages/blogs/ShelterBlogPage.jsx';
+import ShelterBlogPost from './pages/blogs/ShelterBlogPost.jsx';
 import ApplicationsPage from './pages/petListing/ApplicationPage.jsx';
 import ApplicationForm from './pages/petListing/ApplicationForm.jsx';
 
@@ -67,6 +70,19 @@ const router = createBrowserRouter([
       {
         path: '/application/:appId',
         element: <ConversationPage />,
+      },
+
+      {
+        path: '/shelter_blogs',
+        element: <ShelterBlogsList />,
+      },
+      {
+        path: '/shelter_blogs/:authorId',
+        element: <ShelterBlogPage />,
+      },
+      {
+        path: '/shelter_blogs/:authorId/:blogId',
+        element: <ShelterBlogPost />,
       },
       {
         path: '/start-application/:petId',
