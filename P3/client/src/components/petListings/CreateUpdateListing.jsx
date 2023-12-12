@@ -27,33 +27,33 @@ const PetListingForm = forwardRef(({ onFormSubmitSuccess, predefinedValues }, re
     const onSubmit = async (data) => {
         console.log('Form data on submit:', data);
         const petId = predefinedValues?.petId; // Assuming predefinedValues includes the pet ID
-        let queryString = `http://127.0.0.1:8000/petListing/${isUpdate() ? `${petId}/` : ''}`;
-    
-        const requestData = isUpdate() ? {
-            description: data.description,
-            characteristics: data.characteristics,
-            avatar: data.avatar, // Assuming this is a file or a URL
-            status: data.status
-        } : {
-            name: data.name,
-            breed: data.breed,
-            age: data.age,
-            size: data.size,
-            color: data.color,
-            gender: data.gender,
-            description: data.description,
-            shelter: localStorage.getItem('user_id'),//may cause bug, this is a user_id and not the shelter id
-            date_posted: Date.now(),
-            characteristics: data.characteristics,
-            avatar: data.avatar
-        };
-        console.log('Request data:', requestData);
+        const formData = new FormData();
 
-        try {
-            const accessToken = localStorage.getItem('access_token');
-            const method = isUpdate() ? axios.put : axios.post;
+        // Add fields to formData
+        formData.append('name', data.name);
+        formData.append('breed', data.breed);
+        formData.append('age', data.age);
+        formData.append('size', data.size);
+        formData.append('color', data.color);
+        formData.append('gender', data.gender);
+        formData.append('description', data.description);
+        formData.append('characteristics', data.characteristics);
+        formData.append('status', data.status);
+        formData.append('avatar', data.avatar[0]); // Assuming avatar is a file input, take the first file
     
-            await method(queryString, requestData, {
+        if (!isUpdate()) {
+            formData.append('shelter', localStorage.getItem('user_id'));
+            formData.append('date_posted', Date.now());
+        }
+    
+        const queryString = `http://127.0.0.1:8000/petListing/${isUpdate() ? `${petId}/` : ''}`;
+        const accessToken = localStorage.getItem('access_token')
+    
+        try {
+            await axios({
+                method: isUpdate() ? 'put' : 'post',
+                url: queryString,
+                data: formData,
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'Authorization': `Bearer ${accessToken}`

@@ -57,7 +57,7 @@ function PetListingDetailPage() {
     if (!pet) {
         return <div>Loading...</div>;
     }
-    const imageUrl = pet.avatar || defaultImage;
+    const imageUrl = `http://127.0.0.1:8000/${pet.avatar}` || defaultImage;
     let color;
     if (pet.status === 'pending'){
         color = '#ffc36d'; //yellow
@@ -67,7 +67,7 @@ function PetListingDetailPage() {
     } else 
     {color = 'red';}
 
-
+    console.log(pet)
     const handleApplicationClick = (petId) => {
         navigate(`/start-application/${petId}`);
     };
@@ -120,7 +120,6 @@ function PetListingDetailPage() {
                     </Card>
                 </GridItem>
                 </Grid>
-                <h1>{pet.color}</h1>
                 
             
         </>

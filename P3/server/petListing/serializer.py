@@ -1,16 +1,17 @@
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer, DateTimeField, ListField, \
-    PrimaryKeyRelatedField, HyperlinkedRelatedField
+    PrimaryKeyRelatedField, HyperlinkedRelatedField, ImageField
 from .models import PetListing
 from .models import Application
 
 
 class PetListingSerializer(serializers.ModelSerializer):
-    PetListing = PrimaryKeyRelatedField(read_only=True)
-    PetListing = DateTimeField(read_only=True) #may cause bug
     class Meta:
         model = PetListing
         fields = '__all__'
+        read_only_fields = ('date_posted',)
+    
+
 
 class PetListingUpdateSerializer(serializers.ModelSerializer):
     # Making fields optional
