@@ -7,6 +7,8 @@ from django.conf import settings
 # Create your models here.
 
 class Comment(models.Model):
+    id = models.AutoField(primary_key=True)  # Explicitly define id as AutoField
+
     # user's comment info
     comment_made_by_the_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     comment_made_by_the_id_pet_seeker = models.ForeignKey(PetSeeker, on_delete=models.CASCADE, null=True)
@@ -27,3 +29,9 @@ class Comment(models.Model):
 
     # Name of the user who made the comment
     name = models.CharField(max_length=100, null=True, blank=True)
+
+    # Flag to indicate if it's a reply
+    is_reply = models.BooleanField(default=False)
+
+    # Reference to the parent comment (if it's a reply)
+    parent_comment = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='replies')

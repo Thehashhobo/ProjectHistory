@@ -10,12 +10,16 @@ from petListing.models import Application
 from accounts.models import PetShelter
 from django.utils import timezone
 from django.shortcuts import get_object_or_404
+from .pagination import NoPagination
 
 # Create your views here.
 
 ################# Shelter Comments #################
 class ShelterCommentListCreate(ListCreateAPIView):
     serializer_class = CommentSerializer
+    pagination_class = NoPagination
+    queryset = Comment.objects.all()
+
     # permission_classes = [IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
@@ -32,7 +36,7 @@ class ShelterCommentListCreate(ListCreateAPIView):
     
     def get_queryset(self):
         shelter_id = self.kwargs['pk']
-        return Comment.objects.filter(object_id=shelter_id, is_application=False).order_by('-comment_creation_time')
+        return Comment.objects.filter(object_id=shelter_id, is_application=False, parent_comment=None).order_by('-comment_creation_time')
     
 ################# Application Comments #################
 

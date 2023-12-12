@@ -3,7 +3,7 @@ from django.dispatch import receiver
 from .models import Comment
 from notifications.models import Notification
 from django.contrib.contenttypes.models import ContentType
-from accounts.models import PetSeeker, PetShelter
+from accounts.models import PetSeeker, PetShelter, PetPalUser
 
 @receiver(post_save, sender=Comment)
 def create_notification_on_new_comment(sender, instance, created, **kwargs):
@@ -20,9 +20,9 @@ def create_notification_on_new_comment(sender, instance, created, **kwargs):
         # Determine the recipient based on the content type of the comment
         # object id is NOT user_id
         if instance.is_application == 1:
-            recipient = PetSeeker.objects.get(pk=instance.object_id)
+            recipient = PetSeeker.objects.get(pk=instance.object_id).user
         elif instance.is_application == 0:
-            recipient = PetShelter.objects.get(pk=instance.object_id)
+            recipient = PetShelter.objects.get(pk=instance.object_id).user
         else:
             recipient = None
 
