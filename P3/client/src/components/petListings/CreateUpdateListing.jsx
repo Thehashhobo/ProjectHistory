@@ -38,8 +38,16 @@ const PetListingForm = forwardRef(({ onFormSubmitSuccess, predefinedValues }, re
         formData.append('gender', data.gender);
         formData.append('description', data.description);
         formData.append('characteristics', data.characteristics);
-        formData.append('status', data.status);
-        formData.append('avatar', data.avatar[0]); // Assuming avatar is a file input, take the first file
+        if (data.status && data.status.length > 0) {
+          formData.append('status', data.status);
+          } else 
+          {
+            formData.append('status', 'available');
+          }
+        
+        if (data.avatar && data.avatar.length > 0) {
+          formData.append('avatar', data.avatar[0]);
+          } // Assuming avatar is a file input, take the first file
     
         if (!isUpdate()) {
             formData.append('shelter', localStorage.getItem('user_id'));
@@ -48,7 +56,7 @@ const PetListingForm = forwardRef(({ onFormSubmitSuccess, predefinedValues }, re
     
         const queryString = `http://127.0.0.1:8000/petListing/${isUpdate() ? `${petId}/` : ''}`;
         const accessToken = localStorage.getItem('access_token')
-    
+        console.log(formData)
         try {
             await axios({
                 method: isUpdate() ? 'put' : 'post',
