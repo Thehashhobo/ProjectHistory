@@ -16,6 +16,7 @@ import PetSeekerDetailPage from './pages/accounts/DetailSeeker.jsx';
 import ConversationPage from './pages/comments/ConversationPage.jsx';
 import PageNotFound from './components/PageNotFound.jsx';
 import ShelterBlogsList from './pages/blogs/ListingShelterBlogs.jsx';
+import ShelterBlogPage from './pages/blogs/ShelterBlogPage.jsx';
 
 const router = createBrowserRouter([
   {
@@ -71,13 +72,18 @@ const router = createBrowserRouter([
         path: '/application/:appId',
         element: <ConversationPage />,
       },
-      {
-        path: '/*',
-        element: <PageNotFound />,
-      },
+
       {
         path: '/shelter_blogs',
         element: <ShelterBlogsList />,
+      },
+      {
+        path: '/shelter_blogs/:authorId/',
+        element: <ShelterBlogPage />,
+      },
+      {
+        path: '/*',
+        element: <PageNotFound />,
       },
     ],
   },
