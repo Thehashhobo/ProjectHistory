@@ -33,6 +33,7 @@ const ShelterBlogPage = () => {
   const [blogPosts, setBlogPosts] = useState([]);
   const [sorting, setSorting] = useState('-date_posted');
   const { authorId } = useParams();
+  const [shelterName, setShelterName] = useState('');
 
   const handleSortingChange = (event) => {
     const selectedSorting = event.target.value;
@@ -47,6 +48,9 @@ const ShelterBlogPage = () => {
         );
         if (response.status === 200) {
           setBlogPosts(response.data);
+          if (response.data.length > 0) {
+            setShelterName(response.data[0].shelter_name);
+          }
         }
       } catch (error) {
         console.error('ERROR IN RETRIEVING BLOGS: ', error.message);
@@ -70,7 +74,9 @@ const ShelterBlogPage = () => {
           Blog Posts
         </Heading>
         <Text textAlign='center' fontWeight='bold' pt={2}>
-          Explore the latest blog posts from our Pet Shelters
+          {shelterName
+            ? `Explore the latest blog posts from ${shelterName}!`
+            : 'This shelter does not have any posts yet...'}
         </Text>
       </Box>
       <GridItem style={OptionsStyle}>

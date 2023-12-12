@@ -7,10 +7,18 @@ import {
   Flex,
   IconButton,
   useColorMode,
+  Button,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+  CloseButton,
+  useDisclosure,
 } from '@chakra-ui/react';
 import { AiFillHeart } from 'react-icons/ai';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const formatDate = (timestamp) => {
   const options = {
@@ -26,12 +34,21 @@ const formatDate = (timestamp) => {
 
 const BlogPost = () => {
   const { colorMode } = useColorMode();
-  const { blogId } = useParams();
+  const { blogId, authorId } = useParams();
   const [blogPost, setBlogPost] = useState({});
   const [isLiked, setIsLiked] = useState(false);
+  const [isShelter, setIsShelter] = useState(false);
+  const [isUser, setIsUser] = useState(true);
 
   const handleLike = async () => {
     try {
+      const accessToken = localStorage.getItem('access_token');
+      if (!accessToken) {
+        setIsUser(false);
+        return;
+      }
+      setIsUser(true);
+
       // Update the local state immediately
       setIsLiked((prevIsLiked) => !prevIsLiked);
       setBlogPost((prevBlogPost) => ({
@@ -39,7 +56,8 @@ const BlogPost = () => {
         likes: prevBlogPost.likes + (isLiked ? -1 : 1),
       }));
       const payload = { likes: 1 };
-      const accessToken = localStorage.getItem('access_token');
+      const is_pet_shelter_user = localStorage.getItem('is_pet_shelter_user');
+      setIsShelter(is_pet_shelter_user);
 
       // Send the request to the server
       const response = await fetch(`http://127.0.0.1:8000/blogs/${blogId}/`, {
@@ -90,6 +108,25 @@ const BlogPost = () => {
     getPostDetails();
   }, [blogId]);
 
+  const handleDelete = async (blogId) => {
+    try {
+      const accessToken = localStorage.getItem('access_token');
+      const response = await fetch(`http://127.0.0.1:8000/blogs/${blogId}/`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      if (response.status === 204) {
+        console.log('Blog post deleted successfully!');
+      }
+    } catch (error) {
+      console.error('Error deleting blog post:', error.message);
+    }
+  };
+
   return (
     <Box
       borderRadius='xl'
@@ -101,9 +138,32 @@ const BlogPost = () => {
       border='1px solid'
       borderColor={colorMode === 'light' ? 'gray.200' : 'gray.600'}
     >
+      {!isUser && (
+        <Alert status='error' variant='subtle'>
+          <AlertIcon />
+          Please log in to like posts
+        </Alert>
+      )}
       <Text fontSize='3xl' fontWeight='bold' mb={2} color='blue.500'>
         {blogPost.title}
       </Text>
+      {localStorage.getItem('is_pet_shelter_user') &&
+        localStorage.getItem('user_user') == authorId && (
+          <Link to={`/shelter_blogs/${blogPost.author}`}>
+            <Button
+              mt={2}
+              mb={4}
+              color='white'
+              bg='red.500'
+              _hover={{ bg: 'red.600' }}
+              fontWeight='bold'
+              onClick={() => handleDelete(blogPost.id)}
+            >
+              Delete
+            </Button>
+          </Link>
+        )}
+
       <Text fontSize='md' color='gray.500' mb={4}>
         Posted on {formatDate(blogPost.date_posted)}
       </Text>

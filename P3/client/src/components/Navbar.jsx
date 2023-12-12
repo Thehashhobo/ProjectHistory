@@ -39,7 +39,7 @@ const Links = [
 
 const NotLoggedInLinks = [
   { label: 'Search Pets', to: '/pet-listings' },
-  { label: 'Blogs', to: '/Home' },
+  { label: 'Blogs', to: '/shelter_blogs' },
   { label: 'Pet Shelters', to: '/pet_shelters' },
   { label: 'Register', to: '/register' },
   { label: 'Login', to: '/login' },
