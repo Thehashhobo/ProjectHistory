@@ -9,9 +9,11 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework import status
 
 # Create your views here.
-class BlogListCreateView(generics.GenericAPIView):
+class BlogListCreateView(generics.ListCreateAPIView):
     pagination_class = [PageNumberPagination]
     authentication_classes = [JWTAuthentication]
     queryset = Blog.objects.all()
@@ -20,9 +22,18 @@ class BlogListCreateView(generics.GenericAPIView):
     serializer_class = BlogSerializer
 
     def get_permissions(self):
-        if self.request.method == 'GET':
-            return []
-        return [IsAuthenticated()] # for creation
+        # if self.request.method == 'GET':
+        #     return []
+        return [] 
+    
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
+
+    
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 class BlogUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Blog.objects.all()

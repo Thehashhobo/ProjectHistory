@@ -15,6 +15,7 @@ import PetPalUserUpdatePage from './pages/accounts/PetPalUserUpdatePage.jsx';
 import PetSeekerDetailPage from './pages/accounts/DetailSeeker.jsx';
 import ConversationPage from './pages/comments/ConversationPage.jsx';
 import PageNotFound from './components/PageNotFound.jsx';
+import ShelterBlogsList from './pages/blogs/ListingShelterBlogs.jsx';
 
 const router = createBrowserRouter([
   {
@@ -73,6 +74,10 @@ const router = createBrowserRouter([
       {
         path: '/*',
         element: <PageNotFound />,
+      },
+      {
+        path: '/shelter_blogs',
+        element: <ShelterBlogsList />,
       },
     ],
   },
