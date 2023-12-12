@@ -525,13 +525,15 @@ const ShelterDetailPage = () => {
             </Text>
           </Badge>
 
-          <Button
-            onClick={onOpen}
-            colorScheme='blue'
-            mt={{ base: '2', md: '0' }}
-          >
-            Add a Review
-          </Button>
+          {localStorage.getItem('is_pet_shelter_user') === 'false' && (
+            <Button
+              onClick={onOpen}
+              colorScheme='blue'
+              mt={{ base: '2', md: '0' }}
+            >
+              Add a Review
+            </Button>
+          )}
         </Flex>
 
         {comments.length === 0 ? (
