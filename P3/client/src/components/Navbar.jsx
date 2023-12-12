@@ -143,14 +143,14 @@ export default function Simple() {
   return (
     // {useColorModeValue('gray.100', 'gray.900')}
     <>
-      <Box bg='#E2E8F0' px={4} py={2}>
+      <Box bg='#BEE3F8' px={4} py={2}>
         <Flex
           h={16}
           alignItems={'center'}
           justifyContent={'space-between'}
           fontWeight={'bold'}
           fontSize='xl'
-          color={'blue.500'}
+          color={'#2B6CB0'}
         >
           <IconButton
             size={'md'}
