@@ -149,7 +149,7 @@ const ShelterBlogsList = () => {
                     mt={2}
                     fontWeight='bold'
                   >
-                    Read More
+                    Read More | Likes: {blog_post.likes}
                   </Text>
                 </RouterLink>
               </Box>

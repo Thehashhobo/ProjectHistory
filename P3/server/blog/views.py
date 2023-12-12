@@ -26,14 +26,23 @@ class BlogListCreateView(generics.ListCreateAPIView):
         #     return []
         return [] 
     
+    def get_queryset(self):
+       return Blog.objects.all()
+
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
 
     
     def list(self, request, *args, **kwargs):
-        queryset = self.filter_queryset(self.get_queryset())
-        serializer = self.get_serializer(queryset, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+            author_id = self.request.query_params.get('author', None)
+            if author_id:
+                queryset = Blog.objects.filter(author__id=author_id)
+            else:
+                queryset = self.get_queryset()
+
+            queryset = self.filter_queryset(queryset)
+            serializer = self.get_serializer(queryset, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
 
 class BlogUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Blog.objects.all()
