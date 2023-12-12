@@ -49,7 +49,6 @@ const BlogPost = () => {
       }
       setIsUser(true);
 
-      // Update the local state immediately
       setIsLiked((prevIsLiked) => !prevIsLiked);
       setBlogPost((prevBlogPost) => ({
         ...prevBlogPost,
@@ -118,7 +117,7 @@ const BlogPost = () => {
           Authorization: `Bearer ${accessToken}`,
         },
       });
-
+      window.location.reload();
       if (response.status === 204) {
         console.log('Blog post deleted successfully!');
       }
