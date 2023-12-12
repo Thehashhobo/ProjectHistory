@@ -6,9 +6,19 @@ import {
   Grid,
   GridItem,
   Heading,
-  Link,
   Text,
   Select,
+  Button,
+  Flex,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+  Input,
+  Textarea,
 } from '@chakra-ui/react';
 
 import { useParams } from 'react-router-dom';
@@ -24,6 +34,7 @@ const formatDate = (timestamp) => {
 
   return new Date(timestamp).toLocaleDateString(undefined, options);
 };
+
 const OptionsStyle = {
   border: '5px',
   color: 'black',
@@ -34,6 +45,7 @@ const ShelterBlogPage = () => {
   const [sorting, setSorting] = useState('-date_posted');
   const { authorId } = useParams();
   const [shelterName, setShelterName] = useState('');
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleSortingChange = (event) => {
     const selectedSorting = event.target.value;
@@ -60,6 +72,55 @@ const ShelterBlogPage = () => {
     getListOfBlogPosts();
   }, [sorting, authorId]);
 
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+  const [image, setImage] = useState(null);
+  const handleImageChange = (event) => {
+    setImage(event.target.files[0]);
+  };
+
+  const handleTitleChange = (event) => {
+    setTitle(event.target.value);
+  };
+
+  const handleContentChange = (event) => {
+    setContent(event.target.value);
+  };
+
+  const handleCreate = async () => {
+    try {
+      const accessToken = localStorage.getItem('access_token');
+
+      // Create a FormData object to handle file uploads
+      const formData = new FormData();
+      formData.append('title', title);
+      formData.append('content', content);
+      formData.append('author', authorId);
+      formData.append('likes', 0);
+      formData.append('shelter_name', localStorage.getItem('name'));
+      formData.append('image', image); // Append the image file
+
+      const response = await fetch(`http://127.0.0.1:8000/blogs/`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: formData, // Use the FormData object as the body for file uploads
+      });
+
+      if (response.status === 201) {
+        window.location.reload();
+        console.log('Blog post created successfully!');
+        onClose();
+        // Reset input values for the next post
+        setTitle('');
+        setContent('');
+        setImage(null);
+      }
+    } catch (error) {
+      console.error('Error creating blog post:', error.message);
+    }
+  };
   return (
     <Box p={4} m={5}>
       <Box
@@ -79,22 +140,75 @@ const ShelterBlogPage = () => {
             : 'This shelter does not have any posts yet...'}
         </Text>
       </Box>
-      <GridItem style={OptionsStyle}>
-        <Select
-          value={sorting}
-          onChange={handleSortingChange}
-          mt={4}
-          placeholder='Sort by'
-          backgroundColor='#FFFFFF'
-          mb={4}
-          borderColor='#BEE3F8'
-          maxW='200px'
-        >
-          <option value='-date_posted'>Most Recent</option>
-          <option value='date_posted'>Oldest First</option>
-          <option value='-likes'>Most Liked</option>
-        </Select>
-      </GridItem>
+      <Box>
+        <GridItem style={OptionsStyle}>
+          <Flex align='center'>
+            <Select
+              value={sorting}
+              onChange={handleSortingChange}
+              mt={4}
+              placeholder='Sort by'
+              backgroundColor='#FFFFFF'
+              mb={4}
+              borderColor='#BEE3F8'
+              maxW='200px'
+            >
+              <option value='-date_posted'>Most Recent</option>
+              <option value='date_posted'>Oldest First</option>
+              <option value='-likes'>Most Liked</option>
+            </Select>
+
+            {localStorage.getItem('is_pet_shelter_user') &&
+              localStorage.getItem('user_user') == authorId && (
+                <>
+                  <Button
+                    ml={4}
+                    mt={2}
+                    mb={3}
+                    color='white'
+                    bg='green.500'
+                    _hover={{ bg: 'green.600' }}
+                    fontWeight='bold'
+                    onClick={onOpen}
+                  >
+                    Create Post
+                  </Button>
+
+                  <Modal isOpen={isOpen} onClose={onClose}>
+                    <ModalOverlay />
+                    <ModalContent>
+                      <ModalHeader>Create New Post</ModalHeader>
+                      <ModalCloseButton />
+                      <ModalBody>
+                        <Input
+                          type='file'
+                          accept='image/*'
+                          mb={4}
+                          onChange={handleImageChange}
+                        />
+                        <Input
+                          placeholder='Title'
+                          mb={4}
+                          value={title}
+                          onChange={handleTitleChange}
+                        />
+                        <Textarea
+                          placeholder='Content'
+                          mb={4}
+                          value={content}
+                          onChange={handleContentChange}
+                        />
+                        <Button colorScheme='green' onClick={handleCreate}>
+                          Create
+                        </Button>
+                      </ModalBody>
+                    </ModalContent>
+                  </Modal>
+                </>
+              )}
+          </Flex>
+        </GridItem>
+      </Box>
       <Grid templateColumns='repeat(auto-fill, minmax(300px, 1fr))' gap={7}>
         {blogPosts.map((blog_post) => (
           <GridItem key={blog_post.id}>
